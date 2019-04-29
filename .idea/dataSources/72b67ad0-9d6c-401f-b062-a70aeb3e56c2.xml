@@ -1,10 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <dataSource name="easyCourse@swx98.cn">
-  <database-model serializer="dbm" rdbms="MYSQL" format-version="4.11">
+  <database-model serializer="dbm" rdbms="MYSQL" format-version="4.7">
     <root id="1">
-      <ServerVersion>5.7.24</ServerVersion>
-      <DefaultEngine>InnoDB</DefaultEngine>
-      <DefaultTmpEngine>InnoDB</DefaultTmpEngine>
       <DefaultCasing>exact</DefaultCasing>
     </root>
     <schema id="2" parent="1" name="easyCourse">
@@ -905,60 +902,68 @@
     </collation>
     <table id="226" parent="2" name="lesson">
       <Comment>课程信息表</Comment>
+      <Engine>InnoDB</Engine>
       <Collation>utf8_general_ci</Collation>
     </table>
     <table id="227" parent="2" name="lesson_file">
       <Comment>课程相关课件</Comment>
+      <Engine>InnoDB</Engine>
       <Collation>utf8_general_ci</Collation>
     </table>
     <table id="228" parent="2" name="lesson_homework">
       <Comment>课程作业表</Comment>
+      <Engine>InnoDB</Engine>
       <Collation>utf8_general_ci</Collation>
     </table>
     <table id="229" parent="2" name="lesson_notice">
       <Comment>课程通知表
 </Comment>
+      <Engine>InnoDB</Engine>
       <Collation>utf8_general_ci</Collation>
     </table>
     <table id="230" parent="2" name="student_homework">
       <Comment>学生提交作业信息表</Comment>
+      <Engine>InnoDB</Engine>
       <Collation>utf8_general_ci</Collation>
     </table>
     <table id="231" parent="2" name="student_lesson">
       <Comment>学生选课表</Comment>
+      <Engine>InnoDB</Engine>
       <Collation>utf8_general_ci</Collation>
     </table>
     <table id="232" parent="2" name="user_student">
       <Comment>学生信息表</Comment>
+      <Engine>InnoDB</Engine>
       <Collation>utf8_general_ci</Collation>
     </table>
     <table id="233" parent="2" name="user_teacher">
       <Comment>教师信息表</Comment>
+      <Engine>InnoDB</Engine>
       <Collation>utf8_general_ci</Collation>
     </table>
     <column id="234" parent="226" name="lesson_id">
       <Position>1</Position>
-      <DataType>varchar(255)|0s</DataType>
+      <DataType>varchar(255)|0</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
       <Collation>latin1_swedish_ci</Collation>
     </column>
     <column id="235" parent="226" name="lesson_name">
       <Position>2</Position>
-      <DataType>varchar(255)|0s</DataType>
+      <DataType>varchar(255)|0</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
     <column id="236" parent="226" name="teacher_id">
       <Position>3</Position>
       <Comment>教授这门课的老师id</Comment>
-      <DataType>varchar(255)|0s</DataType>
+      <DataType>varchar(255)|0</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
     <column id="237" parent="226" name="lesson_time">
       <Position>4</Position>
       <Comment>上课时间</Comment>
-      <DataType>varchar(255)|0s</DataType>
+      <DataType>varchar(255)|0</DataType>
       <NotNull>1</NotNull>
       <DefaultExpression>&apos;&apos;</DefaultExpression>
       <ColumnKind>normal</ColumnKind>
@@ -966,26 +971,26 @@
     </column>
     <column id="238" parent="226" name="detail">
       <Position>5</Position>
-      <DataType>text|0s</DataType>
+      <DataType>text|0</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
     <column id="239" parent="226" name="create_time">
       <Position>6</Position>
-      <DataType>datetime|0s</DataType>
+      <DataType>datetime|0</DataType>
       <NotNull>1</NotNull>
       <DefaultExpression>CURRENT_TIMESTAMP</DefaultExpression>
       <ColumnKind>normal</ColumnKind>
     </column>
     <column id="240" parent="226" name="update_time">
       <Position>7</Position>
-      <DataType>datetime|0s</DataType>
+      <DataType>datetime|0</DataType>
       <NotNull>1</NotNull>
       <DefaultExpression>CURRENT_TIMESTAMP</DefaultExpression>
       <ColumnKind>normal</ColumnKind>
     </column>
     <column id="241" parent="226" name="is_delete">
       <Position>8</Position>
-      <DataType>int(11)|0s</DataType>
+      <DataType>int(11)|0</DataType>
       <NotNull>1</NotNull>
       <DefaultExpression>&apos;0&apos;</DefaultExpression>
       <ColumnKind>normal</ColumnKind>
@@ -997,14 +1002,14 @@
     </key>
     <column id="243" parent="227" name="id">
       <Position>1</Position>
-      <DataType>int(11)|0s</DataType>
+      <DataType>int(11)|0</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
       <ColumnKind>normal</ColumnKind>
     </column>
     <column id="244" parent="227" name="lesson_id">
       <Position>2</Position>
-      <DataType>varchar(255)|0s</DataType>
+      <DataType>varchar(255)|0</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
       <Collation>latin1_swedish_ci</Collation>
@@ -1012,7 +1017,7 @@
     <column id="245" parent="227" name="user_id">
       <Position>3</Position>
       <Comment>上传人&apos;id&apos;</Comment>
-      <DataType>varchar(255)|0s</DataType>
+      <DataType>varchar(255)|0</DataType>
       <NotNull>1</NotNull>
       <DefaultExpression>&apos;&apos;</DefaultExpression>
       <ColumnKind>normal</ColumnKind>
@@ -1020,17 +1025,17 @@
     </column>
     <column id="246" parent="227" name="title">
       <Position>4</Position>
-      <DataType>varchar(255)|0s</DataType>
+      <DataType>varchar(255)|0</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
     <column id="247" parent="227" name="detail">
       <Position>5</Position>
-      <DataType>text|0s</DataType>
+      <DataType>text|0</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
     <column id="248" parent="227" name="appendix">
       <Position>6</Position>
-      <DataType>varchar(255)|0s</DataType>
+      <DataType>varchar(255)|0</DataType>
       <NotNull>1</NotNull>
       <DefaultExpression>&apos;&apos;</DefaultExpression>
       <ColumnKind>normal</ColumnKind>
@@ -1038,14 +1043,14 @@
     </column>
     <column id="249" parent="227" name="create_time">
       <Position>7</Position>
-      <DataType>datetime|0s</DataType>
+      <DataType>datetime|0</DataType>
       <NotNull>1</NotNull>
       <DefaultExpression>CURRENT_TIMESTAMP</DefaultExpression>
       <ColumnKind>normal</ColumnKind>
     </column>
     <column id="250" parent="227" name="is_delete">
       <Position>8</Position>
-      <DataType>int(11)|0s</DataType>
+      <DataType>int(11)|0</DataType>
       <NotNull>1</NotNull>
       <DefaultExpression>&apos;0&apos;</DefaultExpression>
       <ColumnKind>normal</ColumnKind>
@@ -1057,14 +1062,14 @@
     </key>
     <column id="252" parent="228" name="homework_id">
       <Position>1</Position>
-      <DataType>int(11)|0s</DataType>
+      <DataType>int(11)|0</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
       <ColumnKind>normal</ColumnKind>
     </column>
     <column id="253" parent="228" name="lesson_id">
       <Position>2</Position>
-      <DataType>varchar(255)|0s</DataType>
+      <DataType>varchar(255)|0</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
       <Collation>latin1_swedish_ci</Collation>
@@ -1072,24 +1077,24 @@
     <column id="254" parent="228" name="teacher_id">
       <Position>3</Position>
       <Comment>发布人id</Comment>
-      <DataType>varchar(255)|0s</DataType>
+      <DataType>varchar(255)|0</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
       <Collation>latin1_swedish_ci</Collation>
     </column>
     <column id="255" parent="228" name="title">
       <Position>4</Position>
-      <DataType>varchar(255)|0s</DataType>
+      <DataType>varchar(255)|0</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
     <column id="256" parent="228" name="detail">
       <Position>5</Position>
-      <DataType>text|0s</DataType>
+      <DataType>text|0</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
     <column id="257" parent="228" name="create_time">
       <Position>6</Position>
-      <DataType>datetime|0s</DataType>
+      <DataType>datetime|0</DataType>
       <NotNull>1</NotNull>
       <DefaultExpression>CURRENT_TIMESTAMP</DefaultExpression>
       <ColumnKind>normal</ColumnKind>
@@ -1097,7 +1102,7 @@
     <column id="258" parent="228" name="due_time">
       <Position>7</Position>
       <Comment>作业截止日期</Comment>
-      <DataType>datetime|0s</DataType>
+      <DataType>datetime|0</DataType>
       <NotNull>1</NotNull>
       <DefaultExpression>CURRENT_TIMESTAMP</DefaultExpression>
       <ColumnKind>normal</ColumnKind>
@@ -1105,7 +1110,7 @@
     <column id="259" parent="228" name="appendix">
       <Position>8</Position>
       <Comment>附件url</Comment>
-      <DataType>varchar(255)|0s</DataType>
+      <DataType>varchar(255)|0</DataType>
       <NotNull>1</NotNull>
       <DefaultExpression>&apos;&apos;</DefaultExpression>
       <ColumnKind>normal</ColumnKind>
@@ -1114,7 +1119,7 @@
     <column id="260" parent="228" name="is_delete">
       <Position>9</Position>
       <Comment>当过期了之后自动删除此作业</Comment>
-      <DataType>int(11)|0s</DataType>
+      <DataType>int(11)|0</DataType>
       <NotNull>1</NotNull>
       <DefaultExpression>&apos;0&apos;</DefaultExpression>
       <ColumnKind>normal</ColumnKind>
@@ -1126,14 +1131,14 @@
     </key>
     <column id="262" parent="229" name="id">
       <Position>1</Position>
-      <DataType>int(11)|0s</DataType>
+      <DataType>int(11)|0</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
       <ColumnKind>normal</ColumnKind>
     </column>
     <column id="263" parent="229" name="lesson_id">
       <Position>2</Position>
-      <DataType>varchar(255)|0s</DataType>
+      <DataType>varchar(255)|0</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
       <Collation>latin1_swedish_ci</Collation>
@@ -1141,301 +1146,308 @@
     <column id="264" parent="229" name="teacher_id">
       <Position>3</Position>
       <Comment>发布老师的id</Comment>
-      <DataType>varchar(255)|0s</DataType>
+      <DataType>varchar(255)|0</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
       <Collation>latin1_swedish_ci</Collation>
     </column>
     <column id="265" parent="229" name="title">
       <Position>4</Position>
-      <DataType>varchar(255)|0s</DataType>
+      <DataType>varchar(255)|0</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
     <column id="266" parent="229" name="detail">
       <Position>5</Position>
-      <DataType>text|0s</DataType>
+      <DataType>text|0</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="267" parent="229" name="appendix">
+    <column id="267" parent="229" name="notice_type">
       <Position>6</Position>
-      <Comment>发布公告的附件url(默认为&apos;&apos;)</Comment>
-      <DataType>varchar(255)|0s</DataType>
-      <DefaultExpression>&apos;&apos;</DefaultExpression>
+      <Comment>通知的类型，0：普通通知、1：考试通知、2：作业通知、3：课件发布通知、4：作业成绩发布通知</Comment>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+      <DefaultExpression>&apos;0&apos;</DefaultExpression>
       <ColumnKind>normal</ColumnKind>
-      <Collation>latin1_swedish_ci</Collation>
     </column>
     <column id="268" parent="229" name="create_time">
       <Position>7</Position>
-      <DataType>datetime|0s</DataType>
+      <DataType>datetime|0</DataType>
       <NotNull>1</NotNull>
       <DefaultExpression>CURRENT_TIMESTAMP</DefaultExpression>
       <ColumnKind>normal</ColumnKind>
     </column>
     <column id="269" parent="229" name="is_delete">
       <Position>8</Position>
-      <DataType>int(11)|0s</DataType>
+      <DataType>int(11)|0</DataType>
       <NotNull>1</NotNull>
       <DefaultExpression>&apos;0&apos;</DefaultExpression>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <key id="270" parent="229" name="PRIMARY">
+    <column id="270" parent="229" name="appendix">
+      <Position>9</Position>
+      <Comment>发布公告的附件url(默认为&apos;&apos;)</Comment>
+      <DataType>varchar(255)|0</DataType>
+      <DefaultExpression>&apos;&apos;</DefaultExpression>
+      <ColumnKind>normal</ColumnKind>
+      <Collation>latin1_swedish_ci</Collation>
+    </column>
+    <key id="271" parent="229" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="271" parent="230" name="id">
+    <column id="272" parent="230" name="id">
       <Position>1</Position>
-      <DataType>int(11)|0s</DataType>
+      <DataType>int(11)|0</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="272" parent="230" name="student_id">
+    <column id="273" parent="230" name="student_id">
       <Position>2</Position>
-      <DataType>varchar(255)|0s</DataType>
+      <DataType>varchar(255)|0</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
       <Collation>latin1_swedish_ci</Collation>
     </column>
-    <column id="273" parent="230" name="homework_id">
+    <column id="274" parent="230" name="homework_id">
       <Position>3</Position>
-      <DataType>varchar(255)|0s</DataType>
+      <DataType>varchar(255)|0</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
       <Collation>latin1_swedish_ci</Collation>
     </column>
-    <column id="274" parent="230" name="homework_name">
+    <column id="275" parent="230" name="homework_name">
       <Position>4</Position>
-      <DataType>varchar(255)|0s</DataType>
+      <DataType>varchar(255)|0</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="275" parent="230" name="appendix">
+    <column id="276" parent="230" name="appendix">
       <Position>5</Position>
       <Comment>学生提交作业的url</Comment>
-      <DataType>varchar(255)|0s</DataType>
+      <DataType>varchar(255)|0</DataType>
       <NotNull>1</NotNull>
       <DefaultExpression>&apos;&apos;</DefaultExpression>
       <ColumnKind>normal</ColumnKind>
       <Collation>latin1_swedish_ci</Collation>
     </column>
-    <column id="276" parent="230" name="score">
+    <column id="277" parent="230" name="score">
       <Position>6</Position>
       <Comment>学生提交此次作业的得分</Comment>
-      <DataType>int(11)|0s</DataType>
+      <DataType>int(11)|0</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="277" parent="230" name="create_time">
+    <column id="278" parent="230" name="create_time">
       <Position>7</Position>
-      <DataType>datetime|0s</DataType>
+      <DataType>datetime|0</DataType>
       <NotNull>1</NotNull>
       <DefaultExpression>CURRENT_TIMESTAMP</DefaultExpression>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="278" parent="230" name="update_time">
+    <column id="279" parent="230" name="update_time">
       <Position>8</Position>
       <Comment>允许学生重复上传，取最后一次有效</Comment>
-      <DataType>datetime|0s</DataType>
+      <DataType>datetime|0</DataType>
       <NotNull>1</NotNull>
       <DefaultExpression>CURRENT_TIMESTAMP</DefaultExpression>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="279" parent="230" name="is_delete">
+    <column id="280" parent="230" name="is_delete">
       <Position>9</Position>
-      <DataType>int(11)|0s</DataType>
+      <DataType>int(11)|0</DataType>
       <NotNull>1</NotNull>
       <DefaultExpression>&apos;0&apos;</DefaultExpression>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <key id="280" parent="230" name="PRIMARY">
+    <key id="281" parent="230" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="281" parent="231" name="id">
+    <column id="282" parent="231" name="id">
       <Position>1</Position>
-      <DataType>int(11)|0s</DataType>
+      <DataType>int(11)|0</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="282" parent="231" name="student_id">
+    <column id="283" parent="231" name="student_id">
       <Position>2</Position>
-      <DataType>varchar(255)|0s</DataType>
+      <DataType>varchar(255)|0</DataType>
       <NotNull>1</NotNull>
       <DefaultExpression>&apos;&apos;</DefaultExpression>
       <ColumnKind>normal</ColumnKind>
       <Collation>latin1_swedish_ci</Collation>
     </column>
-    <column id="283" parent="231" name="lesson_id">
+    <column id="284" parent="231" name="lesson_id">
       <Position>3</Position>
-      <DataType>varchar(255)|0s</DataType>
+      <DataType>varchar(255)|0</DataType>
       <NotNull>1</NotNull>
       <DefaultExpression>&apos;&apos;</DefaultExpression>
       <ColumnKind>normal</ColumnKind>
       <Collation>latin1_swedish_ci</Collation>
     </column>
-    <column id="284" parent="231" name="create_time">
+    <column id="285" parent="231" name="create_time">
       <Position>4</Position>
-      <DataType>datetime|0s</DataType>
+      <DataType>datetime|0</DataType>
       <NotNull>1</NotNull>
       <DefaultExpression>CURRENT_TIMESTAMP</DefaultExpression>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="285" parent="231" name="update_time">
+    <column id="286" parent="231" name="update_time">
       <Position>5</Position>
-      <DataType>datetime|0s</DataType>
+      <DataType>datetime|0</DataType>
       <NotNull>1</NotNull>
       <DefaultExpression>CURRENT_TIMESTAMP</DefaultExpression>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="286" parent="231" name="is_delete">
+    <column id="287" parent="231" name="is_delete">
       <Position>6</Position>
       <Comment>0表示不删除，1表示删除
 </Comment>
-      <DataType>int(11)|0s</DataType>
+      <DataType>int(11)|0</DataType>
       <NotNull>1</NotNull>
       <DefaultExpression>&apos;0&apos;</DefaultExpression>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <key id="287" parent="231" name="PRIMARY">
+    <key id="288" parent="231" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="288" parent="232" name="student_id">
+    <column id="289" parent="232" name="student_id">
       <Position>1</Position>
       <Comment>学号主键
 </Comment>
-      <DataType>varchar(255)|0s</DataType>
+      <DataType>varchar(255)|0</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="289" parent="232" name="passwd">
+    <column id="290" parent="232" name="passwd">
       <Position>2</Position>
       <Comment>密码
 </Comment>
-      <DataType>varchar(255)|0s</DataType>
+      <DataType>varchar(255)|0</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="290" parent="232" name="mail">
+    <column id="291" parent="232" name="mail">
       <Position>3</Position>
       <Comment>学生邮箱</Comment>
-      <DataType>varchar(255)|0s</DataType>
+      <DataType>varchar(255)|0</DataType>
       <NotNull>1</NotNull>
       <DefaultExpression>&apos;&apos;</DefaultExpression>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="291" parent="232" name="student_name">
+    <column id="292" parent="232" name="student_name">
       <Position>4</Position>
-      <DataType>varchar(255)|0s</DataType>
+      <DataType>varchar(255)|0</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="292" parent="232" name="create_time">
+    <column id="293" parent="232" name="create_time">
       <Position>5</Position>
       <Comment>用户创建时间</Comment>
-      <DataType>datetime|0s</DataType>
+      <DataType>datetime|0</DataType>
       <NotNull>1</NotNull>
       <DefaultExpression>CURRENT_TIMESTAMP</DefaultExpression>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="293" parent="232" name="update_time">
+    <column id="294" parent="232" name="update_time">
       <Position>6</Position>
       <Comment>用户信息更新时间</Comment>
-      <DataType>datetime|0s</DataType>
+      <DataType>datetime|0</DataType>
       <NotNull>1</NotNull>
       <DefaultExpression>CURRENT_TIMESTAMP</DefaultExpression>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="294" parent="232" name="is_delete">
+    <column id="295" parent="232" name="is_delete">
       <Position>7</Position>
       <Comment>0表示有效，1表示删除该用户
 </Comment>
-      <DataType>int(11)|0s</DataType>
+      <DataType>int(11)|0</DataType>
       <NotNull>1</NotNull>
       <DefaultExpression>&apos;0&apos;</DefaultExpression>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <index id="295" parent="232" name="user_student_mail_uindex">
+    <index id="296" parent="232" name="user_student_mail_uindex">
       <ColNames>mail</ColNames>
       <Unique>1</Unique>
-      <Type>btree</Type>
     </index>
-    <key id="296" parent="232" name="PRIMARY">
+    <key id="297" parent="232" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>student_id</ColNames>
       <Primary>1</Primary>
     </key>
-    <key id="297" parent="232" name="user_student_mail_uindex">
+    <key id="298" parent="232" name="user_student_mail_uindex">
       <ColNames>mail</ColNames>
       <UnderlyingIndexName>user_student_mail_uindex</UnderlyingIndexName>
     </key>
-    <column id="298" parent="233" name="teacher_id">
+    <column id="299" parent="233" name="teacher_id">
       <Position>1</Position>
       <Comment>教师id
 </Comment>
-      <DataType>varchar(255)|0s</DataType>
+      <DataType>varchar(255)|0</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
       <Collation>latin1_swedish_ci</Collation>
     </column>
-    <column id="299" parent="233" name="passwd">
+    <column id="300" parent="233" name="passwd">
       <Position>2</Position>
       <Comment>密码</Comment>
-      <DataType>varchar(255)|0s</DataType>
+      <DataType>varchar(255)|0</DataType>
       <NotNull>1</NotNull>
       <DefaultExpression>&apos;&apos;</DefaultExpression>
       <ColumnKind>normal</ColumnKind>
       <Collation>latin1_swedish_ci</Collation>
     </column>
-    <column id="300" parent="233" name="mail">
+    <column id="301" parent="233" name="mail">
       <Position>3</Position>
-      <DataType>varchar(255)|0s</DataType>
+      <DataType>varchar(255)|0</DataType>
       <NotNull>1</NotNull>
       <DefaultExpression>&apos;&apos;</DefaultExpression>
       <ColumnKind>normal</ColumnKind>
       <Collation>latin1_swedish_ci</Collation>
     </column>
-    <column id="301" parent="233" name="teacher_name">
+    <column id="302" parent="233" name="teacher_name">
       <Position>4</Position>
-      <DataType>varchar(255)|0s</DataType>
+      <DataType>varchar(255)|0</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="302" parent="233" name="phone">
+    <column id="303" parent="233" name="phone">
       <Position>5</Position>
-      <DataType>varchar(32)|0s</DataType>
+      <DataType>varchar(32)|0</DataType>
       <NotNull>1</NotNull>
       <DefaultExpression>&apos;&apos;</DefaultExpression>
       <ColumnKind>normal</ColumnKind>
       <Collation>latin1_swedish_ci</Collation>
     </column>
-    <column id="303" parent="233" name="location">
+    <column id="304" parent="233" name="location">
       <Position>6</Position>
-      <DataType>varchar(255)|0s</DataType>
+      <DataType>varchar(255)|0</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="304" parent="233" name="create_time">
+    <column id="305" parent="233" name="create_time">
       <Position>7</Position>
-      <DataType>datetime|0s</DataType>
+      <DataType>datetime|0</DataType>
       <NotNull>1</NotNull>
       <DefaultExpression>CURRENT_TIMESTAMP</DefaultExpression>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="305" parent="233" name="update_time">
+    <column id="306" parent="233" name="update_time">
       <Position>8</Position>
-      <DataType>datetime|0s</DataType>
+      <DataType>datetime|0</DataType>
       <NotNull>1</NotNull>
       <DefaultExpression>CURRENT_TIMESTAMP</DefaultExpression>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="306" parent="233" name="is_delete">
+    <column id="307" parent="233" name="is_delete">
       <Position>9</Position>
-      <DataType>int(11)|0s</DataType>
+      <DataType>int(11)|0</DataType>
       <NotNull>1</NotNull>
       <DefaultExpression>&apos;0&apos;</DefaultExpression>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <key id="307" parent="233" name="PRIMARY">
+    <key id="308" parent="233" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>teacher_id</ColNames>
       <Primary>1</Primary>

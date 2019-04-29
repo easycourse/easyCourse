@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.easyCourse.dao.LessonFileDao">
+
+    <resultMap id="BaseResultMap" type="com.easyCourse.model.LessonFile">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="lesson_id" jdbcType="VARCHAR" property="lessonId"/>
+        <result column="user_id" jdbcType="VARCHAR" property="userId"/>
+        <result column="title" jdbcType="VARCHAR" property="title"/>
+        <result column="detail" jdbcType="VARCHAR" property="detail"/>
+        <result column="appendix" jdbcType="VARCHAR" property="appendix"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="is_delete" jdbcType="INTEGER" property="isDelete"/>
+    </resultMap>
+
+    <select id="selectByLessonId" resultMap="BaseResultMap">
+        select * from lesson_file
+        where lesson_id = #{lessonId}
+    </select>
+
+</mapper>
