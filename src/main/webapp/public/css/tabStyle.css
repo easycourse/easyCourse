@@ -1,0 +1,79 @@
+@font-face {
+	font-family: XingKai;
+	src: url(../ttf/HYXuJingXingKaiW-2.ttf);
+}
+
+@font-face {
+	font-family: FangSong;
+	src: url(../ttf/ZiTiGuanJiaFangSongTi-1.ttf);
+}
+
+.main-style{
+		margin: 0!important ;
+		color: rgb(150,150,150) !important;
+}
+.main-style:hover{
+	color: white !important;
+
+}
+.active .main-style{
+	color: white !important;
+}
+.navbar-brand{
+	font-size: 25px !important;
+	font-family: FangSong !important;
+	font-weight: bolder;
+	margin: 0;
+}
+
+.navbar-header {
+	padding-left: 15px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+.navbar-header img{
+	border-radius:50% ;
+	border: 1px solid rgba(200,200,200,0.3);
+	background-color: rgba(200,200,200,0.2);
+	height: 36px;
+	width: 36px;
+	border-radius: 50%;
+}
+.navbar-nav {
+    float: right !important;
+    font-family: FangSong !important;
+    font-size: 16px;
+    font-weight: bolder;
+}
+.nameActive{
+	color: white !important;
+}
+.line{
+	margin-top: 8px;
+	margin-bottom: 8px;
+	height: 34px;
+	width: 4px;
+	border-left: 1px dashed rgb(130,130,130);
+	border-right: 1px dashed rgb(130,130,130);
+}
+.language{
+	padding: 10px 30px 10px 30px !important;
+	display: flex !important;
+	flex-direction: column !important;
+	justify-content: center !important;
+	align-items: center !important;
+}
+.language img{
+	width: 30px !important;
+	height: 30px !important;
+}
+.navbar{
+	margin-bottom: 0 !important;
+}
+
+@media (max-width:769px ) {
+	.line{
+		display: none !important;
+	}
+}

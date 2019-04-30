@@ -1,0 +1,243 @@
+@font-face {
+	font-family: XingKai;
+	src: url(../ttf/HYXuJingXingKaiW-2.ttf);
+}
+
+@font-face {
+	font-family: FangSong;
+	src: url(../ttf/ZiTiGuanJiaFangSongTi-1.ttf);
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+	-webkit-transition-delay: 99999s;
+	-webkit-transition: color 99999s ease-out, background-color 99999s ease-out;
+	/* -webkit-box-shadow: 0 0 0px 1000px white inset; */
+}
+
+* {
+	margin: 0;
+	padding: 0;
+}
+
+p,
+font {
+	background-color: transparent !important;
+	color: rgb(230, 230, 230) !important;
+}
+
+body {
+	overflow: hidden;
+	font-size: 12px;
+}
+
+#main {
+	height: 100vh;
+	overflow-y: hidden;
+	background-image: url(../img/login-bg.jpg);
+	background-size: cover;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+.before {
+	position: absolute;
+
+	z-index: 3;
+	transform: translate(-15px, 0);
+	overflow: hidden;
+	border-radius: .3em;
+	box-shadow: 0 0 0 1px hsla(0, 0%, 100%, .3) inset, 0 .5em 1em rgba(55, 55, 55, 1);
+	text-shadow: 0 1px 1px hsla(0, 0%, 100%, .3);
+}
+
+.after {
+	position: absolute;
+	z-index: 2;
+	transform: translate(0, -15px);
+	overflow: hidden;
+	border-radius: .3em;
+	box-shadow: 0 0 0 1px hsla(0, 0%, 100%, .3) inset, 0 .5em 1em rgba(55, 55, 55, 1);
+	text-shadow: 0 1px 1px hsla(0, 0%, 100%, .3);
+	color: transparent !important;
+}
+
+.before::before,
+.after::before {
+	content: "";
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	right: 0px;
+	bottom: 0px;
+	z-index: -1;
+	/*-1 可以当背景*/
+	-webkit-filter: blur(20px);
+	filter: blur(20px);
+	margin: -30px;
+	/*消除边缘透明*/
+	background: url(../img/login-bg.jpg) center top;
+	background-size: cover;
+	/*平铺*/
+	background-attachment: fixed;
+	/*位置固定*/
+}
+
+@keyframes cardChange1 {
+	70% {
+		opacity: 0;
+		-webkit-transform: translate3d(-25%, 200%, 0) rotate3d(0, 0, 1, 25deg);
+		transform: translate3d(-25%, 200%, 0) rotate3d(0, 0, 1, 25deg);
+	}
+
+	80% {
+		opacity: 0;
+		transform: translate(5px, -20px);
+		z-index: 2;
+		background-color: rgba(60, 105, 150, 0.75);
+	}
+
+	100% {
+		opacity: 1;
+		transform: translate(0, -15px);
+		z-index: 2;
+		background-color: rgba(210, 210, 210, 0.45);
+	}
+}
+
+@keyframes cardChange2 {
+	to {
+		transform: none;
+		transform: translate(-15px, 0);
+		z-index: 3;
+		background-color: rgba(60, 105, 150, 0.75);
+	}
+}
+
+.login-box{
+	height: 280px;
+	padding: 25px 30px 25px 30px;
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+	align-items: center;
+}
+
+.after-cg,
+.before-cg {
+	cursor: pointer;
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-start;
+	align-items: center;
+	position: absolute;
+	right: 0;
+	width: auto;
+	height: 20px;
+}
+
+.after-cg p,
+.before-cg p {
+	text-decoration: underline;
+	margin: 0 !important;
+	line-height: 100%;
+	font-family: FangSong !important;
+	font-size: 12px !important;
+}
+
+.after-cg img,
+.before-cg img {
+	margin-left: 5px;
+	margin-right: 25px;
+	height: 100%;
+	width: auto;
+}
+
+.inner {
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+	align-items: center;
+}
+
+.input-box {
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+	align-items: center;
+	width: 90%;
+}
+
+.login-box p {
+	margin-top: 20px;
+	font-family: FangSong;
+	font-size: 22px;
+	color: rgb(235, 235, 235);
+}
+
+
+.input-item {
+	border-bottom: 1px solid white;
+	width: 100%;
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-start;
+	align-items: center;
+}
+
+.input-item img {
+	height: 22px;
+	width: auto;
+	margin-left: 5px;
+	margin-right: 15px;
+}
+
+.input-box input {
+	width: 100%;
+	background-color: transparent;
+	color: rgb(235, 235, 235);
+	font-size: 16px;
+	font-family: FangSong;
+	line-height: 230%;
+	border: none;
+	outline: transparent;
+}
+
+input::-webkit-input-placeholder {
+	font-family: FangSong;
+	color: rgb(200, 200, 200);
+}
+
+.btBox{
+	margin-top: 9%;
+	width: 100%;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+}
+.submit,
+.register {
+	border-radius: 8px;
+	width: 48%;
+	padding: 7px;
+	border: none;
+	outline: none;
+}
+
+@media only screen and (min-width:720px) {
+
+	.login-box {
+		width: 450px;
+	}
+}
+
+@media only screen and (max-width:720px) {
+	.login-box {
+		width: 85vw;
+	}
+}
