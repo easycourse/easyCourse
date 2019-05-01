@@ -18,4 +18,8 @@ public class StudentServiceImpl implements IStudentService {
         return this.studentDao.selectStudentById(userId);
     }
 
+    @Override
+    public Student verify(String studentId, String passwd) {
+        return this.studentDao.verify(studentId,passwd);
+    }
 }

@@ -8,4 +8,8 @@
         SELECT * FROM user_student WHERE student_id = #{id}
     </select>
 
+    <select id="verify" resultType="Student">
+        SELECT * FROM user_student WHERE student_id = #{arg0}  AND passwd = #{arg1}
+    </select>
+
 </mapper>

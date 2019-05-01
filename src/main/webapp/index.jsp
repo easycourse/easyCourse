@@ -12,13 +12,13 @@
                 document.getElementById("test").innerHTML = xmlhttp.responseText;
             }
         }
-        xmlhttp.open("POST", "student/showStudent.do", true);
+        xmlhttp.open("POST", "student/login/verify", true);
         xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-        xmlhttp.send("id=1");
+        xmlhttp.send("studentId=2016302580313&passwd=swx6868752");
     }
 </script>
 <body>
 <p id="test">Hello World!</p>
-<button type="button" onclick="selectUser()">onclick test</button>
+<button type="button" onclick="selectUser()">onclick</button>
 </body>
 </html>
