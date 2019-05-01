@@ -40,6 +40,7 @@ public class StudentController {
         Student student = this.studentService.verify(studentId, StringUtils.MD5(passwd));
         //如果验证未通过
         if(student == null){
+            //应该返回一个视图
             return "请重新登录";
         }
         else {
