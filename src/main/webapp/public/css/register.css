@@ -65,7 +65,7 @@ body {
 	text-shadow: 0 1px 1px hsla(0, 0%, 100%, .3);
 	color: transparent !important;
 
-	padding: 30px 10px 40px 15px;
+	padding: 30px 10px 30px 15px;
 	display: flex;
 	flex-direction: row;
 	flex-wrap: wrap;
@@ -108,6 +108,7 @@ body {
 	justify-content: center;
 	align-items: center;
 	border-right: 1px dashed rgb(150,150,150);
+	margin-bottom: 10px;
 }
 .input-item {
 	margin: 0.2rem 0.4rem 0.4rem 0;
@@ -132,7 +133,7 @@ body {
 	margin-right: 20px;
 }
 .input-item label{
-	width: 120px;
+	width: 7.0rem;
 	color: rgb(200,200,200);
 	font-size: 1.1rem;
 	font-family: FangSong;
@@ -169,4 +170,20 @@ body {
 	left: 50%;
 	top: 50%;
 	transform: translate(-50%,-50%);
+}
+@media only screen and (max-width:570px) {
+
+	.rigister{
+		width: 90vw;
+	}
+	.input-item{
+		width: 90% !important;
+	}
+}
+@media only screen and (max-width:470px) {
+
+
+	.inputBox{
+		border: none !important;
+	}
 }

@@ -5,24 +5,19 @@
 		<meta charset="utf-8" />
 		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 		<meta name="description" content="登陆页面" />
-		<link href="public/css/login.css" rel="stylesheet" />
-		<link rel="icon" type="image/x-icon" href="public/img/icon.png" />
-		<script src="libs/jquery-3.3.1.js"></script>
-
-		<link href="libs/bookstrap/css/bootstrap.min.css" rel="stylesheet">
-
-		<script src="libs/bookstrap/js/bootstrap.min.js"></script>
-
-
+		<link href="/public/css/login.css" rel="stylesheet" />
+		<link rel="icon" type="image/x-icon" href="/public/img/icon.png" />
+		<script src="/libs/jquery-3.3.1.js"></script>
+		<link href="/libs/bookstrap/css/bootstrap.min.css" rel="stylesheet">
+		<script src="/libs/bookstrap/js/bootstrap.min.js"></script>
 		<title>easyCourse-登录</title>
 	</head>
-
 	<body>
 		<div id="app">
 			<header>
 				<nav class="navbar navbar-dark fixed-top navbar-expand-lg" role="navigation">
 					<a class="navbar-brand" href="#">
-						<img src="public/img/icon.png" width="30" height="30" class="d-inline-block align-top" alt="">
+						<img src="/public/img/icon.png" width="30" height="30" class="d-inline-block align-top" alt="">
 						EasyCourse
 					</a>
 				</nav>
@@ -32,18 +27,19 @@
 					<div class="inner">
 						<div class="before-cg" @click="before()">
 							<p>切换教师入口</p>
-							<img src="public/img/change.png" />
+							<img src="/public/img/change.png" />
 						</div>
 						<p>学生登录入口</p>
 						<form class="input-box">
 							<div class="input-item">
-								<img src="public/img/username-icon.png" />
+								<img src="/public/img/username-icon.png" />
 								<input name="username" type="text" v-model="student.username" placeholder="请输入账户名" />
 							</div>
 							<div class="input-item" style="margin-top: 5px;">
-								<img src="public/img/password-icon.png" />
+								<img src="/public/img/password-icon.png" />
 								<input name="password" type="password" v-model="student.password" placeholder="请输入密码" />
 							</div>
+                            <p class="prompt">{{prompt}}</p>
 							<div class="btBox">
 								<button class="submit btn btn-outline-dark" @click="studentLogin">
 									<p style="margin: 0;font-size: 16px;">登录</p>
@@ -60,18 +56,19 @@
 					<div class="inner" style="display: none;">
 						<div class="after-cg" @click="after">
 							<p>切换学生入口</p>
-							<img src="public/img/change.png" />
+							<img src="/public/img/change.png" />
 						</div>
 						<p>教师登录入口</p>
 						<div class="input-box">
 							<div class="input-item">
-								<img src="public/img/username-icon.png" />
+								<img src="/public/img/username-icon.png" />
 								<input name="username" type="text" v-model="teacher.username" placeholder="请输入账户名" />
 							</div>
 							<div class="input-item" style="margin-top: 5px;">
-								<img src="public/img/password-icon.png" />
+								<img src="/public/img/password-icon.png" />
 								<input name="password" type="password" v-model="teacher.password" placeholder="请输入密码" />
 							</div>
+                            <p class="prompt">{{prompt}}</p>
 							<div class="btBox">
 								<button class="submit btn btn-outline-dark" @click="teacherLogin">
 									<p style="margin: 0;font-size: 16px;">登录</p>
@@ -80,13 +77,12 @@
 									<p style="margin: 0;font-size: 16px;">注册</p>
 								</button>
 							</div>
+
 						</div>
 					</div>
 				</div>
 
 			</div>
-
-
 		</div>
 		<template>
 
@@ -133,8 +129,9 @@
 				});
 			}
 		</script>
-		<script src="libs/vue-2.4.0.js"></script>
-		<script src="public/ajax.js"></script>
+		<script src="/libs/vue-2.4.0.js"></script>
+		<script src="/public/js/ajax.js"></script>
+
 		<script>
 			//vm
 		
@@ -149,6 +146,7 @@
 						username: '',
 						password: ''
 					},
+                    prompt:''
 				},
 				methods: {
 					before: before,
@@ -166,10 +164,34 @@
 						})
 					},
 					teacherRegist(){
-						
+                        window.event.returnValue=false
+                        window.location.href = "/student/register?type=1"
 					},
-					studentLogin(){},
-					studentRegist(){}
+					studentLogin(){
+                        window.event.returnValue=false
+                        var thisVM = this
+						$.ajax({
+							type:"POST",
+							url:"/student/login/verify",
+							data:{
+                                studentId:this.student.username,
+                                passwd:this.student.password
+							},
+							datatype:"json",
+							success:function(msg){
+								if(msg.success){
+                                    window.location.href = ""
+								}else{
+								    thisVM.prompt = '帐户名或密码错误！'
+								}
+							}
+						})
+
+					},
+					studentRegist(){
+                         window.event.returnValue=false
+					     window.location.href = "/student/register?type=0"
+					}
 				}
 			})
 		</script>

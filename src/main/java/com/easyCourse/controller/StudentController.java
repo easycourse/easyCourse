@@ -40,39 +40,39 @@ public class StudentController {
         response.getWriter().write(mapper.writeValueAsString(mapper));
         response.getWriter().close();
     }
+
     @GetMapping("/register")
     public String register(HttpServletRequest request, HttpServletResponse response) throws IOException {
-       return "register";
+        return "register";
     }
 
 
-    @RequestMapping(value = "/login/verify",method = RequestMethod.POST)
-    public JSONObject verify(@RequestParam(value="studentId", required=true) String studentId, @RequestParam(value="passwd", required=true)
-            String passwd,HttpSession session){
+    @RequestMapping(value = "/login/verify", method = RequestMethod.POST)
+    public void verify(@RequestParam(value = "studentId", required = true) String studentId, @RequestParam(value = "passwd", required = true)
+            String passwd, HttpSession session, HttpServletResponse response) throws IOException {
         Student student = this.studentService.verify(studentId, StringUtils.MD5(passwd));
-        JSONObject resultJSON=new JSONObject();
+        JSONObject resultJSON = new JSONObject();
         //如果验证未通过
-        if(student == null){
+        if (student == null) {
             resultJSON.put("success", false);
             resultJSON.put("msg", "用户名密码不对");
-            return resultJSON;
-        }
-        else {
+            response.getWriter().write(String.valueOf(resultJSON));
+        } else {
             //创建返回resultJson
-            Map<String , Object> payload=new HashMap<String, Object>();
-            Date date=new Date();
+            Map<String, Object> payload = new HashMap<String, Object>();
+            Date date = new Date();
             payload.put("uid", studentId);//用户ID
             payload.put("iat", date.getTime());//生成时间
-            payload.put("ext",date.getTime()+1000*60*60);//过期时间1小时
-            String token= Jwt.createToken(payload);
+            payload.put("ext", date.getTime() + 1000 * 60 * 60);//过期时间1小时
+            String token = Jwt.createToken(payload);
             resultJSON.put("success", true);
             resultJSON.put("msg", "登陆成功");
             resultJSON.put("token", token);
             //存储session
-            session.setAttribute("userToken",token);
+            session.setAttribute("userToken", token);
             session.setMaxInactiveInterval(3600);//session过期时间为1个小时
-            session.setAttribute("student",student);
-            return resultJSON;
+            session.setAttribute("student", student);
+            response.getWriter().write(String.valueOf(resultJSON));
         }
     }
 }

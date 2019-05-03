@@ -33,7 +33,7 @@ public class LoginInterceptor implements HandlerInterceptor {
 //            // 拦截后进入登录页面
 //            //System.out.println("拦截成功");
 //            response.send
-// Redirect(request.getContextPath()+"/index.html");
+// Redirect(request.getContextPath()+"/login.html");
 //            return false;
 //        }
         return false;
