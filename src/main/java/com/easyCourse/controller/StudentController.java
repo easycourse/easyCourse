@@ -7,6 +7,7 @@ import com.easyCourse.utils.StringUtils;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import net.minidev.json.JSONObject;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -39,6 +40,11 @@ public class StudentController {
         response.getWriter().write(mapper.writeValueAsString(mapper));
         response.getWriter().close();
     }
+    @GetMapping("/register")
+    public String register(HttpServletRequest request, HttpServletResponse response) throws IOException {
+       return "register";
+    }
+
 
     @RequestMapping(value = "/login/verify",method = RequestMethod.POST)
     public JSONObject verify(@RequestParam(value="studentId", required=true) String studentId, @RequestParam(value="passwd", required=true)

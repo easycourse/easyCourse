@@ -28,7 +28,7 @@
     <!-- 配置springMVC需要加载的配置文件-->
     <init-param>
       <param-name>contextConfigLocation</param-name>
-      <param-value>classpath:spring-*.xml</param-value>
+      <param-value>classpath:/spring/spring-*.xml</param-value>
     </init-param>
     <load-on-startup>1</load-on-startup>
     <async-supported>true</async-supported>
