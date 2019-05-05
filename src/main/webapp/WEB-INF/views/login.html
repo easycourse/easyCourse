@@ -179,7 +179,8 @@
 							},
 							datatype:"json",
 							success:function(msg){
-								if(msg.success){
+							    var data = JSON.parse(msg)
+								if(data.success){
                                     window.location.href = ""
 								}else{
 								    thisVM.prompt = '帐户名或密码错误！'
