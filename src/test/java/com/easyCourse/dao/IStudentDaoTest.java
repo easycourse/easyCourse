@@ -27,7 +27,7 @@ public class IStudentDaoTest {
 
     @Test
     public void testSelectUser() throws Exception {
-        Student student = this.iStudentService.verify("2016302580313", StringUtils.MD5("swx6868752"));
+        Student student = this.iStudentService.loginVerify("2016302580313", StringUtils.MD5("swx6868752"));
         System.out.println(student.getStudent_name());
     }
 }

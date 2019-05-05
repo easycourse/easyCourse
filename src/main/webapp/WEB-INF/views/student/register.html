@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="description" content="学生注册页面" />
+    <link href="/public/css/register.css" rel="stylesheet" />
+    <link rel="icon" type="image/x-icon" href="/public/img/icon.png" />
+    <script src="/libs/jquery-3.3.1.js"></script>
+
+    <link href="/libs/bookstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <script src="/libs/bookstrap/js/bootstrap.min.js"></script>
+    <title>easyCourse-注册</title>
+</head>
+<body>
+<div id="app">
+    <header>
+        <nav class="navbar navbar-dark fixed-top navbar-expand-lg" role="navigation">
+            <a class="navbar-brand" href="#">
+                <img src="/public/img/icon.png" width="30" height="30" class="d-inline-block align-top" alt="">
+                EasyCourse
+            </a>
+        </nav>
+    </header>
+    <div id="main">
+        <div class="rigister">
+            <p class="title">{{title}}</p>
+            <div class="inputBox">
+                <div class="input-item">
+                    <label style="float: left;">{{user}}:</label>
+                    <input name="studentId" type="text" :placeholder="please"  v-model='studentId' />
+                </div>
+                <div class="input-item">
+                    <label>密码:</label>
+                    <input name="passwd" type="password" placeholder="请输入密码" v-model='passwd' />
+                </div>
+                <div class="input-item">
+                    <label>确认密码:</label>
+                    <input name="surePassword" type="password" placeholder="请确认密码" v-model='surePassword' />
+                </div>
+                <div class="input-item">
+                    <label>姓名:</label>
+                    <input name="studentName" type="text" placeholder="请输入姓名" v-model='studentName' />
+                </div>
+                <div class="input-item">
+                    <label>邮箱:</label>
+                    <input name="email" type="text" placeholder="请输入邮箱" v-model='email' />
+                </div>
+            </div>
+            <div class="btn-box">
+                <button class="register btn btn-outline-dark" @click="regist">
+                    <img src="/public/img/regist.png" />
+                </button>
+                <p class="prompt">{{msg}}</p>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+</body>
+<script src="/public/js/ajax.js"></script>
+<script src="/libs/vue-2.4.0.js"></script>
+<script src="/public/js/parseQuery.js"></script>
+<script>
+    var vm = new Vue({
+        el: "#app",
+        data: {
+            title: '', //学生或教师注册
+            user: '', //学号或教工号
+            please: '', //学号的placeholder
+            studentId: '',
+            passwd: '',
+            studentName:'',
+            surePassword: '',
+            email: '',
+            msg:''
+        },
+        methods: {
+            regist(){
+                if (this.passwd == '') {
+                    this.msg = '请输入密码！'
+                    return
+                }else if(this.surePassword == ''){
+                    this.msg = '请确认密码！'
+                    return
+                }else if(this.email == ''){
+                    this.msg = '请输入邮箱'
+                    return
+                }else if(this.passwd != this.surePassword){
+                    this.msg = '两次密码输入不一致！'
+                    return
+                }
+                var data = {
+                    studentId: this.studentId,
+                    passwd: this.passwd,
+                    surePassword: this.passwd,
+                    studentName: this.studentName,
+                    email: this.email
+                }
+
+                new AjaxRequest({
+                    type: "POST",
+                    url: "/student/register/verify",
+                    param: JSON.stringify(data),
+                    isShowLoader: true,
+                    dataType: "json",
+                    callBack: function(res) {
+                        console.log(res);
+                    }
+                })
+            }
+        },
+        created() {
+            this.title = '学生注册'
+            this.user = '学号'
+            this.please = '请输入学号'
+        },
+    })
+</script>
+</html>

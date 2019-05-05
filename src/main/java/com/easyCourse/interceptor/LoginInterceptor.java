@@ -24,19 +24,24 @@ public class LoginInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object arg2) throws Exception {
-        // 在拦截点执行前拦截，如果返回true则不执行拦截点后的操作
         HttpSession session = request.getSession();
-//        if("".equals(session.getAttribute("userToken"))) {
-//            // 登录成功不拦截
-//            return true;
-//        }else {
-//            // 拦截后进入登录页面
-//            //System.out.println("拦截成功");
-//            response.send
-// Redirect(request.getContextPath()+"/login.html");
-//            return false;
-//        }
-        return false;
+
+
+        String requestUri = request.getRequestURI();
+        if(requestUri.startsWith(request.getContextPath())){
+            requestUri = requestUri.substring(request.getContextPath().length());
+        }
+        //系统根目录
+        if (requestUri.equals("/")) {
+            return true;
+        }
+        if(session.getAttribute("userToken") == null) {
+            //拒绝此次请求
+            response.sendRedirect("/student/register");
+            return false;
+        }else {
+            return true;
+        }
     }
 }
 
