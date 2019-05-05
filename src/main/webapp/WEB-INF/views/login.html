@@ -39,7 +39,7 @@
 								<img src="/public/img/password-icon.png" />
 								<input name="password" type="password" v-model="student.password" placeholder="请输入密码" />
 							</div>
-                            <p class="prompt">{{prompt}}</p>
+                            <p class="prompt" v-cloak>{{prompt}}</p>
 							<div class="btBox">
 								<button class="submit btn btn-outline-dark" @click="studentLogin">
 									<p style="margin: 0;font-size: 16px;">登录</p>
@@ -68,7 +68,7 @@
 								<img src="/public/img/password-icon.png" />
 								<input name="password" type="password" v-model="teacher.password" placeholder="请输入密码" />
 							</div>
-                            <p class="prompt">{{prompt}}</p>
+                            <p class="prompt" v-cloak>{{prompt}}</p>
 							<div class="btBox">
 								<button class="submit btn btn-outline-dark" @click="teacherLogin">
 									<p style="margin: 0;font-size: 16px;">登录</p>
@@ -165,7 +165,7 @@
 					},
 					teacherRegist(){
                         window.event.returnValue=false
-                        window.location.href = "/student/register?type=1"
+                        window.location.href = "/teacher/register?type=1"
 					},
 					studentLogin(){
                         window.event.returnValue=false
@@ -190,7 +190,7 @@
 					},
 					studentRegist(){
                          window.event.returnValue=false
-					     window.location.href = "/student/register/index"
+					     window.location.href = "/student/register?type=0"
 					}
 				}
 			})

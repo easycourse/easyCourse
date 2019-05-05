@@ -64,9 +64,9 @@ public class StudentController {
     }
 
     //返回注册页面
-    @GetMapping("/register/index")
+    @GetMapping("/register")
     public String getRegisterIndex(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        return "student/register";
+        return "/register";
     }
 
     //执行注册数据处理

@@ -25,10 +25,10 @@
 			</header>
 			<div id="main">
 				<div class="rigister">
-					<p class="title">{{title}}</p>
+					<p class="title" v-cloak>{{title}}</p>
 					<div class="inputBox">
 						<div class="input-item">
-							<label style="float: left;">{{user}}:</label>
+							<label v-cloak>{{user}}:</label>
 							<input name="username" type="text" :placeholder="please"  v-model='username' />
 						</div>
 						<div class="input-item">
@@ -40,15 +40,19 @@
 							<input name="surePassword" type="password" placeholder="请确认密码" v-model='surePassword' />
 						</div>
 						<div class="input-item">
+							<label>姓名:</label>
+							<input name="studentName" type="text" placeholder="请输入姓名" v-model='name' />
+						</div>
+						<div class="input-item">
 							<label>邮箱:</label>
 							<input name="email" type="text" placeholder="请输入邮箱" v-model='email' />
 						</div>
 					</div>
 					<div class="btn-box">
-						<button class="register btn btn-outline-dark" @click="regist">
+						<button class="register btn btn-outline-dark" @click="register">
 							<img src="/public/img/regist.png" />
 						</button>
-						<p class="prompt">{{msg}}</p>
+						<p class="prompt" v-cloak>{{msg}}</p>
 					</div>
 
 				</div>
@@ -71,11 +75,14 @@
 				username: '',
 				password: '',
 				surePassword: '',
+				name:'',
 				email: '',
 				msg:''
 			},
 			methods: {
-				regist(){
+				register(){
+                    window.event.returnValue=false
+                    this.msg = ''
 					if (this.password == '') {
 						this.msg = '请输入密码！'
 						return
@@ -85,22 +92,32 @@
 					}else if(this.email == ''){
 						this.msg = '请输入邮箱'
 						return
-					}else if(this.password != this.surePassword){
+					}else if(this.name == ''){
+                        this.msg = '请输入姓名'
+                        return
+                    }else if(this.password != this.surePassword){
 						this.msg = '两次密码输入不一致！'
 						return
 					}
 					var data = {
-						type: this.type,
-						username: this.username,
-						password: this.password,
-						surePassword: this.password,
-						email: this.email
+                        studentId: this.username,
+                        passwd: this.password,
+                        email: this.email
 					}
-					
+					var url
+					if(this.type){
+				        //教师
+						url = '/teacher/register/verify'
+						data.teacherName = this.name
+					}else {
+				        //学生
+				        url = '/student/register/verify'
+						data.studentName = this.name
+					}
 					new AjaxRequest({
 						type: "post",
-						url: "/registe",
-						param: JSON.stringify(data),
+						url: url,
+						param: data,
 						isShowLoader: true,
 						dataType: "json",
 						callBack: function(res) {
@@ -122,7 +139,6 @@
 					this.user = '学号'
 					this.please = '请输入学号'
 				}
-
 			},
 		})
 	</script>

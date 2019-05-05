@@ -8,6 +8,10 @@
 	src: url(../ttf/ZiTiGuanJiaFangSongTi-1.ttf);
 }
 
+[v-cloak]{
+	display: none;
+}
+
 input:-webkit-autofill,
 input:-webkit-autofill:hover,
 input:-webkit-autofill:focus,
@@ -27,13 +31,14 @@ font {
 	background-color: transparent !important;
 	color: rgb(230, 230, 230);
 	margin-bottom: 0.8rem !important;
-	
+
 }
 
 body {
 	overflow: hidden;
 	font-size: 12px;
 	background-image: url(../img/login-bg.jpg);
+    background-size: cover;
 }
 #main {
 	height: 100vh;
@@ -44,28 +49,17 @@ body {
 	justify-content: center;
 	align-items: center;
 }
-.before {
-	position: absolute;
-
-	z-index: 3;
-	transform: translate(-15px, 0);
-	overflow: hidden;
-	border-radius: .3em;
-	box-shadow: 0 0 0 1px hsla(0, 0%, 100%, .3) inset, 0 .5em 1em rgba(55, 55, 55, 1);
-	text-shadow: 0 1px 1px hsla(0, 0%, 100%, .3);
-}
 
 .rigister {
 	position: absolute;
 	z-index: 2;
-	transform: translate(0, -15px);
 	overflow: hidden;
 	border-radius: .3em;
 	box-shadow: 0 0 0 1px hsla(0, 0%, 100%, .3) inset, 0 .5em 1em rgba(55, 55, 55, 1);
 	text-shadow: 0 1px 1px hsla(0, 0%, 100%, .3);
 	color: transparent !important;
 
-	padding: 30px 10px 30px 15px;
+	padding: 30px 10px 35px 15px;
 	display: flex;
 	flex-direction: row;
 	flex-wrap: wrap;
