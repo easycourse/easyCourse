@@ -5,7 +5,19 @@
 <mapper namespace="com.easyCourse.dao.IStudentDao">
 
     <select id="selectStudentById" resultType="Student" parameterType="String">
-        SELECT * FROM user_student WHERE student_id = #{id}
+        SELECT * FROM user_student WHERE student_id = #{id} and is_delete = 0
+    </select>
+
+    <select id="verify" resultType="Student">
+        SELECT * FROM user_student WHERE student_id = #{arg0}  AND passwd = #{arg1} and is_delete = 0
+    </select>
+
+    <select id="insert">
+        INSERT INTO user_student(student_id,passwd,mail,student_name) VALUES(#{arg0},#{arg1},#{arg2},#{arg3})
+    </select>
+
+    <select id="selectStudentByEmail" resultType="Student" parameterType="String">
+        SELECT * FROM user_student WHERE mail = #{email} and is_delete = 0
     </select>
 
 </mapper>

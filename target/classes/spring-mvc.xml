@@ -8,7 +8,7 @@
        http://www.springframework.org/schema/context
        http://www.springframework.org/schema/context/spring-context.xsd
        http://www.springframework.org/schema/mvc
-       http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd">
+       http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd">
 
     <!-- 扫描web相关的bean -->
     <context:component-scan base-package="com.easyCourse.controller"/>
@@ -19,11 +19,43 @@
     <!-- 静态资源默认servlet配置 -->
     <mvc:default-servlet-handler/>
 
-    <!-- 配置jsp 显示ViewResolver -->
-    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-        <property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>
-        <property name="prefix" value="/WEB-INF/views/"/>
-        <property name="suffix" value=".jsp"/>
+    <bean id="freemarkerConfig" class="org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer">
+        <property name="templateLoaderPath" value="/WEB-INF/views/" />
+        <property name="defaultEncoding" value="UTF-8" />
+        <property name="freemarkerSettings">
+            <props>
+                <!-- 配置freemarker数字格式，不显示千分号 -->
+                <prop key="number_format">#</prop>
+            </props>
+        </property>
+        <!-- 配置freemarker共享变量，详情可参考freemarker文档http://freemarker.foofun.cn/pgui_config_sharedvariables.html -->
+        <property name="freemarkerVariables">
+            <map>
+                <entry key="xml_escape">
+                    <bean class="freemarker.template.utility.XmlEscape" />
+                </entry>
+            </map>
+        </property>
     </bean>
+
+    <!--视图解释器 -->
+    <bean id="viewResolver"  class="org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver">
+        <property name="suffix" value=".html"/>
+        <property name="contentType" value="text/html; charset=UTF-8"/>
+    </bean>
+
+    <!-- 配置拦截器 -->
+    <!--<mvc:interceptors>-->
+        <!--<mvc:interceptor>-->
+            <!--&lt;!&ndash; 拦截所有mvc控制器 &ndash;&gt;-->
+            <!--<mvc:mapping path="/**"/>-->
+            <!--<mvc:exclude-mapping path="/"/>-->
+            <!--<mvc:exclude-mapping path="/student/Login/verify"/>-->
+            <!--<mvc:exclude-mapping path="/student/register"/>-->
+            <!--<mvc:exclude-mapping path="/public/**" />-->
+            <!--<mvc:exclude-mapping path="/libs/**" />-->
+            <!--<bean class="com.easyCourse.interceptor.LoginInterceptor"/>-->
+        <!--</mvc:interceptor>-->
+    <!--</mvc:interceptors>-->
 
 </beans>

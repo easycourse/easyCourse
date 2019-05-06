@@ -20,6 +20,8 @@ public class Lesson {
 
     private String detail;
 
+    private int studentNum;
+
     private Date createTime;
 
     private Date updateTime;
