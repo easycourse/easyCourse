@@ -27,6 +27,11 @@ public class StudentController {
     @Resource
     private IStudentService studentService;
 
+    @GetMapping("/index")
+    public String getIndex(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        return "student/index";
+    }
+
     //返回登录页面
     @GetMapping("/login/index")
     public String getLoginIndex(HttpServletRequest request, HttpServletResponse response) throws IOException {
