@@ -99,4 +99,25 @@ public class TeacherController {
         String teacherId = teacher.getTeacherId();
         return lessonService.getByTeacherId(teacherId);
     }
+
+    //TODO:返回老师发布的历史通知
+    @GetMapping("//notice/index")
+    @ResponseBody
+    public JSONObject getNotice(HttpSession session) {
+        // 从session中获取教师信息
+        Teacher teacher = (Teacher) session.getAttribute("teacher");
+        String teacherId = teacher.getTeacherId();
+        return null;
+    }
+
+    //TODO:添加通知
+    @PostMapping("/addNotice")
+    @ResponseBody
+    public JSONObject addNotice(@RequestParam(value = "title", required = true) String title, @RequestParam(value = "noticeType", required = true) int noticeType,
+                                @RequestParam(value = "detail", required = false) String detail, @RequestParam(value = "appendix", required = false) String appendix,HttpSession session) {
+        Teacher teacher = (Teacher) session.getAttribute("teacher");
+        String teacherId = teacher.getTeacherId();
+
+        return null;
+    }
 }

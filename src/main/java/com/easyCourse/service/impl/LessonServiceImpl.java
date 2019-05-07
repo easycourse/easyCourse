@@ -28,7 +28,7 @@ public class LessonServiceImpl implements LessonService {
         List<LessonVO> lessonList = lessonDao.selectByTeacherId(teacherId);
 
         result.put("status", StatusCode.SUCCESS);
-        result.put("msg", "获取课堂信息成功");
+        result.put("msg", "获取通知列表成功");
         Map<String, Object> dataMap = new HashMap<>();
         dataMap.put("lessonList", lessonList);
         result.put("data", dataMap);
