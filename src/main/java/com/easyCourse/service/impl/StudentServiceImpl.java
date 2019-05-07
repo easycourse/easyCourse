@@ -1,7 +1,7 @@
 package com.easyCourse.service.impl;
 
 import com.easyCourse.dao.IStudentDao;
-import com.easyCourse.model.Student;
+import com.easyCourse.entity.Student;
 import com.easyCourse.service.IStudentService;
 import com.easyCourse.utils.StatusCode;
 import org.springframework.stereotype.Service;

@@ -1,22 +1,20 @@
-package com.easyCourse.vo;
+package com.easyCourse.entity;
 
 import lombok.Data;
 
 import java.util.Date;
 
 /**
- * 课程类视图对象
- * <p>
- * Created by devin
- * 2019-05-06 19:31
+ * 课程实体类
  */
 @Data
-public class LessonVO {
+public class Lesson {
 
-    /* 以下是课程信息 */
     private String lessonId;
 
     private String lessonName;
+
+    private String teacherId;
 
     private String lessonTime;
 
@@ -24,16 +22,11 @@ public class LessonVO {
 
     private int studentNum;
 
-    /* 以下是教师信息 */
-    private String teacherId;
+    private Date createTime;
 
-    private String teacherName;
+    private Date updateTime;
 
-    private String phone;
-
-    private String mail;
-
-    private String location;
+    private int isDelete;
 
     public String getLessonId() {
         return lessonId;
@@ -49,6 +42,14 @@ public class LessonVO {
 
     public void setLessonName(String lessonName) {
         this.lessonName = lessonName;
+    }
+
+    public String getTeacherId() {
+        return teacherId;
+    }
+
+    public void setTeacherId(String teacherId) {
+        this.teacherId = teacherId;
     }
 
     public String getLessonTime() {
@@ -75,43 +76,28 @@ public class LessonVO {
         this.studentNum = studentNum;
     }
 
-    public String getTeacherId() {
-        return teacherId;
+    public Date getCreateTime() {
+        return createTime;
     }
 
-    public void setTeacherId(String teacherId) {
-        this.teacherId = teacherId;
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
     }
 
-    public String getTeacherName() {
-        return teacherName;
+    public Date getUpdateTime() {
+        return updateTime;
     }
 
-    public void setTeacherName(String teacherName) {
-        this.teacherName = teacherName;
+    public void setUpdateTime(Date updateTime) {
+        this.updateTime = updateTime;
     }
 
-    public String getPhone() {
-        return phone;
+    public int getIsDelete() {
+        return isDelete;
     }
 
-    public void setPhone(String phone) {
-        this.phone = phone;
+    public void setIsDelete(int isDelete) {
+        this.isDelete = isDelete;
     }
-
-    public String getMail() {
-        return mail;
-    }
-
-    public void setMail(String mail) {
-        this.mail = mail;
-    }
-
-    public String getLocation() {
-        return location;
-    }
-
-    public void setLocation(String location) {
-        this.location = location;
-    }
+    
 }

@@ -1,19 +1,15 @@
 package com.easyCourse.dao;
 
 
-import com.easyCourse.model.Student;
+import com.easyCourse.entity.Student;
 import com.easyCourse.service.IStudentService;
 import com.easyCourse.utils.StringUtils;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpSession;
 
 // 加载spring配置文件
 @RunWith(SpringJUnit4ClassRunner.class)

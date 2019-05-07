@@ -1,10 +1,8 @@
 package com.easyCourse.dao;
 
-import com.easyCourse.model.Teacher;
+import com.easyCourse.entity.Teacher;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
-
-import java.util.List;
 
 /**
  * 教师数据访问层

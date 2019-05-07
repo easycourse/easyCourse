@@ -1,6 +1,6 @@
 package com.easyCourse.dao;
 
-import com.easyCourse.model.Teacher;
+import com.easyCourse.entity.Teacher;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

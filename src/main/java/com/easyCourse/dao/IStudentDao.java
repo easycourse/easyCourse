@@ -1,6 +1,6 @@
 package com.easyCourse.dao;
 
-import com.easyCourse.model.Student;
+import com.easyCourse.entity.Student;
 
 public interface IStudentDao {
 

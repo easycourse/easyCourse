@@ -1,18 +1,15 @@
 package com.easyCourse.controller;
 
-import com.easyCourse.model.Student;
+import com.easyCourse.entity.Student;
 import com.easyCourse.service.IStudentService;
 import com.easyCourse.utils.Jwt;
 import com.easyCourse.utils.StatusCode;
 import com.easyCourse.utils.StringUtils;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import net.minidev.json.JSONObject;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
-import javax.json.JsonObject;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
