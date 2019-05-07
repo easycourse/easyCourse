@@ -120,9 +120,18 @@
 						param: data,
 						isShowLoader: true,
 						dataType: "json",
-						callBack: function(res) {
-							console.log(res);
-						}
+                        success:function(msg){
+                            var data = JSON.parse(msg)
+                            if(data.status == 200){
+                                if(this.type){
+                                    window.location.href = "/teacher/index"
+                                }else {
+                                    window.location.href = "/student/index"
+                                }
+                            }else{
+                                //注册失败
+                            }
+                        }
 					})
 				}
 			},

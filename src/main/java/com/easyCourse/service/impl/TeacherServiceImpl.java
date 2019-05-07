@@ -4,6 +4,7 @@ import com.easyCourse.dao.TeacherDao;
 import com.easyCourse.entity.Teacher;
 import com.easyCourse.service.TeacherService;
 import com.easyCourse.utils.Jwt;
+import com.easyCourse.utils.StatusCode;
 import com.easyCourse.utils.StringUtils;
 import net.minidev.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,14 +34,14 @@ public class TeacherServiceImpl implements TeacherService {
 
         // 1.根据教师id进行判断
         if (teacherDao.selectById(teacherId) != null) {
-            result.put("status", 500);
+            result.put("status", StatusCode.DUPLICATED_TEACHERID);
             result.put("msg", "该账号已存在");
             result.put("data", null);
             return result;
         }
         // 2.根据教师mail进行判断
         if (teacherDao.selectByMail(mail) != null) {
-            result.put("status", 500);
+            result.put("status", StatusCode.DUPLICATED_EMAIL);
             result.put("msg", "该邮箱已注册");
             result.put("data", null);
             return result;
@@ -57,8 +58,8 @@ public class TeacherServiceImpl implements TeacherService {
 
         Map<String, Object> data = new HashMap<>();
         data.put("token", token);
-        result.put("status", 200);
-        result.put("msg", "success");
+        result.put("status", StatusCode.SUCCESS);
+        result.put("msg", "注册成功");
         result.put("data", data);
 
         return result;
@@ -70,7 +71,7 @@ public class TeacherServiceImpl implements TeacherService {
 
         Teacher teacher = teacherDao.selectByIdAndPassword(teacherId, StringUtils.MD5(password));
         if (teacher == null) {
-            result.put("status", 500);
+            result.put("status", StatusCode.INCORRECT_PASSWORD);
             result.put("msg", "账号和密码错误");
             result.put("data", null);
             return result;
@@ -85,8 +86,8 @@ public class TeacherServiceImpl implements TeacherService {
 
         Map<String, Object> data = new HashMap<>();
         data.put("token", token);
-        result.put("status", 200);
-        result.put("msg", "success");
+        result.put("status", StatusCode.SUCCESS);
+        result.put("msg", "教师登录成功");
         result.put("data", data);
 
         return result;

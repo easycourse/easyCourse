@@ -8,7 +8,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.io.IOException;
 import java.util.Map;
 
 @Controller
@@ -21,7 +24,20 @@ public class TeacherController {
     @Resource
     private LessonService lessonService;
 
-    @PostMapping("/register/index")
+    //返回教师主页
+    @GetMapping("/index")
+    public String getIndex(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        return "teacher/index";
+    }
+
+    //返回注册页面
+    @GetMapping("/register")
+    public String getRegisterIndex(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        return "/register";
+    }
+
+    //注册验证
+    @PostMapping("/register/verify")
     @ResponseBody
     public JSONObject register(@RequestParam(value = "teacherId", required = true) String teacherId, @RequestParam(value = "passwd", required = true) String password,
                                @RequestParam(value = "teacherName", required = true) String teacherName, @RequestParam(value = "phone", required = true) String phone,
@@ -38,21 +54,20 @@ public class TeacherController {
             Teacher teacher = teacherService.getTeacherById(teacherId);
             session.setAttribute("teacher", teacher);
         }
-
         return result;
     }
 
+    //登录验证
     @PostMapping("/login/verify")
     @ResponseBody
     public JSONObject login(@RequestParam(value = "teacherId", required = true) String teacherId,
                             @RequestParam(value = "passwd", required = true) String password, HttpSession session) {
-
         JSONObject result = teacherService.login(teacherId, password);
 
-        // 注册成功，则获取token和教师信息，保存到session中
+        // 登录成功
         if (result.get("data") != null) {
             Map data = (Map) result.get("data");
-            Object token = data.get("token").toString();
+            String token = data.get("token").toString();
             session.setAttribute("userToken", token);
             session.setMaxInactiveInterval(3600);
             Teacher teacher = teacherService.getTeacherById(teacherId);
@@ -62,16 +77,8 @@ public class TeacherController {
         return result;
     }
 
-    @GetMapping("/center")
-    @ResponseBody
-    public JSONObject center(HttpSession session) {
-        // 从session中获取教师信息
-        Teacher teacher = (Teacher) session.getAttribute("teacher");
-        String teacherId = teacher.getTeacherId();
 
-        return lessonService.getByTeacherId(teacherId);
-    }
-
+    //教师添加课程
     @PostMapping("/addLesson")
     @ResponseBody
     public JSONObject addLesson(@RequestParam(value = "lessonName", required = true) String lessonName, @RequestParam(value = "lessonTime", required = true) String lessonTime,
@@ -81,5 +88,15 @@ public class TeacherController {
         String teacherId = teacher.getTeacherId();
 
         return lessonService.addLesson(lessonName, lessonTime, lessonDetail, teacherId);
+    }
+
+    //返回老师教授的课程信息
+    @GetMapping("/center")
+    @ResponseBody
+    public JSONObject center(HttpSession session) {
+        // 从session中获取教师信息
+        Teacher teacher = (Teacher) session.getAttribute("teacher");
+        String teacherId = teacher.getTeacherId();
+        return lessonService.getByTeacherId(teacherId);
     }
 }
