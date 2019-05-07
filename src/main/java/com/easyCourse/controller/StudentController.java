@@ -30,6 +30,18 @@ public class StudentController {
         return "login";
     }
 
+    //返回注册页面
+    @GetMapping("/register")
+    public String getRegisterIndex(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        return "/register";
+    }
+
+    //返回学生主页
+    @GetMapping("/index")
+    public String getIndex(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        return "student/index";
+    }
+
     //执行登录请求数据处理
     @RequestMapping(value = "/login/verify", method = RequestMethod.POST)
     public void loginVerify(@RequestParam(value = "studentId", required = true) String studentId, @RequestParam(value = "passwd", required = true)
@@ -38,8 +50,8 @@ public class StudentController {
         JSONObject resultJSON = new JSONObject();
         //如果验证未通过
         if (student == null) {
-            resultJSON.put("success", false);
-            resultJSON.put("msg", "用户名和密码错误");
+            resultJSON.put("status", StatusCode.INCORRECT_PASSWORD);
+            resultJSON.put("msg", "用户名或密码错误");
             response.getWriter().write(String.valueOf(resultJSON));
         } else {
             //创建返回resultJson
@@ -49,7 +61,7 @@ public class StudentController {
             payload.put("iat", date.getTime());//生成时间
             payload.put("ext", date.getTime() + 1000 * 60 * 60);//过期时间1小时
             String token = Jwt.createToken(payload);
-            resultJSON.put("success", true);
+            resultJSON.put("status", StatusCode.SUCCESS);
             resultJSON.put("msg", "登陆成功");
             resultJSON.put("token", token);
             //存储session
@@ -60,12 +72,6 @@ public class StudentController {
         }
     }
 
-    //返回注册页面
-    @GetMapping("/register")
-    public String getRegisterIndex(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        return "/register";
-    }
-
     //执行注册数据处理
     @RequestMapping(value = "/register/verify", method = RequestMethod.POST)
     public void registerVerify(@RequestParam(value = "studentId", required = true) String studentId, @RequestParam(value = "passwd", required = true)
@@ -74,25 +80,25 @@ public class StudentController {
         JSONObject resultJSON = new JSONObject();
         switch (code){
             case StatusCode.DUPLICATED_STUDENTID:{
-                resultJSON.put("success", false);
+                resultJSON.put("status", StatusCode.DUPLICATED_STUDENTID);
                 resultJSON.put("msg", "该学号已经被注册，请重试");
                 response.getWriter().write(String.valueOf(resultJSON));
                 break;
             }
             case StatusCode.DUPLICATED_EMAIL:{
-                resultJSON.put("success", false);
+                resultJSON.put("status", StatusCode.DUPLICATED_EMAIL);
                 resultJSON.put("msg", "该邮箱已经被注册，请重试");
                 response.getWriter().write(String.valueOf(resultJSON));
                 break;
             }
-            case StatusCode.REGISTER_SUCCESS:{
+            case StatusCode.SUCCESS:{
                 Map<String, Object> payload = new HashMap<>();
                 Date date = new Date();
                 payload.put("uid", studentId);//用户ID
                 payload.put("iat", date.getTime());//生成时间
                 payload.put("ext", date.getTime() + 1000 * 60 * 60);//过期时间1小时
                 String token = Jwt.createToken(payload);
-                resultJSON.put("success", true);
+                resultJSON.put("status", StatusCode.SUCCESS);
                 resultJSON.put("msg", "注册成功");
                 resultJSON.put("token", token);
                 //存储session

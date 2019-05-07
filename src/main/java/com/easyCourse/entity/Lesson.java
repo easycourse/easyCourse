@@ -99,5 +99,5 @@ public class Lesson {
     public void setIsDelete(int isDelete) {
         this.isDelete = isDelete;
     }
-    
+
 }

@@ -2,6 +2,7 @@ package com.easyCourse.service.impl;
 
 import com.easyCourse.dao.LessonDao;
 import com.easyCourse.service.LessonService;
+import com.easyCourse.utils.StatusCode;
 import com.easyCourse.vo.LessonVO;
 import net.minidev.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,8 +27,8 @@ public class LessonServiceImpl implements LessonService {
         JSONObject result = new JSONObject();
         List<LessonVO> lessonList = lessonDao.selectByTeacherId(teacherId);
 
-        result.put("status", 200);
-        result.put("msg", "success");
+        result.put("status", StatusCode.SUCCESS);
+        result.put("msg", "获取通知列表成功");
         Map<String, Object> dataMap = new HashMap<>();
         dataMap.put("lessonList", lessonList);
         result.put("data", dataMap);
@@ -43,8 +44,8 @@ public class LessonServiceImpl implements LessonService {
 
         lessonDao.insert(lessonId, lessonName, lessonTime, lessonDetail, teacherId);
         JSONObject result = new JSONObject();
-        result.put("status", 200);
-        result.put("msg", "success");
+        result.put("status", StatusCode.SUCCESS);
+        result.put("msg", "添加课程成功");
         result.put("data", null);
         return result;
     }
