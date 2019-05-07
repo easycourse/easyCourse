@@ -22,8 +22,7 @@
 </head>
 
 <body class="nav-md">
-<div id="app">
-    <div class="container body">
+    <div id="app" class="container body">
         <div class="main_container">
             <div class="col-md-3 left_col">
                 <div class="left_col scroll-view">
@@ -40,7 +39,7 @@
                         </div>
                         <div class="profile_info">
                             <span>你好,</span>
-                            <h2>张哈哈</h2>
+                            <h2 v-cloak>{{info.name}}</h2>
                         </div>
                     </div>
                     <!-- /menu profile quick info -->
@@ -52,9 +51,8 @@
                             <ul class="nav side-menu">
                                 <li><a><i class="fa fa-calendar"></i> 我的课程 <span class="fa fa-chevron-down"></span></a>
                                     <ul class="nav child_menu">
-                                        <li><a href="#">数据库课程设计</a></li>
-                                        <li><a href="#">编译原理</a></li>
-                                        <li><a href="#">软件工程</a></li>
+                                        <li v-cloak v-for="(item,i) in courses" :key="item.id"><a href="index.html">{{item.name}}</a></li>
+
                                     </ul>
                                 </li>
 
@@ -75,8 +73,10 @@
 
                         <ul class="nav navbar-nav navbar-right">
                             <li class="">
-                                <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                                    <img src="/public/img/default.png" alt="">张哈哈
+                                <a v-cloak href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+
+                                    <img src="/public/img/default.png"  alt=""/>
+                                    <span style="margin-left: 0;" v-cloak>{{info.name}}</span>
                                     <span class=" fa fa-angle-down"></span>
                                 </a>
                                 <ul class="dropdown-menu dropdown-usermenu pull-right">
@@ -85,7 +85,7 @@
                                             <span>个人中心</span>
                                         </a>
                                     </li>
-                                    <li><a href="#" @click.prevent="sign_out" ><i class="fa fa-sign-out pull-right"></i> 退出登录</a></li>
+                                    <li><a href="/"><i class="fa fa-sign-out pull-right"></i> 退出登录</a></li>
                                 </ul>
                             </li>
 
@@ -166,32 +166,24 @@
 
                 </div>
 
-                <div class="row">
 
 
-                    <!-- Start to do list -->
-
-                    <!-- End to do list -->
-
-
-                </div>
             </div>
         </div>
+        <!-- /page content -->
+
+        <!-- footer content -->
+        <footer>
+            <div class="pull-right">
+
+            </div>
+            <div class="clearfix"></div>
+        </footer>
+        <!-- /footer content -->
+
     </div>
-    <!-- /page content -->
 
-    <!-- footer content -->
-    <footer>
-        <div class="pull-right">
-
-        </div>
-        <div class="clearfix"></div>
-    </footer>
-    <!-- /footer content -->
-
-</div>
-
-
+<script src="/libs/vue-2.4.0.js"></script>
 <!-- jQuery -->
 <script src="/libs/jquery-3.3.1.js"></script>
 <!-- Bootstrap -->
@@ -201,21 +193,29 @@
 <script src="/libs/date.js"></script>
 
 <!-- Custom Theme Scripts -->
-<script src="/public/js/custom.min.js"></script>
 
-<script src="/libs/vue-2.4.0.js"></script>
 <script>
     var vm = new Vue({
-        el: "#app",
-        data:{
-            notice:"ss"
+        el: '#app',
+        data: {
+            info: {
+                name: '张xx',
+                id: '222',
+                email: ''
+            },
+            courses: [{
+                name: '软件工程',
+                id: ''
+            }, {
+                name: '数据库',
+                id: ''
+            }],
         },
         methods: {
-            sign_out() {
-                window.location.href = "/"
-            }
-        },
+
+        }
     })
 </script>
+<script src="/public/js/custom.min.js"></script>
 </body>
 </html>
