@@ -1,6 +1,6 @@
 package com.easyCourse.service;
 
-import com.easyCourse.model.Teacher;
+import com.easyCourse.entity.Teacher;
 import net.minidev.json.JSONObject;
 
 /**

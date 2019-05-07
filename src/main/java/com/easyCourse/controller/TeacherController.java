@@ -1,30 +1,24 @@
 package com.easyCourse.controller;
 
-import com.easyCourse.model.Teacher;
+import com.easyCourse.entity.Teacher;
 import com.easyCourse.service.LessonService;
 import com.easyCourse.service.TeacherService;
-import com.easyCourse.utils.Jwt;
 import net.minidev.json.JSONObject;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 import java.util.Map;
 
-
-/**
- * Created by devin
- * 2019-05-06 17:26
- */
 @Controller
 @RequestMapping("/teacher")
 public class TeacherController {
 
-    @Autowired
+    @Resource
     private TeacherService teacherService;
 
-    @Autowired
+    @Resource
     private LessonService lessonService;
 
     @PostMapping("/register/index")

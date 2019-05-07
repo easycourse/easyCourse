@@ -1,6 +1,6 @@
 package com.easyCourse.service;
 
-import com.easyCourse.model.Student;
+import com.easyCourse.entity.Student;
 
 public interface IStudentService {
     //学生登录验证

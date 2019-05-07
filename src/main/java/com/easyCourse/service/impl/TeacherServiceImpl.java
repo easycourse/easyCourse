@@ -1,7 +1,7 @@
 package com.easyCourse.service.impl;
 
 import com.easyCourse.dao.TeacherDao;
-import com.easyCourse.model.Teacher;
+import com.easyCourse.entity.Teacher;
 import com.easyCourse.service.TeacherService;
 import com.easyCourse.utils.Jwt;
 import com.easyCourse.utils.StringUtils;

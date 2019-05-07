@@ -3,7 +3,7 @@
 
 <mapper namespace="com.easyCourse.dao.LessonNoticeDao">
 
-    <resultMap id="BaseResultMap" type="com.easyCourse.model.LessonNotice">
+    <resultMap id="BaseResultMap" type="com.easyCourse.entity.LessonNotice">
         <id column="id" jdbcType="INTEGER" property="id"/>
         <result column="lesson_id" jdbcType="VARCHAR" property="lessonId"/>
         <result column="teacher_id" jdbcType="VARCHAR" property="teacherId"/>
