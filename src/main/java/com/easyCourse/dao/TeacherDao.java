@@ -49,4 +49,18 @@ public interface TeacherDao {
      */
     void insert(@Param("teacherId") String teacherId, @Param("password") String password, @Param("teacherName") String teacherName,
                 @Param("phone") String phone, @Param("mail") String mail, @Param("location") String location);
+
+
+    /**
+     * 插入一条教师记录,teacher的那个参数都不能为空
+     * @param teacher
+     */
+    int insertComplete(Teacher teacher);
+
+    /**
+     * 插入一条教师记录，teacher的部分参数可以为空
+     * @param teacher
+     */
+    int insertSelective(Teacher teacher);
+
 }

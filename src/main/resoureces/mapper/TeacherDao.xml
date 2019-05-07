@@ -19,6 +19,97 @@
         select * from user_teacher
     </select>
 
+    <select id="selectByIdAndPassword" resultMap="BaseResultMap">
+        select * from user_teacher
+        where teacher_id = #{teacherId} and passwd = #{password} and is_delete = 0
+    </select>
+
+    <select id="selectByMail" resultMap="BaseResultMap">
+        select * from user_teacher
+        where mail = #{mail} and is_delete = 0
+    </select>
+
+    <select id="selectById" resultMap="BaseResultMap">
+        select * from user_teacher
+        where teacher_id = #{teacherId} and is_delete = 0
+    </select>
+
+    <insert id="insert">
+        insert into user_teacher (teacher_id, passwd, mail, teacher_name, phone, location)
+        values (#{teacherId}, #{password}, #{mail}, #{teacherName}, #{phone}, #{location})
+    </insert>
+
+    <insert id="insertComplete" parameterType="com.easyCourse.model.Teacher">
+        insert into user_teacher (teacher_id, passwd, mail, teacher_name, phone, location, create_time, update_time, is_delete)
+        values (
+            #{teacherId, jdbcType=VARCHAR},
+            #{passwd, jdbcType=VARCHAR},
+            #{mail, jdbcType=VARCHAR},
+            #{teacherName, jdbcType=VARCHAR},
+            #{phone, jdbcType=VARCHAR},
+            #{location, jdbcType=VARCHAR},
+            #{createTime, jdbcType=TIMESTAMP},
+            #{updateTime, jdbcType=TIMESTAMP},
+            #{isDelete, jdbcType=INTEGER}
+        )
+    </insert>
+
+    <insert id="insertSelective" parameterType="com.easyCourse.model.Teacher">
+        insert into user_teacher
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="teacherId != null">
+                teacher_id,
+            </if>
+            <if test="passwd != null">
+                passwd,
+            </if>
+            <if test="mail != null">
+                mail,
+            </if>
+            <if test="teacherName != null">
+                teacher_name,
+            </if>
+            <if test="phone != null">
+                phone,
+            </if>
+            <if test="location != null">
+                location,
+            </if>
+            create_time,
+            update_time,
+            <if test="isDelete != null">
+                is_delete,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="teacherId != null">
+                #{teacherId, jdbcType=VARCHAR},
+            </if>
+            <if test="passwd != null">
+                #{passwd, jdbcType=VARCHAR},
+            </if>
+            <if test="mail != null">
+                #{mail, jdbcType=VARCHAR},
+            </if>
+            <if test="teacherName != null">
+                #{teacherName, jdbcType=VARCHAR},
+            </if>
+            <if test="phone != null">
+                #{phone, jdbcType=VARCHAR},
+            </if>
+            <if test="location != null">
+                #{location, jdbcType=VARCHAR},
+            </if>
+            now(),
+            now(),
+            <if test="isDelete != null">
+                #{isDelete, jdbcType=INTEGER}
+            </if>
+        </trim>
+    </insert>
+
+
+
 
 
 </mapper>
