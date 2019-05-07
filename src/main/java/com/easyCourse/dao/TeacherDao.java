@@ -63,4 +63,24 @@ public interface TeacherDao {
      */
     int insertSelective(Teacher teacher);
 
+    /**
+     * 更新教师
+     * @param teacher
+     * @return
+     */
+    int updateByPrimaryKeyComplete(Teacher teacher);
+
+    /**
+     * 更新教师，可以部分为空
+     * @param teacher
+     * @return
+     */
+    int updateByPrimaryKeySelective(Teacher teacher);
+
+    /**
+     * 根据教师id删除记录
+     * @param teacherId
+     * @return
+     */
+    int deleteByPrimaryKey(String teacherId);
 }

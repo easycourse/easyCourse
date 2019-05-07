@@ -108,6 +108,57 @@
         </trim>
     </insert>
 
+    <update id="updateByPrimaryKeyComplete" parameterType="com.easyCourse.model.Teacher">
+        update user_teacher
+        set passwd = #{passwd, jdbcType=VARCHAR},
+            mail = #{mail, jdbcType=VARCHAR},
+            teacher_name = #{teacherName, jdbcType=VARCHAR},
+            phone = #{phone, jdbcType=VARCHAR},
+            location = #{location, jdbcType=VARCHAR},
+            create_time = #{createTime, jdbcType=TIMESTAMP},
+            update_time = #{updateTime, jdbcType=TIMESTAMP},
+            is_delete = #{isDelete, jdbcType=INTEGER}
+        where teacher_id = #{teacherId,jdbcType=VARCHAR}
+    </update>
+
+    <update id="updateByPrimaryKeySelective" parameterType="com.easyCourse.model.Teacher">
+        update user_teacher
+        <set>
+            <if test="passwd != null">
+                passwd = #{passwd, jdbcType=VARCHAR},
+            </if>
+            <if test="mail != null">
+                mail = #{mail, jdbcType=VARCHAR},
+            </if>
+            <if test="teacherName != null">
+                teacher_name = #{teacherName, jdbcType=VARCHAR},
+            </if>
+            <if test="phone != null">
+                phone = #{phone, jdbcType=VARCHAR},
+            </if>
+            <if test="location != null">
+                location = #{location, jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime, jdbcType=VARCHAR},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime, jdbcType=VARCHAR},
+            </if>
+            <if test="isDelete != null">
+                is_delete = #{isDelete, jdbcType=INTEGER}
+            </if>
+        </set>
+        where teacher_id = #{teacherId,jdbcType=VARCHAR}
+    </update>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+        delete from user_teacher
+        where teacher_id = #{teacherId,jdbcType=VARCHAR}
+    </delete>
+
+
+
 
 
 

@@ -74,4 +74,43 @@ public class TeacherDaoTest {
 
         teacherDao.insertSelective(teacher);
     }
+
+    @Test
+    public void updateByPrimaryKeyComplete() {
+
+        Teacher teacher = teacherDao.selectById("000005");
+
+
+        teacher.setPasswd("yyyyyy");
+        teacher.setMail("hhh@qq.com");
+        teacher.setTeacherName("hhh");
+        teacher.setPhone("12345678900");
+        teacher.setLocation("计算机学院");
+        teacher.setIsDelete(0);
+
+        teacherDao.updateByPrimaryKeyComplete(teacher);
+    }
+
+    @Test
+    public void updateByPrimaryKeySelective() {
+
+        Teacher teacher = new Teacher();
+        teacher.setTeacherId("000005");
+        teacher.setPasswd("xxxxxxx");
+        teacher.setMail("");
+        teacher.setTeacherName("hhh");
+        teacher.setPhone("12345678900");
+        teacher.setLocation("计算机学院");
+        teacher.setIsDelete(0);
+
+        teacherDao.updateByPrimaryKeySelective(teacher);
+    }
+
+    @Test
+    public void deleteByPrimaryKey() {
+
+        int i = teacherDao.deleteByPrimaryKey("000004");
+
+        System.out.println(i);
+    }
 }
