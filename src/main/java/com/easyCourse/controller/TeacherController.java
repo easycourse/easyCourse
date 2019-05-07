@@ -1,5 +1,6 @@
 package com.easyCourse.controller;
 
+import com.easyCourse.entity.LessonFile;
 import com.easyCourse.entity.Teacher;
 import com.easyCourse.service.LessonService;
 import com.easyCourse.service.TeacherService;
@@ -12,6 +13,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -100,13 +103,14 @@ public class TeacherController {
         return lessonService.getByTeacherId(teacherId);
     }
 
-    //TODO:返回老师发布的历史通知
+    //TODO:查看发布的历史通知
     @GetMapping("//notice/index")
     @ResponseBody
     public JSONObject getNotice(HttpSession session) {
         // 从session中获取教师信息
         Teacher teacher = (Teacher) session.getAttribute("teacher");
         String teacherId = teacher.getTeacherId();
+        //根据teacherId查询得到一个notice的list 然后放在resultBean里面返回，status用StatusCode.success表示成功
         return null;
     }
 
@@ -114,10 +118,68 @@ public class TeacherController {
     @PostMapping("/addNotice")
     @ResponseBody
     public JSONObject addNotice(@RequestParam(value = "title", required = true) String title, @RequestParam(value = "noticeType", required = true) int noticeType,
-                                @RequestParam(value = "detail", required = false) String detail, @RequestParam(value = "appendix", required = false) String appendix,HttpSession session) {
+                                @RequestParam(value = "detail", required = false, defaultValue = "") String detail, @RequestParam(value = "appendix", required = false , defaultValue = "") String appendix,HttpSession session) {
         Teacher teacher = (Teacher) session.getAttribute("teacher");
         String teacherId = teacher.getTeacherId();
+        //和添加课程一样，根据参数然后添加 根据结果进一步判断，status用StatusCode.success表示成功
+        return null;
+    }
 
+    //TODO:查看发布的课件
+    @PostMapping("/courseware/index")
+    @ResponseBody
+    public JSONObject getCourseware(@RequestParam(value = "lessonName", required = false) String lessonName,HttpSession session) {
+
+        Teacher teacher = (Teacher) session.getAttribute("teacher");
+        String teacherId = teacher.getTeacherId();
+        //根据teacherId查到一个lesson_file的list，然后放在resultBean里面返回
+
+        //根据原型图，老师可以直接查看所有发布的课件，这个时候lessonName就是null/"" ，如果老师输入了lessonName，就要对上面的list进行一次过滤，返回符合结果的list
+        return null;
+    }
+
+    //TODO:老师上传新课件
+    @PostMapping("/addCourseware")
+    @ResponseBody
+    public JSONObject addCourseware(@RequestParam(value = "title", required = true) String title, @RequestParam(value = "lessonIdList", required = true) List<String> lessonIdList,
+                                @RequestParam(value = "detail", required = false, defaultValue = "") String detail, @RequestParam(value = "appendix", required = true) String appendix,HttpSession session) {
+        Teacher teacher = (Teacher) session.getAttribute("teacher");
+        String teacherId = teacher.getTeacherId();
+        //因为可以选择多个课程，所以会有lessonIdList，需要将上述数据一次性插入到数据库中
+
+        //得到lessonFileList
+        List<LessonFile> lessonFileList = new ArrayList<>();
+        for(int i=0;i<lessonIdList.size();i++){
+            LessonFile lessonFile = new LessonFile();
+            lessonFile.setLessonId(lessonIdList.get(i));
+            lessonFile.setTitle(title);
+            lessonFile.setAppendix(appendix);
+            lessonFile.setDetail(detail);
+            lessonFile.setUserId(teacherId);
+            lessonFileList.add(lessonFile);
+        }
+
+        /*以下为mapper可以批量插入list的代码，仅做参考 可以将上述lessonFileList作为参数然后插入数据库
+        <insert id="insertForeach" parameterType="java.util.List" useGeneratedKeys="false">
+                insert into fund
+        ( id,fund_name,fund_code,date_x,data_y,create_by,create_date,update_by,update_date,remarks,del_flag)
+        values
+                <foreach collection="list" item="item" index="index" separator=",">
+                (
+    					#{item.id},
+    					#{item.fundName},
+    					#{item.fundCode},
+    					#{item.dateX},
+    					#{item.dataY},
+    					#{item.createBy},
+    					#{item.createDate},
+    					#{item.updateBy},
+    					#{item.updateDate},
+    					#{item.remarks},
+    					#{item.delFlag}
+    				)
+    		     </foreach>
+        </insert>*/
         return null;
     }
 }
