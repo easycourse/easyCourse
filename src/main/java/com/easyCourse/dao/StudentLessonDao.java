@@ -1,7 +1,6 @@
 package com.easyCourse.dao;
 
-import com.easyCourse.model.Student;
-import com.easyCourse.model.StudentLesson;
+import com.easyCourse.entity.StudentLesson;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;

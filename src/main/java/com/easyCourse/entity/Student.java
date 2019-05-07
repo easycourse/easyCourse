@@ -1,4 +1,4 @@
-package com.easyCourse.model;
+package com.easyCourse.entity;
 
 import java.util.Date;
 

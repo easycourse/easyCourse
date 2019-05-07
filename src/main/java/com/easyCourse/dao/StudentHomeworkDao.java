@@ -1,6 +1,6 @@
 package com.easyCourse.dao;
 
-import com.easyCourse.model.StudentHomework;
+import com.easyCourse.entity.StudentHomework;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;

@@ -7,10 +7,21 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a6f7c16f-5eaf-4eac-bc5f-fe95e5903d11" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/72b67ad0-9d6c-401f-b062-a70aeb3e56c2.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/72b67ad0-9d6c-401f-b062-a70aeb3e56c2.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/artifacts/Eeg_war.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/artifacts/Eeg_war.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/artifacts/Eeg_war_exploded.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/artifacts/Eeg_war_exploded.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/artifacts/easyCourse_war_exploded.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/artifacts/easyCourse_war_exploded.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_projectlombok_lombok_1_18_6.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Eeg.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/easyCourse/dao/LessonDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/easyCourse/dao/LessonDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/easyCourse/dao/TeacherDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/easyCourse/dao/TeacherDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/easyCourse/model/Lesson.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/easyCourse/model/Lesson.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resoureces/mapper/LessonDao.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resoureces/mapper/LessonDao.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resoureces/mapper/TeacherDao.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resoureces/mapper/TeacherDao.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/easyCourse/dao/LessonDaoTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/easyCourse/dao/LessonDaoTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/easyCourse/dao/TeacherDaoTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/easyCourse/dao/TeacherDaoTest.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -45,46 +56,14 @@
         <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
         <item name="easyCourse@swx98.cn" type="feb32156:DbDataSourceImpl" />
         <item name="schemas" type="d4e8921:DatabaseStructure$FamilyGroup" />
-        <item name="easyCourse: schema" type="c314c289:MysqlImplModel$Schema" />
+        <item name="easyCourse: schema" type="76f4a085:MysqlImplModel$Schema" />
       </path>
     </expand>
     <select />
   </component>
-  <component name="FUSProjectUsageTrigger">
-    <session id="631837522">
-      <usages-collector id="statistics.lifecycle.project">
-        <counts>
-          <entry key="project.closed" value="1" />
-          <entry key="project.open.time.3" value="1" />
-          <entry key="project.opened" value="1" />
-        </counts>
-      </usages-collector>
-      <usages-collector id="statistics.file.extensions.edit">
-        <counts>
-          <entry key="java" value="852" />
-          <entry key="xml" value="338" />
-        </counts>
-      </usages-collector>
-      <usages-collector id="statistics.file.types.edit">
-        <counts>
-          <entry key="JAVA" value="852" />
-          <entry key="SQL" value="6" />
-          <entry key="XML" value="332" />
-        </counts>
-      </usages-collector>
-      <usages-collector id="statistics.file.extensions.open">
-        <counts>
-          <entry key="java" value="17" />
-          <entry key="xml" value="8" />
-        </counts>
-      </usages-collector>
-      <usages-collector id="statistics.file.types.open">
-        <counts>
-          <entry key="JAVA" value="17" />
-          <entry key="XML" value="8" />
-        </counts>
-      </usages-collector>
-    </session>
+  <component name="DefaultGradleProjectSettings">
+    <option name="testRunner" value="GRADLE" />
+    <option name="delegatedBuild" value="true" />
   </component>
   <component name="FavoritesManager">
     <favorites_list name="easyCourse" />
@@ -94,8 +73,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/easyCourse/model/Lesson.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="75">
-              <caret line="11" lean-forward="true" selection-start-line="11" selection-end-line="26" selection-end-column="25" />
+            <state relative-caret-position="667">
+              <caret line="29" lean-forward="true" selection-start-line="29" selection-end-line="29" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -104,10 +83,10 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/easyCourse/dao/StudentHomeworkDao.java">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/easyCourse/service/LessonService.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="66">
-              <caret line="8" column="3" lean-forward="true" selection-start-line="8" selection-start-column="3" selection-end-line="10" selection-end-column="25" />
+            <state relative-caret-position="736">
+              <caret line="32" column="19" selection-start-line="32" selection-start-column="19" selection-end-line="32" selection-end-column="19" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -116,22 +95,19 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/easyCourse/model/StudentLesson.java">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/easyCourse/service/impl/LessonServiceImpl.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="520">
-              <caret line="24" column="1" lean-forward="true" selection-start-line="24" selection-start-column="1" selection-end-line="24" selection-end-column="1" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
+            <state relative-caret-position="-69">
+              <caret line="9" selection-start-line="9" selection-end-line="9" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/easyCourse/dao/StudentLessonDao.java">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/easyCourse/dao/LessonDao.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="173">
-              <caret line="23" lean-forward="true" selection-start-line="23" selection-end-line="23" />
+            <state relative-caret-position="711">
+              <caret line="32" column="50" selection-start-line="32" selection-start-column="50" selection-end-line="32" selection-end-column="50" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -140,10 +116,10 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/test/java/com/easyCourse/dao/StudentLessonDaoTest.java">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/easyCourse/controller/TeacherController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="267">
-              <caret line="25" column="21" lean-forward="true" selection-start-line="25" selection-start-column="21" selection-end-line="25" selection-end-column="21" />
+            <state relative-caret-position="398">
+              <caret line="88" column="34" lean-forward="true" selection-start-line="88" selection-start-column="34" selection-end-line="88" selection-end-column="34" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -154,29 +130,41 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/resoureces/mapper/LessonDao.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="368">
-              <caret line="16" column="51" selection-start-line="16" selection-start-column="38" selection-end-line="16" selection-end-column="51" />
+            <state relative-caret-position="292">
+              <caret line="35" column="44" selection-start-line="35" selection-start-column="44" selection-end-line="35" selection-end-column="44" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/test/java/com/easyCourse/dao/LessonDaoTest.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="168">
+              <caret line="33" column="55" selection-start-line="33" selection-start-column="55" selection-end-line="33" selection-end-column="55" />
               <folding>
-                <marker date="1556538491444" expanded="true" signature="970:990" ph="select * fro... lesson" />
+                <element signature="imports" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/resoureces/mapper/StudentLessonDao.xml">
+        <entry file="file://$PROJECT_DIR$/src/main/resoureces/mapper/TeacherDao.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="322">
-              <caret line="14" column="58" selection-start-line="14" selection-start-column="58" selection-end-line="14" selection-end-column="58" />
+            <state relative-caret-position="642">
+              <caret line="33" column="22" lean-forward="true" selection-start-line="33" selection-start-column="22" selection-end-line="33" selection-end-column="22" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/resoureces/mapper/StudentHomeworkDao.xml">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/easyCourse/vo/LessonVO.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="138">
-              <caret line="6" selection-start-line="6" selection-end-line="7" />
+            <state relative-caret-position="528">
+              <caret line="23" lean-forward="true" selection-start-line="23" selection-end-line="23" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -187,11 +175,16 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="FxmlFile" />
-        <option value="Class" />
         <option value="Interface" />
         <option value="JUnit4 Test Class" />
+        <option value="Class" />
       </list>
     </option>
+  </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>verify</find>
+    </findStrings>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -200,22 +193,15 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/pom.xml" />
-        <option value="$PROJECT_DIR$/src/test/java/com/easyCourse/dao/TeacherDaoTest.java" />
-        <option value="$PROJECT_DIR$/src/test/java/com/easyCourse/dao/LessonDaoTest.java" />
         <option value="$PROJECT_DIR$/src/test/java/com/easyCourse/dao/LessonFileDaoTest.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/easyCourse/model/Teacher.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/easyCourse/model/LessonFile.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/easyCourse/dao/TeacherDao.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/easyCourse/model/LessonHomework.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/easyCourse/dao/LessonFileDao.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/easyCourse/dao/LessonHomeworkDao.java" />
         <option value="$PROJECT_DIR$/src/test/java/com/easyCourse/dao/LessonHomeworkDaoTest.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/easyCourse/dao/LessonDao.java" />
-        <option value="$PROJECT_DIR$/src/main/resoureces/mapper/LessonDao.xml" />
         <option value="$PROJECT_DIR$/src/main/resoureces/mapper/LessonFileDao.xml" />
         <option value="$PROJECT_DIR$/src/main/resoureces/mapper/LessonHomeworkDao.xml" />
-        <option value="$PROJECT_DIR$/src/main/resoureces/mapper/TeacherDao.xml" />
-        <option value="$PROJECT_DIR$/src/main/java/com/easyCourse/model/Lesson.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/easyCourse/dao/LessonNoticeDao.java" />
         <option value="$PROJECT_DIR$/src/main/resoureces/mapper/LessonNoticeDao.xml" />
         <option value="$PROJECT_DIR$/src/test/java/com/easyCourse/dao/LessonNoticeDaoTest.java" />
@@ -228,14 +214,24 @@
         <option value="$PROJECT_DIR$/src/main/java/com/easyCourse/dao/StudentLessonDao.java" />
         <option value="$PROJECT_DIR$/src/test/java/com/easyCourse/dao/StudentLessonDaoTest.java" />
         <option value="$PROJECT_DIR$/src/main/resoureces/mapper/StudentLessonDao.xml" />
+        <option value="$PROJECT_DIR$/src/main/java/com/easyCourse/service/IStudentService.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/easyCourse/dao/TeacherDao.java" />
+        <option value="$PROJECT_DIR$/src/test/java/com/easyCourse/dao/TeacherDaoTest.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/easyCourse/service/TeacherService.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/easyCourse/utils/StatusCode.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/easyCourse/vo/LessonVO.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/easyCourse/service/impl/TeacherServiceImpl.java" />
+        <option value="$APPLICATION_CONFIG_DIR$/consoles/.datagrid/cell" />
+        <option value="$PROJECT_DIR$/src/main/java/com/easyCourse/service/LessonService.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/easyCourse/model/Lesson.java" />
+        <option value="$PROJECT_DIR$/src/main/resoureces/mapper/TeacherDao.xml" />
+        <option value="$PROJECT_DIR$/src/main/java/com/easyCourse/dao/LessonDao.java" />
+        <option value="$PROJECT_DIR$/src/main/resoureces/mapper/LessonDao.xml" />
+        <option value="$PROJECT_DIR$/src/test/java/com/easyCourse/dao/LessonDaoTest.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/easyCourse/controller/TeacherController.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/easyCourse/service/impl/LessonServiceImpl.java" />
       </list>
     </option>
-  </component>
-  <component name="JsBuildToolGruntFileManager" detection-done="true" sorting="DEFINITION_ORDER" />
-  <component name="JsBuildToolPackageJson" detection-done="true" sorting="DEFINITION_ORDER" />
-  <component name="JsGulpfileManager">
-    <detection-done>true</detection-done>
-    <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="LogFilters">
     <option name="FILTER_ERRORS" value="false" />
@@ -324,7 +320,44 @@
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="easyCourse" type="462c0819:PsiDirectoryNode" />
+              <item name="interceptor" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="easyCourse" type="b2602c69:ProjectViewProjectNode" />
+              <item name="easyCourse" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="easyCourse" type="462c0819:PsiDirectoryNode" />
               <item name="model" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="easyCourse" type="b2602c69:ProjectViewProjectNode" />
+              <item name="easyCourse" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="easyCourse" type="462c0819:PsiDirectoryNode" />
+              <item name="service" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="easyCourse" type="b2602c69:ProjectViewProjectNode" />
+              <item name="easyCourse" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="easyCourse" type="462c0819:PsiDirectoryNode" />
+              <item name="service" type="462c0819:PsiDirectoryNode" />
+              <item name="impl" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="easyCourse" type="b2602c69:ProjectViewProjectNode" />
+              <item name="easyCourse" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="easyCourse" type="462c0819:PsiDirectoryNode" />
+              <item name="utils" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="easyCourse" type="b2602c69:ProjectViewProjectNode" />
@@ -340,6 +373,38 @@
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="resoureces" type="462c0819:PsiDirectoryNode" />
               <item name="mapper" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="easyCourse" type="b2602c69:ProjectViewProjectNode" />
+              <item name="easyCourse" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="webapp" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="easyCourse" type="b2602c69:ProjectViewProjectNode" />
+              <item name="easyCourse" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="webapp" type="462c0819:PsiDirectoryNode" />
+              <item name="public" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="easyCourse" type="b2602c69:ProjectViewProjectNode" />
+              <item name="easyCourse" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="webapp" type="462c0819:PsiDirectoryNode" />
+              <item name="WEB-INF" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="easyCourse" type="b2602c69:ProjectViewProjectNode" />
+              <item name="easyCourse" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="webapp" type="462c0819:PsiDirectoryNode" />
+              <item name="WEB-INF" type="462c0819:PsiDirectoryNode" />
+              <item name="views" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="easyCourse" type="b2602c69:ProjectViewProjectNode" />
@@ -370,27 +435,32 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1556541936186" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary" value="JUnit4" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit4" value="" />
+    <property name="database.console.LAST_STATE" value="false" />
     <property name="full.screen.before.presentation.mode" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-    <property name="project.structure.last.edited" value="Project" />
+    <property name="project.structure.last.edited" value="Artifacts" />
     <property name="project.structure.proportion" value="0.15" />
-    <property name="project.structure.side.proportion" value="0.0" />
-    <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
+    <property name="project.structure.side.proportion" value="0.30282485" />
+    <property name="settings.editor.selected.configurable" value="fileTemplates" />
   </component>
   <component name="RecentsManager">
     <key name="CreateTestDialog.RecentsKey">
       <recent name="com.easyCourse.dao" />
     </key>
-    <key name="CreateTestDialog.Recents.Supers">
-      <recent name="" />
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="com.easyCourse.service.impl" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="com.easyCourse.dao" />
+    </key>
+    <key name="CreateTestDialog.Recents.Supers">
+      <recent name="" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="E:\大三下学习资料\软件工程\实验\easyCourse\src\main\resoureces\mapper" />
@@ -408,8 +478,8 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.StudentLessonDaoTest.selectByLessonId">
-    <configuration default="true" type="Applet" factoryName="Applet">
+  <component name="RunManager" selected="Tomcat Server.eqasyCorse">
+    <configuration default="true" type="Applet">
       <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -421,7 +491,7 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="LessonFileDaoTest.selectByLessonId" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="LessonDaoTest.insert" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="Eeg" />
       <extension name="coverage">
         <pattern>
@@ -430,15 +500,15 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="com.easyCourse.dao" />
-      <option name="MAIN_CLASS_NAME" value="com.easyCourse.dao.LessonFileDaoTest" />
-      <option name="METHOD_NAME" value="selectByLessonId" />
+      <option name="MAIN_CLASS_NAME" value="com.easyCourse.dao.LessonDaoTest" />
+      <option name="METHOD_NAME" value="insert" />
       <option name="TEST_OBJECT" value="method" />
       <option name="WORKING_DIRECTORY" value="%MODULE_WORKING_DIR%" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="LessonHomeworkDaoTest.selectByTeacherId" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="LessonDaoTest.selectByTeacherId" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="Eeg" />
       <extension name="coverage">
         <pattern>
@@ -447,7 +517,7 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="com.easyCourse.dao" />
-      <option name="MAIN_CLASS_NAME" value="com.easyCourse.dao.LessonHomeworkDaoTest" />
+      <option name="MAIN_CLASS_NAME" value="com.easyCourse.dao.LessonDaoTest" />
       <option name="METHOD_NAME" value="selectByTeacherId" />
       <option name="TEST_OBJECT" value="method" />
       <option name="WORKING_DIRECTORY" value="%MODULE_WORKING_DIR%" />
@@ -455,7 +525,7 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="LessonNoticeDaoTest.selectByLessonId" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="TeacherDaoTest.insert" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="Eeg" />
       <extension name="coverage">
         <pattern>
@@ -464,15 +534,15 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="com.easyCourse.dao" />
-      <option name="MAIN_CLASS_NAME" value="com.easyCourse.dao.LessonNoticeDaoTest" />
-      <option name="METHOD_NAME" value="selectByLessonId" />
+      <option name="MAIN_CLASS_NAME" value="com.easyCourse.dao.TeacherDaoTest" />
+      <option name="METHOD_NAME" value="insert" />
       <option name="TEST_OBJECT" value="method" />
       <option name="WORKING_DIRECTORY" value="%MODULE_WORKING_DIR%" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="StudentHomeworkDaoTest.selectByHomeworkId" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="TeacherDaoTest.selectById" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="Eeg" />
       <extension name="coverage">
         <pattern>
@@ -481,15 +551,15 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="com.easyCourse.dao" />
-      <option name="MAIN_CLASS_NAME" value="com.easyCourse.dao.StudentHomeworkDaoTest" />
-      <option name="METHOD_NAME" value="selectByHomeworkId" />
+      <option name="MAIN_CLASS_NAME" value="com.easyCourse.dao.TeacherDaoTest" />
+      <option name="METHOD_NAME" value="selectById" />
       <option name="TEST_OBJECT" value="method" />
       <option name="WORKING_DIRECTORY" value="%MODULE_WORKING_DIR%" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="StudentLessonDaoTest.selectByLessonId" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="TeacherDaoTest.selectByIdAndPassword" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="Eeg" />
       <extension name="coverage">
         <pattern>
@@ -498,8 +568,25 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="com.easyCourse.dao" />
-      <option name="MAIN_CLASS_NAME" value="com.easyCourse.dao.StudentLessonDaoTest" />
-      <option name="METHOD_NAME" value="selectByLessonId" />
+      <option name="MAIN_CLASS_NAME" value="com.easyCourse.dao.TeacherDaoTest" />
+      <option name="METHOD_NAME" value="selectByIdAndPassword" />
+      <option name="TEST_OBJECT" value="method" />
+      <option name="WORKING_DIRECTORY" value="%MODULE_WORKING_DIR%" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="TeacherDaoTest.selectByMail" type="JUnit" factoryName="JUnit" nameIsGenerated="true">
+      <module name="Eeg" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.easyCourse.dao.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.easyCourse.dao" />
+      <option name="MAIN_CLASS_NAME" value="com.easyCourse.dao.TeacherDaoTest" />
+      <option name="METHOD_NAME" value="selectByMail" />
       <option name="TEST_OBJECT" value="method" />
       <option name="WORKING_DIRECTORY" value="%MODULE_WORKING_DIR%" />
       <method v="2">
@@ -507,25 +594,14 @@
       </method>
     </configuration>
     <configuration default="true" type="JUnit" factoryName="JUnit">
+      <option name="TEST_OBJECT" value="class" />
       <option name="WORKING_DIRECTORY" value="%MODULE_WORKING_DIR%" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration default="true" type="JetRunConfigurationType" factoryName="Kotlin">
-      <option name="VM_PARAMETERS" />
-      <option name="PROGRAM_PARAMETERS" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <option name="MAIN_CLASS_NAME" />
-      <option name="WORKING_DIRECTORY" />
-      <module name="" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration default="true" type="TestNG" factoryName="TestNG">
+    <configuration default="true" type="TestNG">
+      <option name="TEST_OBJECT" value="CLASS" />
       <option name="WORKING_DIRECTORY" value="%MODULE_WORKING_DIR%" />
       <properties />
       <listeners />
@@ -533,7 +609,7 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="eqasyCorse" type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" factoryName="Local" APPLICATION_SERVER_NAME="Tomcat 9.0.0.M18" ALTERNATIVE_JRE_ENABLED="false">
+    <configuration name="eqasyCorse" type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" factoryName="Local" APPLICATION_SERVER_NAME="Tomcat 8.5.39" ALTERNATIVE_JRE_ENABLED="false">
       <option name="UPDATING_POLICY" value="restart-server" />
       <deployment>
         <artifact name="easyCourse:war exploded">
@@ -545,11 +621,11 @@
       <server-settings>
         <option name="BASE_DIRECTORY_NAME" value="Unnamed_easyCourse" />
       </server-settings>
-      <predefined_log_file id="Tomcat" enabled="true" />
-      <predefined_log_file id="Tomcat Catalina" enabled="true" />
-      <predefined_log_file id="Tomcat Manager" enabled="false" />
-      <predefined_log_file id="Tomcat Host Manager" enabled="false" />
-      <predefined_log_file id="Tomcat Localhost Access" enabled="false" />
+      <predefined_log_file enabled="true" id="Tomcat" />
+      <predefined_log_file enabled="true" id="Tomcat Catalina" />
+      <predefined_log_file id="Tomcat Manager" />
+      <predefined_log_file id="Tomcat Host Manager" />
+      <predefined_log_file id="Tomcat Localhost Access" />
       <RunnerSettings RunnerId="Debug">
         <option name="DEBUG_PORT" value="49676" />
       </RunnerSettings>
@@ -605,30 +681,31 @@
         </option>
       </method>
     </configuration>
-    <configuration default="true" type="#org.jetbrains.idea.devkit.run.PluginConfigurationType" factoryName="Plugin">
+    <configuration default="true" type="#org.jetbrains.idea.devkit.run.PluginConfigurationType">
       <module name="" />
       <option name="VM_PARAMETERS" value="-Xmx512m -Xms256m -XX:MaxPermSize=250m -ea" />
       <option name="PROGRAM_PARAMETERS" />
-      <predefined_log_file id="idea.log" enabled="true" />
+      <predefined_log_file enabled="true" id="idea.log" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
     <list>
+      <item itemvalue="JUnit.TeacherDaoTest.selectByMail" />
+      <item itemvalue="JUnit.LessonDaoTest.selectByTeacherId" />
+      <item itemvalue="JUnit.TeacherDaoTest.insert" />
+      <item itemvalue="JUnit.TeacherDaoTest.selectById" />
+      <item itemvalue="JUnit.TeacherDaoTest.selectByIdAndPassword" />
       <item itemvalue="Tomcat Server.eqasyCorse" />
-      <item itemvalue="JUnit.LessonFileDaoTest.selectByLessonId" />
-      <item itemvalue="JUnit.LessonHomeworkDaoTest.selectByTeacherId" />
-      <item itemvalue="JUnit.LessonNoticeDaoTest.selectByLessonId" />
-      <item itemvalue="JUnit.StudentHomeworkDaoTest.selectByHomeworkId" />
-      <item itemvalue="JUnit.StudentLessonDaoTest.selectByLessonId" />
+      <item itemvalue="JUnit.LessonDaoTest.insert" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.StudentLessonDaoTest.selectByLessonId" />
-        <item itemvalue="JUnit.StudentHomeworkDaoTest.selectByHomeworkId" />
-        <item itemvalue="JUnit.LessonNoticeDaoTest.selectByLessonId" />
-        <item itemvalue="JUnit.LessonFileDaoTest.selectByLessonId" />
-        <item itemvalue="JUnit.LessonHomeworkDaoTest.selectByTeacherId" />
+        <item itemvalue="JUnit.LessonDaoTest.insert" />
+        <item itemvalue="JUnit.LessonDaoTest.selectByTeacherId" />
+        <item itemvalue="JUnit.TeacherDaoTest.selectByIdAndPassword" />
+        <item itemvalue="JUnit.TeacherDaoTest.insert" />
+        <item itemvalue="JUnit.TeacherDaoTest.selectById" />
       </list>
     </recent_temporary>
   </component>
@@ -648,63 +725,66 @@
       <workItem from="1556533379503" duration="732000" />
       <workItem from="1556534158965" duration="4405000" />
       <workItem from="1556538812812" duration="3132000" />
+      <workItem from="1557134386469" duration="263000" />
+      <workItem from="1557134673091" duration="13954000" />
     </task>
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="TeacherDaoTest_selectAll - 2019.04.29 at 19h 14m 33s.xml">
-      <configuration name="TeacherDaoTest.selectAll" configurationId="JUnit" />
+    <history-entry file="TeacherDaoTest_selectByIdAndPassword - 2019.05.06 at 18h 44m 50s.xml">
+      <configuration name="TeacherDaoTest.selectByIdAndPassword" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="LessonNoticeDaoTest_selectByLessonId - 2019.04.29 at 20h 12m 07s.xml">
-      <configuration name="LessonNoticeDaoTest.selectByLessonId" configurationId="JUnit" />
+    <history-entry file="TeacherDaoTest_selectByIdAndPassword - 2019.05.06 at 18h 49m 33s.xml">
+      <configuration name="TeacherDaoTest.selectByIdAndPassword" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="LessonFileDaoTest_selectByLessonId - 2019.04.29 at 20h 12m 49s.xml">
-      <configuration name="LessonFileDaoTest.selectByLessonId" configurationId="JUnit" />
+    <history-entry file="LessonDaoTest_selectByTeacherId - 2019.05.06 at 19h 44m 25s.xml">
+      <configuration name="LessonDaoTest.selectByTeacherId" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="LessonNoticeDaoTest_selectByLessonId - 2019.04.29 at 20h 13m 05s.xml">
-      <configuration name="LessonNoticeDaoTest.selectByLessonId" configurationId="JUnit" />
+    <history-entry file="LessonDaoTest_selectByTeacherId - 2019.05.06 at 19h 49m 13s.xml">
+      <configuration name="LessonDaoTest.selectByTeacherId" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="LessonNoticeDaoTest_selectByLessonId - 2019.04.29 at 20h 13m 51s.xml">
-      <configuration name="LessonNoticeDaoTest.selectByLessonId" configurationId="JUnit" />
+    <history-entry file="LessonDaoTest_insert - 2019.05.06 at 21h 07m 45s.xml">
+      <configuration name="LessonDaoTest.insert" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="StudentHomeworkDaoTest_selectByHomeworkId - 2019.04.29 at 20h 27m 40s.xml">
-      <configuration name="StudentHomeworkDaoTest.selectByHomeworkId" configurationId="JUnit" />
+    <history-entry file="LessonDaoTest_insert - 2019.05.06 at 21h 08m 19s.xml">
+      <configuration name="LessonDaoTest.insert" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="StudentLessonDaoTest_selectByLessonId - 2019.04.29 at 20h 39m 38s.xml">
-      <configuration name="StudentLessonDaoTest.selectByLessonId" configurationId="JUnit" />
+    <history-entry file="LessonDaoTest_insert - 2019.05.06 at 21h 09m 46s.xml">
+      <configuration name="LessonDaoTest.insert" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="StudentLessonDaoTest_selectByLessonId - 2019.04.29 at 20h 40m 30s.xml">
-      <configuration name="StudentLessonDaoTest.selectByLessonId" configurationId="JUnit" />
+    <history-entry file="LessonDaoTest_insert - 2019.05.06 at 21h 10m 26s.xml">
+      <configuration name="LessonDaoTest.insert" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="StudentLessonDaoTest_selectByLessonId - 2019.04.29 at 20h 44m 06s.xml">
-      <configuration name="StudentLessonDaoTest.selectByLessonId" configurationId="JUnit" />
+    <history-entry file="LessonDaoTest_insert - 2019.05.06 at 21h 10m 56s.xml">
+      <configuration name="LessonDaoTest.insert" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="StudentLessonDaoTest_selectByLessonId - 2019.04.29 at 20h 45m 07s.xml">
-      <configuration name="StudentLessonDaoTest.selectByLessonId" configurationId="JUnit" />
+    <history-entry file="LessonDaoTest_insert - 2019.05.06 at 21h 12m 12s.xml">
+      <configuration name="LessonDaoTest.insert" configurationId="JUnit" />
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="10038000" />
+    <option name="totallyTimeSpent" value="24255000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-7" y="-7" width="1295" height="704" extended-state="6" />
+    <frame x="0" y="28" width="1920" height="1052" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info id="Web" order="0" side_tool="true" />
-      <window_info content_ui="combo" id="Project" order="1" sideWeight="0.4991453" visible="true" weight="0.22638564" />
+      <window_info active="true" content_ui="combo" id="Project" order="1" sideWeight="0.4991453" visible="true" weight="0.19947916" />
       <window_info id="Structure" order="2" weight="0.25" />
       <window_info id="Designer" order="3" />
       <window_info id="UI Designer" order="4" />
       <window_info id="Image Layers" order="5" />
       <window_info id="Favorites" order="6" sideWeight="0.50085473" side_tool="true" weight="0.52738655" />
       <window_info id="Capture Tool" order="7" />
-      <window_info anchor="bottom" id="Database Changes" />
+      <window_info anchor="bottom" id="Database Console" weight="0.32947367" />
       <window_info anchor="bottom" id="Application Servers" order="0" weight="0.3298122" />
-      <window_info anchor="bottom" id="Messages" order="1" />
+      <window_info anchor="bottom" id="Messages" order="1" weight="0.32947367" />
       <window_info anchor="bottom" id="Java Enterprise" order="2" />
       <window_info anchor="bottom" id="Spring" order="3" />
       <window_info anchor="bottom" id="Message" order="4" />
       <window_info anchor="bottom" id="Find" order="5" />
-      <window_info anchor="bottom" id="Run" order="6" weight="0.49578413" />
+      <window_info anchor="bottom" id="Run" order="6" visible="true" weight="0.37473685" />
       <window_info anchor="bottom" id="Debug" order="7" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="8" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="9" weight="0.4" />
@@ -712,6 +792,8 @@
       <window_info anchor="bottom" id="Version Control" order="11" />
       <window_info anchor="bottom" id="Terminal" order="12" />
       <window_info anchor="bottom" id="Event Log" order="13" side_tool="true" />
+      <window_info anchor="bottom" id="Database Changes" order="14" />
+      <window_info anchor="bottom" id="Docker" order="15" show_stripe_button="false" />
       <window_info anchor="right" id="CDI" order="0" />
       <window_info anchor="right" id="JSF" order="1" />
       <window_info anchor="right" id="Bean Validation" order="2" />
@@ -719,70 +801,18 @@
       <window_info anchor="right" id="Ant Build" order="4" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="5" weight="0.25" />
       <window_info anchor="right" id="Maven Projects" order="6" />
-      <window_info anchor="right" id="Database" order="7" weight="0.23645833" />
+      <window_info anchor="right" id="Database" order="7" weight="0.2125" />
       <window_info anchor="right" id="Palette&#9;" order="8" />
       <window_info anchor="right" id="Capture Analysis" order="9" />
       <window_info anchor="right" id="Theme Preview" order="10" />
       <window_info anchor="right" id="Palette" order="11" />
+      <window_info anchor="right" id="Maven" order="12" />
     </layout>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
   </component>
-  <component name="VcsContentAnnotationSettings">
-    <option name="myLimit" value="2678400000" />
-  </component>
   <component name="editorHistoryManager">
-    <entry file="das://table:/633d3b67/72b67ad0-9d6c-401f-b062-a70aeb3e56c2/easyCourse.user_teacher" />
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/easyCourse/model/Student.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="264">
-          <caret line="11" column="21" selection-start-line="11" selection-start-column="21" selection-end-line="11" selection-end-column="21" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/easyCourse/dao/IStudentDao.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="96">
-          <caret line="4" column="19" lean-forward="true" selection-start-line="4" selection-start-column="19" selection-end-line="4" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/pom.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="199">
-          <caret line="124" column="26" selection-start-line="124" selection-start-column="26" selection-end-line="124" selection-end-column="26" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/com/easyCourse/dao/IStudentDaoTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="168">
-          <caret line="13" column="37" selection-start-line="13" selection-start-column="37" selection-end-line="13" selection-end-column="37" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resoureces/spring-mybatis.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="312">
-          <caret line="13" column="32" selection-start-line="13" selection-start-column="32" selection-end-line="13" selection-end-column="32" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/com/easyCourse/dao/TeacherDaoTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="480">
-          <caret line="20" column="16" selection-start-line="20" selection-start-column="16" selection-end-line="20" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/easyCourse/dao/TeacherDao.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="290">
-          <caret line="10" column="3" selection-start-line="10" selection-start-column="3" selection-end-line="10" selection-end-column="3" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/easyCourse/dao/LessonHomeworkDao.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="377">
@@ -803,26 +833,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resoureces/mapper/TeacherDao.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="69">
-          <caret line="3" selection-start-line="3" selection-end-line="3" />
-          <folding>
-            <marker date="1556538491419" expanded="true" signature="1029:1055" ph="select * fro... user_teacher" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/easyCourse/dao/LessonDao.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="161">
-          <caret line="10" lean-forward="true" selection-start-line="10" selection-end-line="10" selection-end-column="25" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/easyCourse/dao/LessonFileDao.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="322">
@@ -837,16 +847,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="276">
           <caret line="12" column="32" lean-forward="true" selection-end-line="21" selection-end-column="9" />
-          <folding>
-            <marker date="1556538491167" expanded="true" signature="944:1007" ph="select * fro... lesson_file" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/com/easyCourse/dao/LessonDaoTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="92">
-          <caret line="13" selection-start-line="13" selection-end-line="14" selection-end-column="55" />
         </state>
       </provider>
     </entry>
@@ -905,9 +905,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="276">
           <caret line="12" column="21" lean-forward="true" selection-end-line="22" selection-end-column="9" />
-          <folding>
-            <marker date="1556538491395" expanded="true" signature="1052:1120" ph="select * fro... lesson_homework" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -928,60 +925,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/easyCourse/model/Teacher.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-23">
-          <caret line="6" column="8" selection-start-line="6" selection-start-column="8" selection-end-line="6" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/easyCourse/model/Lesson.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="75">
-          <caret line="11" lean-forward="true" selection-start-line="11" selection-end-line="26" selection-end-column="25" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/easyCourse/model/StudentLesson.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="520">
-          <caret line="24" column="1" lean-forward="true" selection-start-line="24" selection-start-column="1" selection-end-line="24" selection-end-column="1" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/easyCourse/dao/StudentHomeworkDao.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="66">
-          <caret line="8" column="3" lean-forward="true" selection-start-line="8" selection-start-column="3" selection-end-line="10" selection-end-column="25" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resoureces/mapper/StudentHomeworkDao.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="138">
-          <caret line="6" selection-start-line="6" selection-end-line="7" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/easyCourse/dao/StudentLessonDao.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="173">
-          <caret line="23" lean-forward="true" selection-start-line="23" selection-end-line="23" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/test/java/com/easyCourse/dao/StudentHomeworkDaoTest.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="93">
@@ -989,19 +932,32 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resoureces/mapper/StudentDao.xml">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/easyCourse/dao/StudentHomeworkDao.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="230">
-          <caret line="10" column="9" lean-forward="true" selection-start-line="10" selection-start-column="9" selection-end-line="10" selection-end-column="9" />
+        <state relative-caret-position="115">
+          <caret line="8" column="3" selection-start-line="8" selection-start-column="3" selection-end-line="10" selection-end-column="25" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resoureces/mapper/LessonDao.xml">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/easyCourse/dao/StudentLessonDao.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="368">
-          <caret line="16" column="51" selection-start-line="16" selection-start-column="38" selection-end-line="16" selection-end-column="51" />
+        <state relative-caret-position="322">
+          <caret line="14" column="33" selection-start-line="14" selection-start-column="17" selection-end-line="14" selection-end-column="33" />
           <folding>
-            <marker date="1556538491444" expanded="true" signature="970:990" ph="select * fro... lesson" />
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/com/easyCourse/dao/StudentLessonDaoTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="345">
+          <caret line="15" column="19" selection-start-line="15" selection-start-column="19" selection-end-line="15" selection-end-column="19" />
+          <folding>
+            <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1013,10 +969,263 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/com/easyCourse/dao/StudentLessonDaoTest.java">
+    <entry file="file://$PROJECT_DIR$/src/main/resoureces/mapper/StudentHomeworkDao.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="267">
-          <caret line="25" column="21" lean-forward="true" selection-start-line="25" selection-start-column="21" selection-end-line="25" selection-end-column="21" />
+        <state relative-caret-position="138">
+          <caret line="6" selection-start-line="6" selection-end-line="7" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/easyCourse/model/StudentLesson.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="575">
+          <caret line="25" selection-start-line="25" selection-end-line="25" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="das://72b67ad0-9d6c-401f-b062-a70aeb3e56c2/schema/easyCourse/table/user_student">
+      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
+        <state>
+          <filtering enabled="true" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/easyCourse/utils/StringUtils.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="92">
+          <caret line="7" column="13" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/login.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2001">
+          <caret line="90" column="16" lean-forward="true" selection-start-line="90" selection-start-column="16" selection-end-line="90" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/register.html">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/javax/javaee-api/7.0/javaee-api-7.0.jar!/javax/servlet/http/HttpServletResponse.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="138">
+          <caret line="11" column="17" selection-start-line="11" selection-start-column="17" selection-end-line="11" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/easyCourse/service/IStudentService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="138">
+          <caret line="6" column="19" selection-start-line="6" selection-start-column="19" selection-end-line="6" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/easyCourse/dao/IStudentDao.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="161">
+          <caret line="7" column="18" selection-start-line="7" selection-start-column="12" selection-end-line="7" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resoureces/mapper/StudentDao.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="276">
+          <caret line="12" column="13" lean-forward="true" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/easyCourse/service/impl/StudentServiceImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="276">
+          <caret line="18" column="34" lean-forward="true" selection-start-line="18" selection-start-column="34" selection-end-line="18" selection-end-column="34" />
+          <folding>
+            <element signature="e#502#503#0" expanded="true" />
+            <element signature="e#565#566#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/com/easyCourse/dao/TeacherDaoTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="184">
+          <caret line="8" selection-start-line="8" selection-end-line="8" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/easyCourse/utils/StatusCode.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="138">
+          <caret line="6" lean-forward="true" selection-start-line="6" selection-end-line="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/easyCourse/utils/TokenState.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="299">
+          <caret line="13" column="19" lean-forward="true" selection-start-line="13" selection-start-column="19" selection-end-line="13" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/easyCourse/model/Teacher.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="184">
+          <caret line="9" column="22" lean-forward="true" selection-start-line="9" selection-start-column="22" selection-end-line="9" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/easyCourse/dao/TeacherDao.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="24" selection-start-line="24" selection-end-line="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/spring-test/4.3.5.RELEASE/spring-test-4.3.5.RELEASE.jar!/org/springframework/test/context/junit4/SpringJUnit4ClassRunner.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="171">
+          <caret line="87" selection-start-line="87" selection-end-line="87" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/easyCourse/service/TeacherService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="345">
+          <caret line="25" column="32" lean-forward="true" selection-start-line="25" selection-start-column="32" selection-end-line="25" selection-end-column="32" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/easyCourse/interceptor/LoginInterceptor.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="598">
+          <caret line="37" column="40" selection-start-line="37" selection-start-column="40" selection-end-line="37" selection-end-column="40" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/easyCourse/controller/StudentController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1295">
+          <caret line="102" column="47" selection-start-line="102" selection-start-column="38" selection-end-line="102" selection-end-column="47" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/easyCourse/utils/Jwt.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="206">
+          <caret line="75" column="47" selection-start-line="75" selection-start-column="47" selection-end-line="75" selection-end-column="47" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="das://72b67ad0-9d6c-401f-b062-a70aeb3e56c2/schema/easyCourse/table/user_teacher">
+      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
+        <state>
+          <filtering enabled="true" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/easyCourse/service/impl/TeacherServiceImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1847">
+          <caret line="95" column="13" selection-start-line="95" selection-start-column="13" selection-end-line="95" selection-end-column="13" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#3001#3002#0" expanded="true" />
+            <element signature="e#3056#3057#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/easyCourse/vo/LessonVO.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="528">
+          <caret line="23" lean-forward="true" selection-start-line="23" selection-end-line="23" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/easyCourse/service/LessonService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="736">
+          <caret line="32" column="19" selection-start-line="32" selection-start-column="19" selection-end-line="32" selection-end-column="19" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resoureces/mapper/TeacherDao.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="642">
+          <caret line="33" column="22" lean-forward="true" selection-start-line="33" selection-start-column="22" selection-end-line="33" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resoureces/mapper/LessonDao.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="292">
+          <caret line="35" column="44" selection-start-line="35" selection-start-column="44" selection-end-line="35" selection-end-column="44" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/easyCourse/model/Lesson.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="667">
+          <caret line="29" lean-forward="true" selection-start-line="29" selection-end-line="29" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/com/easyCourse/dao/LessonDaoTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="168">
+          <caret line="33" column="55" selection-start-line="33" selection-start-column="55" selection-end-line="33" selection-end-column="55" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="das://72b67ad0-9d6c-401f-b062-a70aeb3e56c2/schema/easyCourse/table/lesson">
+      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
+        <state>
+          <filtering enabled="true" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/easyCourse/dao/LessonDao.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="711">
+          <caret line="32" column="50" selection-start-line="32" selection-start-column="50" selection-end-line="32" selection-end-column="50" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/easyCourse/service/impl/LessonServiceImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-69">
+          <caret line="9" selection-start-line="9" selection-end-line="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/easyCourse/controller/TeacherController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="398">
+          <caret line="88" column="34" lean-forward="true" selection-start-line="88" selection-start-column="34" selection-end-line="88" selection-end-column="34" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -1029,11 +1238,11 @@
       <state key="ArtifactsStructureConfigurable.UI">
         <settings>
           <artifact-editor />
-          <last-edited>easyCourse:war exploded</last-edited>
+          <last-edited>Eeg:war</last-edited>
           <splitter-proportions>
             <option name="proportions">
               <list>
-                <option value="0.2" />
+                <option value="0.30282485" />
                 <option value="0.5" />
               </list>
             </option>
@@ -1046,7 +1255,7 @@
           <splitter-proportions>
             <option name="proportions">
               <list>
-                <option value="0.2" />
+                <option value="0.30282485" />
               </list>
             </option>
           </splitter-proportions>
@@ -1077,7 +1286,7 @@
       </state>
       <state key="ModuleStructureConfigurable.UI">
         <settings>
-          <last-edited>Eeg</last-edited>
+          <last-edited>Web|Eeg</last-edited>
           <splitter-proportions>
             <option name="proportions">
               <list>
@@ -1093,7 +1302,7 @@
           <splitter-proportions>
             <option name="proportions">
               <list>
-                <option value="0.2" />
+                <option value="0.30282485" />
               </list>
             </option>
           </splitter-proportions>

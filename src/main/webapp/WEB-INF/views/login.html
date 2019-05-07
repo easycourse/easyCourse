@@ -154,13 +154,18 @@
 					teacherLogin() {
 						new AjaxRequest({
 							type: "post",
-							url: "/loginTeacher",
+							url: "/teacher/login/verify",
 							param: JSON.stringify(this.teacher),
 							isShowLoader: true,
 							dataType: "json",
-							callBack: function(res) {
-								console.log(res);
-							}
+                            success:function(msg){
+                                var data = JSON.parse(msg)
+                                if(data.status == 200){
+                                    window.location.href = "/teacher/index"
+                                }else{
+                                    thisVM.prompt = '帐户名或密码错误！'
+                                }
+                            }
 						})
 					},
 					teacherRegist(){
@@ -180,8 +185,8 @@
 							datatype:"json",
 							success:function(msg){
 							    var data = JSON.parse(msg)
-								if(data.success){
-                                    window.location.href = ""
+								if(data.status == 200){
+                                    window.location.href = "/student/index"
 								}else{
 								    thisVM.prompt = '帐户名或密码错误！'
 								}

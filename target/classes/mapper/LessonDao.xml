@@ -9,13 +9,30 @@
         <result column="teacher_id" jdbcType="VARCHAR" property="teacherId"/>
         <result column="lesson_time" jdbcType="VARCHAR" property="lessonTime"/>
         <result column="detail" jdbcType="VARCHAR" property="detail"/>
+        <result column="student_num" jdbcType="INTEGER" property="studentNum"/>
         <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
         <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
         <result column="is_delete" jdbcType="INTEGER" property="isDelete"/>
     </resultMap>
 
-    <select id="selectAll" resultMap="BaseResultMap">
-        select * from lesson
+    <select id="selectByTeacherId" resultType="com.easyCourse.vo.LessonVO">
+        select
+            lesson.lesson_id as lessonId,
+            lesson.lesson_name as lessonName,
+            lesson.lesson_time as lessonTime,
+            lesson.detail as detail,
+            lesson.student_num as studentNum,
+            user_teacher.teacher_id as teacherId,
+            user_teacher.teacher_name as teacherName,
+            user_teacher.phone as phone,
+            user_teacher.mail as mail,
+            user_teacher.location as location
+        from lesson left join user_teacher on lesson.teacher_id = user_teacher.teacher_id
+        where lesson.teacher_id = #{teacherId} and lesson.is_delete = 0
     </select>
 
+    <insert id="insert">
+        insert into lesson (lesson_id, lesson_name, lesson_time, teacher_id, detail, student_num)
+        values (#{lessonId}, #{lessonName}, #{lessonTime}, #{teacherId}, #{lessonDetail}, 0)
+    </insert>
 </mapper>
