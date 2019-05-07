@@ -30,7 +30,7 @@ public class StudentController {
     }
 
     //返回登录页面
-    @GetMapping("/login/index")
+    @GetMapping("/login")
     public String getLoginIndex(HttpServletRequest request, HttpServletResponse response) throws IOException {
         return "login";
     }
@@ -39,12 +39,6 @@ public class StudentController {
     @GetMapping("/register")
     public String getRegisterIndex(HttpServletRequest request, HttpServletResponse response) throws IOException {
         return "/register";
-    }
-
-    //返回学生主页
-    @GetMapping("/index")
-    public String getIndex(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        return "student/index";
     }
 
     //执行登录请求数据处理
