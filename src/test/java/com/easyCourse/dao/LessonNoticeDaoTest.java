@@ -28,4 +28,22 @@ public class LessonNoticeDaoTest {
         lessonNoticeList.forEach(System.out::println);
 
     }
+
+    @Test
+    public void findNoticeByLessonId() {
+        String lessonId = "2";
+        List<LessonNotice> lessonNoticeList = lessonNoticeDao.findAllNoticeByLessonId(lessonId);
+
+        System.out.println("xxx");
+        lessonNoticeList.forEach(System.out::println);
+    }
+
+    @Test
+    public void findNoticeByTeacherId() {
+        String teacherId = "1";
+        List<LessonNotice> lessonNoticeList = lessonNoticeDao.findAllNoticeByTeacherId(teacherId);
+
+        System.out.println("xxx");
+        lessonNoticeList.forEach(System.out::println);
+    }
 }

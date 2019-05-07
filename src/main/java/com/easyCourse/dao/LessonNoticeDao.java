@@ -18,4 +18,18 @@ public interface LessonNoticeDao {
      * @return 课程通知列表
      */
     List<LessonNotice> selectByLessonId(String lessonId);
+
+    /**
+     * 获取某一课程的所有通知,实现了按添加时间降序排序以及过滤掉删除的通知
+     * @param lessonId
+     * @return
+     */
+    List<LessonNotice> findAllNoticeByLessonId(String lessonId);
+
+    /**
+     * 获取一个老师发布的所有通知,实现了按添加时间降序排序以及过滤掉删除的通知
+     * @param lessonId
+     * @return
+     */
+    List<LessonNotice> findAllNoticeByTeacherId(String lessonId);
 }

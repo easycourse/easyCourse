@@ -1,6 +1,8 @@
 package com.easyCourse.service.impl;
 
 import com.easyCourse.dao.LessonDao;
+import com.easyCourse.dao.LessonNoticeDao;
+import com.easyCourse.entity.LessonNotice;
 import com.easyCourse.service.LessonService;
 import com.easyCourse.utils.StatusCode;
 import com.easyCourse.vo.LessonVO;
@@ -21,6 +23,8 @@ public class LessonServiceImpl implements LessonService {
 
     @Autowired
     private LessonDao lessonDao;
+    @Autowired
+    private LessonNoticeDao lessonNoticeDao;
 
     @Override
     public JSONObject getByTeacherId(String teacherId) {
@@ -48,5 +52,23 @@ public class LessonServiceImpl implements LessonService {
         result.put("msg", "添加课程成功");
         result.put("data", null);
         return result;
+    }
+
+    @Override
+    public List<LessonNotice> getNoticeListByLessonId(String lessonId){
+
+        List<LessonNotice> lessonNoticeList = lessonNoticeDao.findAllNoticeByLessonId(lessonId);
+
+        return lessonNoticeList;
+
+    }
+
+    @Override
+    public List<LessonNotice> getNoticeListByTeacherId(String teacherId){
+
+        List<LessonNotice> lessonNoticeList = lessonNoticeDao.findAllNoticeByTeacherId(teacherId);
+
+        return lessonNoticeList;
+
     }
 }

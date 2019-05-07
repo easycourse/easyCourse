@@ -15,9 +15,30 @@
         <result column="appendix" jdbcType="VARCHAR" property="appendix"/>
     </resultMap>
 
+    <sql id="Base_Column_List">
+        id, lesson_id, teacher_id, title, detail, notice_type, create_time, is_delete, appendix
+    </sql>
+
     <select id="selectByLessonId" resultMap="BaseResultMap">
         select * from lesson_notice
         where lesson_id = #{lessonId}
+    </select>
+
+
+    <select id="findAllNoticeByLessonId" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from lesson_notice
+        where lesson_id = #{lessonId,jdbcType=VARCHAR} and is_delete =0
+        ORDER BY create_time DESC
+    </select>
+
+    <select id="findAllNoticeByTeacherId" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from lesson_notice
+        where teacher_id = #{teacherId,jdbcType=VARCHAR} and is_delete =0
+        ORDER BY create_time DESC
     </select>
 
 </mapper>

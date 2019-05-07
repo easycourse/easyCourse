@@ -1,11 +1,13 @@
 package com.easyCourse.controller;
 
 import com.easyCourse.entity.LessonFile;
+import com.easyCourse.entity.LessonNotice;
 import com.easyCourse.entity.Teacher;
 import com.easyCourse.service.LessonService;
 import com.easyCourse.service.TeacherService;
 import net.minidev.json.JSONObject;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -103,15 +105,20 @@ public class TeacherController {
         return lessonService.getByTeacherId(teacherId);
     }
 
-    //TODO:查看发布的历史通知
-    @GetMapping("//notice/index")
-    @ResponseBody
-    public JSONObject getNotice(HttpSession session) {
+    //查看发布的历史通知
+    @GetMapping("/notice/index")
+    public String getNotice(Model model, HttpSession session) {
         // 从session中获取教师信息
         Teacher teacher = (Teacher) session.getAttribute("teacher");
         String teacherId = teacher.getTeacherId();
         //根据teacherId查询得到一个notice的list 然后放在resultBean里面返回，status用StatusCode.success表示成功
-        return null;
+
+
+        List<LessonNotice> lessonNoticeList = lessonService.getNoticeListByTeacherId(teacherId);
+
+        model.addAttribute("lessonNoticeList", lessonNoticeList);
+
+        return "teacher/notice/index";
     }
 
     //TODO:添加通知
