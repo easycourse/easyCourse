@@ -2,7 +2,9 @@ package com.easyCourse.service.impl;
 
 import com.alibaba.fastjson.JSONArray;
 import com.easyCourse.dao.LessonDao;
+import com.easyCourse.dao.LessonFileDao;
 import com.easyCourse.dao.LessonNoticeDao;
+import com.easyCourse.entity.LessonFile;
 import com.easyCourse.entity.LessonNotice;
 import com.easyCourse.service.LessonService;
 import com.easyCourse.utils.StatusCode;
@@ -26,6 +28,8 @@ public class LessonServiceImpl implements LessonService {
     private LessonDao lessonDao;
     @Autowired
     private LessonNoticeDao lessonNoticeDao;
+    @Autowired
+    private LessonFileDao lessonFileDao;
 
     @Override
     public JSONObject getByTeacherId(String teacherId) {
@@ -102,5 +106,35 @@ public class LessonServiceImpl implements LessonService {
 
         return result;
 
+    }
+
+    @Override
+    public List<LessonFile> getLessonFileListByTeacherId(String teacherId){
+        List<LessonFile> lessonFileList = lessonFileDao.selectByTeacherId(teacherId);
+
+        return lessonFileList;
+    }
+
+
+    @Override
+    public JSONObject addLessonFile(List<LessonFile> lessonFileList){
+        int count = 0;
+        for(int i= 0; i < lessonFileList.size(); i++){
+            count += lessonFileDao.insertSelective(lessonFileList.get(i));
+        }
+
+        JSONObject result = new JSONObject();
+        result.put("data", null);
+
+        if(count != lessonFileList.size()) {
+            result.put("status", StatusCode.INSERT_COURSEWARE_ERROR);
+            result.put("msg", "添加课件失败");
+
+        } else {
+            result.put("status", StatusCode.SUCCESS);
+            result.put("msg", "添加课件成功");
+        }
+
+        return result;
     }
 }

@@ -20,4 +20,19 @@ public interface LessonFileDao {
      * @return 指定课程文件列表
      */
     List<LessonFile> selectByLessonId(String lessonId);
+
+
+    /**
+     * 根据教师id获取课程文件列表
+     * @param teacherId
+     * @return
+     */
+    List<LessonFile> selectByTeacherId(String teacherId);
+
+    /**
+     * 插入一条课程文件记录,可以有空属性
+     * @param lessonFile
+     * @return
+     */
+    int insertSelective(LessonFile lessonFile);
 }

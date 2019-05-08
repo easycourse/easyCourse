@@ -127,7 +127,6 @@ public class TeacherController {
         return "teacher/notice/index";
     }
 
-    //TODO:修改参数，放到json中
     @PostMapping("/addNotice")
     @ResponseBody
     public JSONObject addNotice(@RequestBody JSONObject body,  HttpSession session) {
@@ -147,24 +146,51 @@ public class TeacherController {
         return result;
     }
 
-    //TODO:查看发布的课件
+    //TODO:等待lessonDao和lessonService完成后继续实现
     @PostMapping("/courseware/index")
-    @ResponseBody
-    public JSONObject getCourseware(@RequestParam(value = "lessonName", required = false) String lessonName,HttpSession session) {
+    public String getCourseware(@RequestParam(value = "lessonName", required = false) String lessonName, Model model, HttpSession session) {
 
         Teacher teacher = (Teacher) session.getAttribute("teacher");
         String teacherId = teacher.getTeacherId();
         //根据teacherId查到一个lesson_file的list，然后放在resultBean里面返回
+        List<LessonFile> lessonFileList = lessonService.getLessonFileListByTeacherId(teacherId);
+        List<LessonFile> newLessonFileList;
+        if(lessonName!=null){
+            newLessonFileList = new ArrayList<>();
+            for(int i = 0; i < lessonFileList.size(); i++){
+                String lessonId = lessonFileList.get(i).getLessonId();
+
+                //todo:根据lessonId获取lesson，然后获取lessonName，删除和lessonName
+                Lesson lesson = null;
+
+                if(lesson.getLessonName().equals(lessonName)){
+                    newLessonFileList.add(lessonFileList.get(i));
+
+                }
+            }
+        } else {
+            newLessonFileList = lessonFileList;
+        }
+
+        model.addAttribute("lessonFileList", newLessonFileList);
+
 
         //根据原型图，老师可以直接查看所有发布的课件，这个时候lessonName就是null/"" ，如果老师输入了lessonName，就要对上面的list进行一次过滤，返回符合结果的list
-        return null;
+        return "teacher/courseware/index";
     }
 
-    //TODO:老师上传新课件
     @PostMapping("/addCourseware")
     @ResponseBody
-    public JSONObject addCourseware(@RequestParam(value = "title", required = true) String title, @RequestParam(value = "lessonIdList", required = true) List<String> lessonIdList,
-                                @RequestParam(value = "detail", required = false, defaultValue = "") String detail, @RequestParam(value = "appendix", required = true) String appendix,HttpSession session) {
+    public JSONObject addCourseware(@RequestBody JSONObject body,  HttpSession session) {
+
+
+        String title = body.getString("title");
+        JSONArray lessonIdList = body.getJSONArray("lessonIdList");
+        int noticeType = Integer.parseInt(body.getString("noticeType"));
+        String detail = body.getString("detail");
+        String appendix = body.getString("appendix");
+
+
         Teacher teacher = (Teacher) session.getAttribute("teacher");
         String teacherId = teacher.getTeacherId();
         //因为可以选择多个课程，所以会有lessonIdList，需要将上述数据一次性插入到数据库中
@@ -173,13 +199,15 @@ public class TeacherController {
         List<LessonFile> lessonFileList = new ArrayList<>();
         for(int i=0;i<lessonIdList.size();i++){
             LessonFile lessonFile = new LessonFile();
-            lessonFile.setLessonId(lessonIdList.get(i));
+            lessonFile.setLessonId(lessonIdList.getString(i));
             lessonFile.setTitle(title);
             lessonFile.setAppendix(appendix);
             lessonFile.setDetail(detail);
             lessonFile.setUserId(teacherId);
             lessonFileList.add(lessonFile);
         }
+
+        return lessonService.addLessonFile(lessonFileList);
 
         /*以下为mapper可以批量插入list的代码，仅做参考 可以将上述lessonFileList作为参数然后插入数据库
         <insert id="insertForeach" parameterType="java.util.List" useGeneratedKeys="false">
@@ -202,6 +230,5 @@ public class TeacherController {
     				)
     		     </foreach>
         </insert>*/
-        return null;
     }
 }

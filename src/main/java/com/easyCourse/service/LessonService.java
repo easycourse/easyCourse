@@ -1,6 +1,8 @@
 package com.easyCourse.service;
 
 import com.alibaba.fastjson.JSONArray;
+import com.easyCourse.entity.Lesson;
+import com.easyCourse.entity.LessonFile;
 import com.easyCourse.entity.LessonNotice;
 import com.easyCourse.vo.LessonVO;
 import com.alibaba.fastjson.JSONObject;
@@ -59,5 +61,21 @@ public interface LessonService {
      * @return
      */
     JSONObject addNotice(JSONArray lessonIdList, String teacherId, String title, int noticeType, String detail, String appendix);
+
+    /**
+     * 根据教师id获取上传的课件
+     * @param teacherId
+     * @return
+     */
+    List<LessonFile> getLessonFileListByTeacherId(String teacherId);
+
+
+    /**
+     * 添加课程文件
+     * @param lessonFileList
+     * @return
+     */
+    JSONObject addLessonFile(List<LessonFile> lessonFileList);
+
 
 }

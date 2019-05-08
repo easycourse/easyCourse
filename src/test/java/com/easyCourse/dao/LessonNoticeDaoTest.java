@@ -50,7 +50,6 @@ public class LessonNoticeDaoTest {
     @Test
     public void insertSelective() {
         LessonNotice lessonNotice = new LessonNotice();
-        lessonNotice.setId(11112);
         lessonNotice.setTitle("hhhh");
         lessonNotice.setLessonId("1");
         lessonNotice.setTeacherId("1");

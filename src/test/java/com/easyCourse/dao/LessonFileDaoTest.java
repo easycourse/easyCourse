@@ -23,4 +23,25 @@ public class LessonFileDaoTest {
 
         lessonFileList.forEach(System.out::println);
     }
+
+    @Test
+    public void selectByTeacherId() {
+        String teacherId = "1";
+        List<LessonFile> lessonFileList = lessonFileDao.selectByTeacherId(teacherId);
+
+        lessonFileList.forEach(System.out::println);
+    }
+
+    @Test
+    public void insertSelective() {
+        LessonFile lessonFile = new LessonFile();
+        lessonFile.setLessonId("2");
+        lessonFile.setUserId("1");
+        lessonFile.setTitle("kkkkk");
+        lessonFile.setDetail("hhhh");
+        lessonFile.setAppendix("xxx.com");
+        lessonFile.setIsDelete(0);
+
+        int i = lessonFileDao.insertSelective(lessonFile);
+    }
 }

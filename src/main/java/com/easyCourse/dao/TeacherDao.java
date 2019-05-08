@@ -52,7 +52,7 @@ public interface TeacherDao {
 
 
     /**
-     * 插入一条教师记录,teacher的那个参数都不能为空
+     * 插入一条教师记录,teacher的每个参数都不能为空
      * @param teacher
      */
     int insertComplete(Teacher teacher);
