@@ -41,4 +41,64 @@
         ORDER BY create_time DESC
     </select>
 
+
+
+    <insert id="insertSelective" parameterType="com.easyCourse.entity.LessonNotice">
+        insert into lesson_notice
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="lessonId != null">
+                lesson_id,
+            </if>
+            <if test="teacherId != null">
+                teacher_id,
+            </if>
+            <if test="title != null">
+                title,
+            </if>
+            <if test="detail != null">
+                detail,
+            </if>
+            <if test="noticeType != null">
+                notice_type,
+            </if>
+            create_time,
+            <if test="isDelete != null">
+                is_delete,
+            </if>
+            <if test="appendix != null">
+                appendix,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id, jdbcType=INTEGER},
+            </if>
+            <if test="lessonId != null">
+                #{lessonId, jdbcType=VARCHAR},
+            </if>
+            <if test="teacherId != null">
+                #{teacherId, jdbcType=VARCHAR},
+            </if>
+            <if test="title != null">
+                #{title, jdbcType=VARCHAR},
+            </if>
+            <if test="detail != null">
+                #{detail, jdbcType=VARCHAR},
+            </if>
+            <if test="noticeType != null">
+                #{noticeType, jdbcType=INTEGER},
+            </if>
+            now(),
+            <if test="isDelete != null">
+                #{isDelete, jdbcType=INTEGER},
+            </if>
+            <if test="appendix != null">
+                #{appendix, jdbcType=VARCHAR}
+            </if>
+        </trim>
+    </insert>
+
 </mapper>

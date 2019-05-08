@@ -1,11 +1,17 @@
 package com.easyCourse.controller;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
+
+import com.easyCourse.entity.Lesson;
 import com.easyCourse.entity.LessonFile;
 import com.easyCourse.entity.LessonNotice;
 import com.easyCourse.entity.Teacher;
 import com.easyCourse.service.LessonService;
 import com.easyCourse.service.TeacherService;
-import net.minidev.json.JSONObject;
+//import net.minidev.json.JSONArray;
+//import net.minidev.json.JSONObject;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -121,15 +127,24 @@ public class TeacherController {
         return "teacher/notice/index";
     }
 
-    //TODO:添加通知
+    //TODO:修改参数，放到json中
     @PostMapping("/addNotice")
     @ResponseBody
-    public JSONObject addNotice(@RequestParam(value = "title", required = true) String title, @RequestParam(value = "noticeType", required = true) int noticeType,
-                                @RequestParam(value = "detail", required = false, defaultValue = "") String detail, @RequestParam(value = "appendix", required = false , defaultValue = "") String appendix,HttpSession session) {
+    public JSONObject addNotice(@RequestBody JSONObject body,  HttpSession session) {
         Teacher teacher = (Teacher) session.getAttribute("teacher");
         String teacherId = teacher.getTeacherId();
+
+        JSONArray lessonIdList = body.getJSONArray("lessonIdList");
+        String title = body.getString("title");
+        int noticeType = Integer.parseInt(body.getString("noticeType"));
+        String detail = body.getString("detail");
+        String appendix = body.getString("appendix");
+
+
+
         //和添加课程一样，根据参数然后添加 根据结果进一步判断，status用StatusCode.success表示成功
-        return null;
+        JSONObject result = lessonService.addNotice(lessonIdList, teacherId, title, noticeType, detail, appendix);
+        return result;
     }
 
     //TODO:查看发布的课件

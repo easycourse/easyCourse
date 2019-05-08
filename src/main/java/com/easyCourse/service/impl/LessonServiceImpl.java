@@ -1,12 +1,13 @@
 package com.easyCourse.service.impl;
 
+import com.alibaba.fastjson.JSONArray;
 import com.easyCourse.dao.LessonDao;
 import com.easyCourse.dao.LessonNoticeDao;
 import com.easyCourse.entity.LessonNotice;
 import com.easyCourse.service.LessonService;
 import com.easyCourse.utils.StatusCode;
 import com.easyCourse.vo.LessonVO;
-import net.minidev.json.JSONObject;
+import com.alibaba.fastjson.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -69,6 +70,37 @@ public class LessonServiceImpl implements LessonService {
         List<LessonNotice> lessonNoticeList = lessonNoticeDao.findAllNoticeByTeacherId(teacherId);
 
         return lessonNoticeList;
+
+    }
+
+    @Override
+    public JSONObject addNotice(JSONArray lessonIdList, String teacherId, String title, int noticeType, String detail, String appendix){
+        int count = 0;
+        for(int i = 0; i < lessonIdList.size(); i++){
+            LessonNotice lessonNotice = new LessonNotice();
+            lessonNotice.setLessonId(lessonIdList.getString(i));
+            lessonNotice.setTeacherId(teacherId);
+            lessonNotice.setTitle(title);
+            lessonNotice.setDetail(detail);
+            lessonNotice.setNoticeType(noticeType);
+            lessonNotice.setIsDelete(0);
+            lessonNotice.setAppendix(appendix);
+            count += lessonNoticeDao.insertSelective(lessonNotice);
+        }
+
+        JSONObject result = new JSONObject();
+        result.put("data", null);
+
+        if(count != lessonIdList.size()) {
+            result.put("status", StatusCode.INSERT_NOTICE_ERROR);
+            result.put("msg", "添加通知失败");
+
+        } else {
+            result.put("status", StatusCode.SUCCESS);
+            result.put("msg", "添加通知成功");
+        }
+
+        return result;
 
     }
 }

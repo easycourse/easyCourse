@@ -32,4 +32,11 @@ public interface LessonNoticeDao {
      * @return
      */
     List<LessonNotice> findAllNoticeByTeacherId(String lessonId);
+
+    /**
+     * 添加一条通知
+     * @param lessonNotice
+     * @return
+     */
+    int insertSelective(LessonNotice lessonNotice);
 }

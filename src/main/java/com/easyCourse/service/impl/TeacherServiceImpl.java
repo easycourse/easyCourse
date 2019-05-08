@@ -1,12 +1,13 @@
 package com.easyCourse.service.impl;
 
+import com.alibaba.fastjson.JSONObject;
 import com.easyCourse.dao.TeacherDao;
 import com.easyCourse.entity.Teacher;
 import com.easyCourse.service.TeacherService;
 import com.easyCourse.utils.Jwt;
 import com.easyCourse.utils.StatusCode;
 import com.easyCourse.utils.StringUtils;
-import net.minidev.json.JSONObject;
+//import net.minidev.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

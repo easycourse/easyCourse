@@ -46,4 +46,19 @@ public class LessonNoticeDaoTest {
         System.out.println("xxx");
         lessonNoticeList.forEach(System.out::println);
     }
+
+    @Test
+    public void insertSelective() {
+        LessonNotice lessonNotice = new LessonNotice();
+        lessonNotice.setId(11112);
+        lessonNotice.setTitle("hhhh");
+        lessonNotice.setLessonId("1");
+        lessonNotice.setTeacherId("1");
+        lessonNotice.setDetail("xxxxx");
+        lessonNotice.setNoticeType(0);
+        lessonNotice.setIsDelete(0);
+        int i = lessonNoticeDao.insertSelective(lessonNotice);
+        System.out.println(i);
+
+    }
 }

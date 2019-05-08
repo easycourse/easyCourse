@@ -1,8 +1,9 @@
 package com.easyCourse.service;
 
+import com.alibaba.fastjson.JSONArray;
 import com.easyCourse.entity.LessonNotice;
 import com.easyCourse.vo.LessonVO;
-import net.minidev.json.JSONObject;
+import com.alibaba.fastjson.JSONObject;
 
 import java.util.List;
 
@@ -46,4 +47,17 @@ public interface LessonService {
      * @return
      */
     List<LessonNotice> getNoticeListByTeacherId(String teacherId);
+
+    /**
+     * 添加通知
+     * @param lessonIdList
+     * @param teacherId
+     * @param title
+     * @param noticeType
+     * @param detail
+     * @param appendix
+     * @return
+     */
+    JSONObject addNotice(JSONArray lessonIdList, String teacherId, String title, int noticeType, String detail, String appendix);
+
 }
