@@ -138,7 +138,13 @@
                             var temp = JSON.stringify(msg)
                             var data = JSON.parse(temp)
                             if(data.status == 200){
-                                    window.location.href = "/"
+                                if(this.type){
+                                    //教师
+                                    window.location.href = "/teacher/index"
+                                }else {
+                                    //学生
+                                    window.location.href = "/student/index"
+                                }
                             }else{
                                 //注册失败
                             }
