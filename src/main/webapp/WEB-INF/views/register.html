@@ -47,6 +47,14 @@
 							<label>邮箱:</label>
 							<input name="email" type="text" placeholder="请输入邮箱" v-model='email' />
 						</div>
+						<div v-if="type" class="input-item">
+							<label>电话号码:</label>
+							<input name="email" type="text" placeholder="请输入电话" v-model='phone' />
+						</div>
+						<div v-if="type" class="input-item">
+							<label>地址:</label>
+							<input name="email" type="text" placeholder="请输入地址" v-model='location' />
+						</div>
 					</div>
 					<div class="btn-box">
 						<button class="register btn btn-outline-dark" @click="register">
@@ -77,6 +85,8 @@
 				surePassword: '',
 				name:'',
 				email: '',
+				location:'',
+				phone:'',
 				msg:''
 			},
 			methods: {
@@ -99,33 +109,40 @@
 						this.msg = '两次密码输入不一致！'
 						return
 					}
-					var data = {
-                        studentId: this.username,
-                        passwd: this.password,
-                        email: this.email
-					}
+					var data = {}
 					var url
 					if(this.type){
 				        //教师
 						url = '/teacher/register/verify'
+                        data.teacherId=this.username
+						data.passwd=this.password
+						data.mail=this.email
+                        data.location=this.location
+						data.phone = this.phone
 						data.teacherName = this.name
 					}else {
 				        //学生
 				        url = '/student/register/verify'
 						data.studentName = this.name
+                        data.studentId=this.username
+                        data.passwd=this.password
+                        data.email=this.email
 					}
-					new AjaxRequest({
+					var personType = this.type
+					$.ajax({
 						type: "post",
 						url: url,
-						param: data,
-						isShowLoader: true,
+						data: data,
 						dataType: "json",
                         success:function(msg){
-                            var data = JSON.parse(msg)
+                            var temp = JSON.stringify(msg)
+                            var data = JSON.parse(temp)
                             if(data.status == 200){
                                 if(this.type){
+                                    //教师
                                     window.location.href = "/teacher/index"
                                 }else {
+                                    //学生
                                     window.location.href = "/student/index"
                                 }
                             }else{

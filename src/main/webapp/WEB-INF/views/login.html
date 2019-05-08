@@ -152,11 +152,11 @@
 					before: before,
 					after: after,
 					teacherLogin() {
-						new AjaxRequest({
+                        window.event.returnValue=false
+						$.ajax({
 							type: "post",
 							url: "/teacher/login/verify",
-							param: JSON.stringify(this.teacher),
-							isShowLoader: true,
+							data: JSON.stringify(this.teacher),
 							dataType: "json",
                             success:function(msg){
                                 var data = JSON.parse(msg)
