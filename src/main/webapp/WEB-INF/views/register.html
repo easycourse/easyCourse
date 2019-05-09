@@ -137,7 +137,7 @@
                         success:function(msg){
                             var temp = JSON.stringify(msg)
                             var data = JSON.parse(temp)
-                            if(data.status == 200){
+                            if(data.status === 200){
                                 if(this.type){
                                     //教师
                                     window.location.href = "/teacher/index"
@@ -146,6 +146,7 @@
                                     window.location.href = "/student/index"
                                 }
                             }else{
+                                console.log("lalal")
                                 //注册失败
                             }
                         }

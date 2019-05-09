@@ -24,11 +24,6 @@ public class StudentController {
     @Resource
     private IStudentService studentService;
 
-    @GetMapping("/index")
-    public String getIndex(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        return "student/index";
-    }
-
     //返回登录页面
     @GetMapping("/login")
     public String getLoginIndex(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -39,6 +34,36 @@ public class StudentController {
     @GetMapping("/register")
     public String getRegisterIndex(HttpServletRequest request, HttpServletResponse response) throws IOException {
         return "/register";
+    }
+
+    //返回课程主页
+    @GetMapping("/index")
+    public String getIndex(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        return "student/index";
+    }
+
+    //返回课程详情页面
+    @GetMapping("/courseIndex")
+    public String getcourseIndex(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        return "student/courseIndex";
+    }
+
+    //返回通知列表
+    @GetMapping("/informList")
+    public String getInformListIndex(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        return "student/informList";
+    }
+
+    //返回作业列表
+    @GetMapping("/homeworkList")
+    public String getHomeworkListIndex(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        return "student/homeworkList";
+    }
+
+    //返回课件列表
+    @GetMapping("/resourceList")
+    public String getResourceListIndex(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        return "student/resourceList";
     }
 
     //执行登录请求数据处理
