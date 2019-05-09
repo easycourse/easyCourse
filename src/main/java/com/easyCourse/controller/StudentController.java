@@ -66,6 +66,7 @@ public class StudentController {
         return "student/resourceList";
     }
 
+    /****登录注册模块*****/
     //执行登录请求数据处理
     @RequestMapping(value = "/login/verify", method = RequestMethod.POST)
     public void loginVerify(@RequestParam(value = "studentId", required = true) String studentId, @RequestParam(value = "passwd", required = true)
@@ -135,4 +136,58 @@ public class StudentController {
             }
         }
     }
+
+
+    /****TODO:消息通知模块*****/
+    //执行登录请求数据处理
+    @RequestMapping(value = "/inform", method = RequestMethod.GET)
+    public void getInform(HttpSession session) throws IOException {
+        Student student = (Student)session.getAttribute("student");
+        String studentId = student.getStudent_id();
+        //根据studentID查询得到所有与学生相关的通知
+        //提示：1. 新建StudentNotice类 包含属性id，lesson_id,teacher_id,title，detail，noticeType，create——time，is_delete,appendix，发布人的姓名（要联合teacher表查询）
+        // 2. 多表联合查询  student_lesson,lesson_notice,user_teacher多表联合 查学生选了课程相关的notice
+        //（具体返回类的属性应该考虑前端的需求，比如这里前端需要的数据有 xxx,xxxx,xxxxx,x等）
+        //返回notice作为json
+    }
+
+    /****TODO:课程信息相关模块*****/
+    //执行登录请求数据处理
+    @RequestMapping(value = "/course", method = RequestMethod.GET)
+    public void getCourse(HttpSession session) throws IOException {
+        Student student = (Student)session.getAttribute("student");
+        String studentId = student.getStudent_id();
+        //根据studentID查询得到所有与学生相关课程信息
+        //提示：1. 新建StudentLesson类
+        // 2. 多表联合查询  student_lesson,lesson,teacher多表联合
+        //返回结果作为json
+        //（具体返回类的属性应该考虑前端的需求，比如这里前端需要的数据有 课程名称，课程详情，课程时间，授课人，授课人联系方式等）
+    }
+
+    /****TODO:作业模块*****/
+    //执行登录请求数据处理
+    @RequestMapping(value = "/homework", method = RequestMethod.GET)
+    public void getHomework(HttpSession session) throws IOException {
+        Student student = (Student)session.getAttribute("student");
+        String studentId = student.getStudent_id();
+        //根据studentID查询得到所有与学生相关的作业
+        //提示：1. 新建StudentHomework类 除了homework自身属性外，应该还有发布老师的相关属性，发布课程的相关属性（课程名）
+        // 2. 多表联合查询  student_homework,lesson,user_teacher多表联合
+        //（具体返回类的属性应该考虑前端的需求，比如这里前端需要的数据有 xxx,xxxx,xxxxx,x等）
+        //返回查询结果作为json
+    }
+
+    /****TODO:课件模块*****/
+    //执行登录请求数据处理
+    @RequestMapping(value = "/resource", method = RequestMethod.GET)
+    public void getResource(HttpSession session) throws IOException {
+        Student student = (Student)session.getAttribute("student");
+        String studentId = student.getStudent_id();
+        //根据studentID查询得到所有与学生相关的课件
+        //提示：1. 新建StudentFile类 除了file自身属性外，应该还有发布老师的相关属性，发布课程的相关属性（课程名）
+        // 2. 多表联合查询  file,lesson,user_teacher多表联合
+        //（具体返回类的属性应该考虑前端的需求，比如这里前端需要的数据有 xxx,xxxx,xxxxx,x等）
+        //返回查询结果作为json
+    }
+
 }
