@@ -51,6 +51,7 @@ public class TeacherController {
         return "/register";
     }
 
+    //todo:修改返回值为void，并用httpServletResponse.getWriter().write存储JSON
     //注册验证
     @PostMapping("/register/verify")
     @ResponseBody
@@ -72,6 +73,7 @@ public class TeacherController {
         return result;
     }
 
+    //todo:修改返回值为void，并用httpServletResponse.getWriter().write存储JSON
     //登录验证
     @PostMapping("/login/verify")
     @ResponseBody
@@ -93,6 +95,7 @@ public class TeacherController {
     }
 
 
+    //todo:修改返回值为void，并用httpServletResponse.getWriter().write存储JSON
     //教师添加课程
     @PostMapping("/addLesson")
     @ResponseBody
@@ -115,25 +118,29 @@ public class TeacherController {
         return lessonService.getByTeacherId(teacherId);
     }
 
-    //查看发布的历史通知
+    //通知主页
     @GetMapping("/notice/index")
-    public String getNotice(Model model, HttpSession session) {
+    public String getNoticeIndexPage(HttpServletRequest httpServletRequest) {
+        return "teacher/courseware/getIndexInfo";
+    }
+
+    //查看发布的历史通知
+    @PostMapping("/notice/getIndexInfo")
+    public void getNoticeIndexData(HttpServletResponse httpServletResponse, HttpSession session) throws IOException {
         // 从session中获取教师信息
         Teacher teacher = (Teacher) session.getAttribute("teacher");
         String teacherId = teacher.getTeacherId();
         //根据teacherId查询得到一个notice的list 然后放在resultBean里面返回，status用StatusCode.success表示成功
-
-
         List<LessonNotice> lessonNoticeList = lessonService.getNoticeListByTeacherId(teacherId);
 
-        model.addAttribute("lessonNoticeList", lessonNoticeList);
-
-        return "teacher/notice/index";
+        JSONObject result = new JSONObject();
+        result.put("lessonNoticeList", lessonNoticeList);
+        httpServletResponse.getWriter().write(String.valueOf(result));
     }
 
     @PostMapping("/addNotice")
     @ResponseBody
-    public JSONObject addNotice(@RequestBody JSONObject body,  HttpSession session) {
+    public void addNotice(@RequestBody JSONObject body,  HttpServletResponse httpServletResponse, HttpSession session) throws IOException {
         Teacher teacher = (Teacher) session.getAttribute("teacher");
         String teacherId = teacher.getTeacherId();
 
@@ -143,24 +150,33 @@ public class TeacherController {
         String detail = body.getString("detail");
         String appendix = body.getString("appendix");
 
-
-
         //和添加课程一样，根据参数然后添加 根据结果进一步判断，status用StatusCode.success表示成功
         JSONObject result = lessonService.addNotice(lessonIdList, teacherId, title, noticeType, detail, appendix);
-        return result;
+
+        httpServletResponse.getWriter().write(String.valueOf(result));
     }
 
     //课件主页
     @GetMapping("/courseware/index")
-    public String getCourseware(Model model, HttpSession session) {
-        Teacher teacher = (Teacher) session.getAttribute("teacher");
+    public String getCoursewareIndexPage(HttpServletRequest httpServletRequest) {
+        return "teacher/courseware/getIndexInfo";
+    }
+
+    //课件主页
+    @GetMapping("/courseware/getIndexInfo")
+    public void getCoursewareIndexData(HttpSession httpSession, HttpServletResponse httpServletResponse) throws IOException {
+        Teacher teacher = (Teacher) httpSession.getAttribute("teacher");
         String teacherId = teacher.getTeacherId();
         //根据teacherId查到一个lesson_file的list，然后放在resultBean里面返回
         List<LessonFile> lessonFileList = lessonService.getLessonFileListByTeacherId(teacherId);
-        model.addAttribute("lessonFileList", lessonFileList);
-        return "teacher/courseware/index";
+
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("lessonFileList",lessonFileList);
+
+        httpServletResponse.getWriter().write(String.valueOf(jsonObject));
     }
 
+    //todo:修改返回值为void，并用httpServletResponse.getWriter().write存储JSON
     //根据名称搜索相关课件
     @GetMapping("/courseware/index/{lessonName}")
     @ResponseBody
@@ -191,7 +207,7 @@ public class TeacherController {
     //测试完成，添加课件接口
     @PostMapping("/addCourseware")
     @ResponseBody
-    public JSONObject addCourseware(@RequestBody String param,  HttpSession session) {
+    public void addCourseware(@RequestBody String param,  HttpSession session, HttpServletResponse httpServletResponse) throws IOException {
 
         JSONObject body = JSONObject.parseObject(param);
 
@@ -217,6 +233,8 @@ public class TeacherController {
             lessonFileList.add(lessonFile);
         }
 
-        return lessonService.addLessonFile(lessonFileList);
+        JSONObject result = lessonService.addLessonFile(lessonFileList);
+
+        httpServletResponse.getWriter().write(String.valueOf(result));
     }
 }
