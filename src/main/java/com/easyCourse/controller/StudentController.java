@@ -33,7 +33,7 @@ public class StudentController {
     //返回注册页面
     @GetMapping("/register")
     public String getRegisterIndex(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        return "/register";
+        return "register";
     }
 
     //返回课程主页
