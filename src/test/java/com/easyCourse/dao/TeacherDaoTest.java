@@ -7,6 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import java.sql.Timestamp;
+import java.util.Date;
+
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration({"classpath:spring-mybatis.xml"})
@@ -39,14 +42,75 @@ public class TeacherDaoTest {
     }
 
     @Test
-    public void insert() {
-        String teacherId = "2";
-        String password = "1";
-        String teacherName = "hhy";
-        String phone = "110";
-        String mail = "110@110.com";
-        String location = "信息学部";
+    public void insertComplete() {
 
-        teacherDao.insert(teacherId, password, teacherName, phone, mail, location);
+        Teacher teacher = new Teacher();
+        teacher.setTeacherId("000004");
+        teacher.setPasswd("xxxxxxx");
+        teacher.setMail("hhh@qq.com");
+        teacher.setTeacherName("hhh");
+        teacher.setPhone("12345678900");
+        teacher.setLocation("计算机学院");
+        Date date = new Date();
+        Timestamp timeStamp = new Timestamp(date.getTime());
+        teacher.setCreateTime(timeStamp);
+        teacher.setUpdateTime(timeStamp);
+        teacher.setIsDelete(0);
+
+        teacherDao.insertComplete(teacher);
+    }
+
+    @Test
+    public void insertSelective() {
+
+        Teacher teacher = new Teacher();
+        teacher.setTeacherId("000005");
+        teacher.setPasswd("xxxxxxx");
+        teacher.setMail("hhh@qq.com");
+        teacher.setTeacherName("hhh");
+        teacher.setPhone("12345678900");
+        teacher.setLocation("计算机学院");
+        teacher.setIsDelete(0);
+
+        teacherDao.insertSelective(teacher);
+    }
+
+    @Test
+    public void updateByPrimaryKeyComplete() {
+
+        Teacher teacher = teacherDao.selectById("000005");
+
+
+        teacher.setPasswd("yyyyyy");
+        teacher.setMail("hhh@qq.com");
+        teacher.setTeacherName("hhh");
+        teacher.setPhone("12345678900");
+        teacher.setLocation("计算机学院");
+        teacher.setIsDelete(0);
+
+        teacherDao.updateByPrimaryKeyComplete(teacher);
+    }
+
+    @Test
+    public void updateByPrimaryKeySelective() {
+
+        Teacher teacher = new Teacher();
+        teacher.setTeacherId("000005");
+        teacher.setPasswd("xxxxxxx");
+        teacher.setMail("");
+        teacher.setTeacherName("hhh");
+        teacher.setPhone("12345678900");
+        teacher.setLocation("计算机学院");
+        teacher.setIsDelete(0);
+
+        teacherDao.updateByPrimaryKeySelective(teacher);
+    }
+
+    @Test
+    public void deleteByPrimaryKey() {
+
+        int i = teacherDao.deleteByPrimaryKey("000004");
+
+        System.out.println(i);
     }
 }

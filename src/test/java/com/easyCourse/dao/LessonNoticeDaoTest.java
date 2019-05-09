@@ -28,4 +28,36 @@ public class LessonNoticeDaoTest {
         lessonNoticeList.forEach(System.out::println);
 
     }
+
+    @Test
+    public void findNoticeByLessonId() {
+        String lessonId = "2";
+        List<LessonNotice> lessonNoticeList = lessonNoticeDao.findAllNoticeByLessonId(lessonId);
+
+        System.out.println("xxx");
+        lessonNoticeList.forEach(System.out::println);
+    }
+
+    @Test
+    public void findNoticeByTeacherId() {
+        String teacherId = "1";
+        List<LessonNotice> lessonNoticeList = lessonNoticeDao.findAllNoticeByTeacherId(teacherId);
+
+        System.out.println("xxx");
+        lessonNoticeList.forEach(System.out::println);
+    }
+
+    @Test
+    public void insertSelective() {
+        LessonNotice lessonNotice = new LessonNotice();
+        lessonNotice.setTitle("hhhh");
+        lessonNotice.setLessonId("1");
+        lessonNotice.setTeacherId("1");
+        lessonNotice.setDetail("xxxxx");
+        lessonNotice.setNoticeType(0);
+        lessonNotice.setIsDelete(0);
+        int i = lessonNoticeDao.insertSelective(lessonNotice);
+        System.out.println(i);
+
+    }
 }

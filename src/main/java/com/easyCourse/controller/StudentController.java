@@ -5,7 +5,7 @@ import com.easyCourse.service.IStudentService;
 import com.easyCourse.utils.Jwt;
 import com.easyCourse.utils.StatusCode;
 import com.easyCourse.utils.StringUtils;
-import net.minidev.json.JSONObject;
+import com.alibaba.fastjson.JSONObject;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 

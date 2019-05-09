@@ -14,9 +14,73 @@
         <result column="is_delete" jdbcType="INTEGER" property="isDelete"/>
     </resultMap>
 
+    <sql id="Base_Column_List">
+        id, lesson_id, user_id, title, detail, appendix, create_time, is_delete
+    </sql>
+
     <select id="selectByLessonId" resultMap="BaseResultMap">
         select * from lesson_file
         where lesson_id = #{lessonId}
     </select>
+
+    <select id="selectByTeacherId" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from lesson_file
+        where user_id = #{userId,jdbcType=VARCHAR} and is_delete =0
+        ORDER BY create_time DESC
+    </select>
+
+    <insert id="insertSelective" parameterType="com.easyCourse.entity.LessonFile">
+        insert into lesson_file
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="lessonId != null">
+                lesson_id,
+            </if>
+<!--            <if test="userId != null">-->
+<!--                user_id,-->
+<!--            </if>-->
+            <if test="title != null">
+                title,
+            </if>
+            <if test="detail != null">
+                detail,
+            </if>
+            <if test="appendix != null">
+                appendix,
+            </if>
+            create_time,
+            <if test="isDelete != null">
+                is_delete,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id, jdbcType=INTEGER},
+            </if>
+            <if test="lessonId != null">
+                #{lessonId, jdbcType=VARCHAR},
+            </if>
+<!--            <if test="userId != null">-->
+<!--                #{user_id, jdbcType=VARCHAR},-->
+<!--            </if>-->
+            <if test="title != null">
+                #{title, jdbcType=VARCHAR},
+            </if>
+            <if test="detail != null">
+                #{detail, jdbcType=VARCHAR},
+            </if>
+            <if test="appendix != null">
+                #{appendix, jdbcType=VARCHAR},
+            </if>
+            now(),
+            <if test="isDelete != null">
+                #{isDelete, jdbcType=INTEGER}
+            </if>
+        </trim>
+    </insert>
 
 </mapper>
