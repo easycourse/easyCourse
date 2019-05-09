@@ -150,8 +150,8 @@
                                                 <td>{{item.time}}</td>
                                                 <td>{{item.number}}</td>
                                                 <td width="180">
-                                                    <a>添加学生</a> &nbsp;
-                                                    <a>删除</a>
+                                                    <a class="btn" id="importStuListBtn" data-toggle="modal" data-target="#importStuListModal" @click="loadModalInfo(item.id)">添加学生</a> &nbsp;
+                                                    <a class="btn">删除</a>
                                                 </td>
                                             </tr>
                                             </tbody>
@@ -170,6 +170,39 @@
                                 </div>
                             </div>
                         </div>
+						
+                        <div class="modal fade" id="importStuListModal" tabindex="-1" role="dialog" aria-labelledby="importStuListModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                        <h4 class="modal-title" id="importStuListModalLabel">导入学生列表</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="input-group">
+                                            <input id="stuListFilePathInput" class="form-control" readonly="readonly" v-model="importStuInfo.filePath">
+                                            <label class="input-group-btn">
+                                                <input type="button" value="浏览文件" class="btn btn-primary" onclick="$('#importStuListInput').click();"/>
+                                            </label>
+                                        </div>
+                                        <input id="importStuListInput" name="file" type="file" accept=".xls, .xlsx" @change="handleExcelFileChange" style="display: none">
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-primary" data-dismiss="modal" @click="importStuList">提交</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+						
+<!-- 						<div id="successAlert" class="alert alert-success alert-dismissible fade show">
+							<button type="button" class="close" data-dismiss="alert">&times;</button>
+							<strong>导入学生列表成功!</strong> 
+						</div>
+						<div id="failureAlert" class="alert alert-danger alert-dismissible fade show">
+							<button type="button" class="close" data-dismiss="alert">&times;</button>
+							<strong>错误!</strong> 失败的操作。
+						</div> -->
+
                     </div>
                 </div>
             </div>
@@ -219,12 +252,68 @@
                 time:'',
                 number:'',
             }],
+			importStuInfo:{
+				teacherId: '',
+				lessonId: '',
+				// lessonName: '',
+				filePath: '',
+				stuList: []
+			}
         },
         methods: {
-
+			loadModalInfo(lessonId){
+				this.importStuInfo.teacherId = this.info.id;
+				this.importStuInfo.lessonId = lessonId;
+				
+			},
+			handleExcelFileChange(file){
+				const files = file.target.files;
+				this.importStuInfo.filePath = file.target.value;
+				if(files && files[0]){
+					const reader = new FileReader();
+					const rABS = !!reader.readAsBinaryString;//是否将文件读取为二进制串
+					reader.onload = (e) => {
+						const bstr = e.target.result;
+						const wb = XLSX.read(bstr, {type:rABS ? 'binary' : 'array'});
+						//get first worksheet
+						const wsname = wb.SheetNames[0];
+						const ws = wb.Sheets[wsname];
+						//convert array of arrays
+						this.importStuInfo.stuList = XLSX.utils.sheet_to_json(ws, {range: 1, header: ['studentId', 'studentName']});
+						
+						// console.log(ws, data, make_cols(ws['!ref']));
+						console.log(this.importStuInfo.stuList);
+					};
+					if(rABS) reader.readAsBinaryString(files[0]);else reader.readAsArrayBuffer(files[0]);
+				}
+			},
+			importStuList(){
+				var thisVM = this;
+				$.ajax({
+					type:"POST",
+					url:"/teacher/importStudents",
+					data:{
+						teacherId: thisVM.importStuInfo.teacherId,
+						lessonId: thisVM.importStuInfo.lessonId,
+						studentList: thisVM.importStuInfo.stuList
+					},
+					datatype:"json",
+					success:function(msg){
+						var data = JSON.parse(msg)
+						if(data.status == 200){
+							alert("导入学生列表成功！");
+						}else{
+							alert("导入学生列表失败！");
+						}
+					}
+				})
+			}
         }
     })
 </script>
+
+
+<script src="/libs/xlsx.full.min.js"></script>
 <script src="/public/js/custom.min.js"></script>
 </body>
 </html>
