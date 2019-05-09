@@ -35,4 +35,9 @@
         insert into lesson (lesson_id, lesson_name, lesson_time, teacher_id, detail, student_num)
         values (#{lessonId}, #{lessonName}, #{lessonTime}, #{teacherId}, #{lessonDetail}, 0)
     </insert>
+
+    <select id="selectByLessonId" resultMap="BaseResultMap">
+        select * from lesson
+        where lesson_id = #{lessonId} and is_delete = 0
+    </select>
 </mapper>

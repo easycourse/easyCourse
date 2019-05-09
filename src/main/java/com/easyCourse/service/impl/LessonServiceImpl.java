@@ -4,6 +4,8 @@ import com.alibaba.fastjson.JSONArray;
 import com.easyCourse.dao.LessonDao;
 import com.easyCourse.dao.LessonFileDao;
 import com.easyCourse.dao.LessonNoticeDao;
+import com.easyCourse.dao.TeacherDao;
+import com.easyCourse.entity.Lesson;
 import com.easyCourse.entity.LessonFile;
 import com.easyCourse.entity.LessonNotice;
 import com.easyCourse.service.LessonService;
@@ -30,6 +32,8 @@ public class LessonServiceImpl implements LessonService {
     private LessonNoticeDao lessonNoticeDao;
     @Autowired
     private LessonFileDao lessonFileDao;
+    @Autowired
+    private TeacherDao teacherDao;
 
     @Override
     public JSONObject getByTeacherId(String teacherId) {
@@ -112,6 +116,10 @@ public class LessonServiceImpl implements LessonService {
     public List<LessonFile> getLessonFileListByTeacherId(String teacherId){
         List<LessonFile> lessonFileList = lessonFileDao.selectByTeacherId(teacherId);
 
+        for(LessonFile lessonFile:lessonFileList){
+            lessonFile.setLessonName(lessonDao.selectByLessonId(lessonFile.getLessonId()).getLessonName());
+            lessonFile.setUserName(teacherDao.selectById(lessonFile.getUserId()).getTeacherName());
+        }
         return lessonFileList;
     }
 

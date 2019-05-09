@@ -1,5 +1,6 @@
 package com.easyCourse.dao;
 
+import com.easyCourse.entity.Lesson;
 import com.easyCourse.vo.LessonVO;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
@@ -31,4 +32,8 @@ public interface LessonDao {
      */
     void insert(@Param(("lessonId")) String lessonId, @Param("lessonName") String lessonName, @Param("lessonTime") String lessonTime,
                 @Param("lessonDetail") String lessonDetail, @Param("teacherId") String teacherId);
+
+
+    //根据id搜索得到Lesson课程
+    Lesson selectByLessonId(String lessonId);
 }

@@ -25,6 +25,26 @@ public class LessonFile {
 
     private int isDelete;
 
+    public String getLessonName() {
+        return lessonName;
+    }
+
+    public void setLessonName(String lessonName) {
+        this.lessonName = lessonName;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    private String lessonName;
+
+    private String userName;
+
     public int getId() {
         return id;
     }
@@ -88,8 +108,4 @@ public class LessonFile {
     public void setIsDelete(int isDelete) {
         this.isDelete = isDelete;
     }
-
-
-
-
 }

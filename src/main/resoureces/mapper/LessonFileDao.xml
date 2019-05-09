@@ -40,9 +40,9 @@
             <if test="lessonId != null">
                 lesson_id,
             </if>
-<!--            <if test="userId != null">-->
-<!--                user_id,-->
-<!--            </if>-->
+            <if test="userId != null">
+                user_id,
+            </if>
             <if test="title != null">
                 title,
             </if>
@@ -64,9 +64,9 @@
             <if test="lessonId != null">
                 #{lessonId, jdbcType=VARCHAR},
             </if>
-<!--            <if test="userId != null">-->
-<!--                #{user_id, jdbcType=VARCHAR},-->
-<!--            </if>-->
+            <if test="userId != null">
+                #{userId, jdbcType=VARCHAR},
+            </if>
             <if test="title != null">
                 #{title, jdbcType=VARCHAR},
             </if>

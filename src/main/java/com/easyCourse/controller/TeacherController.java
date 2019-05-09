@@ -12,16 +12,20 @@ import com.easyCourse.service.LessonService;
 import com.easyCourse.service.TeacherService;
 //import net.minidev.json.JSONArray;
 //import net.minidev.json.JSONObject;
+import com.easyCourse.utils.StatusCode;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import javax.json.JsonObject;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.ws.rs.GET;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -146,10 +150,21 @@ public class TeacherController {
         return result;
     }
 
-    //TODO:等待lessonDao和lessonService完成后继续实现
-    @PostMapping("/courseware/index")
-    public String getCourseware(@RequestParam(value = "lessonName", required = false) String lessonName, Model model, HttpSession session) {
+    //课件主页
+    @GetMapping("/courseware/index")
+    public String getCourseware(Model model, HttpSession session) {
+        Teacher teacher = (Teacher) session.getAttribute("teacher");
+        String teacherId = teacher.getTeacherId();
+        //根据teacherId查到一个lesson_file的list，然后放在resultBean里面返回
+        List<LessonFile> lessonFileList = lessonService.getLessonFileListByTeacherId(teacherId);
+        model.addAttribute("lessonFileList", lessonFileList);
+        return "teacher/courseware/index";
+    }
 
+    //根据名称搜索相关课件
+    @GetMapping("/courseware/index/{lessonName}")
+    @ResponseBody
+    public JSONObject getCoursewareByLessonName(@PathVariable(value = "lessonName") String lessonName,HttpSession session) {
         Teacher teacher = (Teacher) session.getAttribute("teacher");
         String teacherId = teacher.getTeacherId();
         //根据teacherId查到一个lesson_file的list，然后放在resultBean里面返回
@@ -158,35 +173,30 @@ public class TeacherController {
         if(lessonName!=null){
             newLessonFileList = new ArrayList<>();
             for(int i = 0; i < lessonFileList.size(); i++){
-                String lessonId = lessonFileList.get(i).getLessonId();
-
-                //todo:根据lessonId获取lesson，然后获取lessonName，删除和lessonName
-                Lesson lesson = null;
-
-                if(lesson.getLessonName().equals(lessonName)){
+                if(lessonFileList.get(i).getLessonName().contains(lessonName)){
                     newLessonFileList.add(lessonFileList.get(i));
-
                 }
             }
         } else {
             newLessonFileList = lessonFileList;
         }
-
-        model.addAttribute("lessonFileList", newLessonFileList);
-
-
-        //根据原型图，老师可以直接查看所有发布的课件，这个时候lessonName就是null/"" ，如果老师输入了lessonName，就要对上面的list进行一次过滤，返回符合结果的list
-        return "teacher/courseware/index";
+        JSONObject resultJSON = new JSONObject();
+        resultJSON.put("status", StatusCode.SUCCESS);
+        resultJSON.put("msg", "搜索成功");
+        resultJSON.put("data", newLessonFileList);
+        return resultJSON;
     }
 
+
+    //测试完成，添加课件接口
     @PostMapping("/addCourseware")
     @ResponseBody
-    public JSONObject addCourseware(@RequestBody JSONObject body,  HttpSession session) {
+    public JSONObject addCourseware(@RequestBody String param,  HttpSession session) {
 
+        JSONObject body = JSONObject.parseObject(param);
 
         String title = body.getString("title");
         JSONArray lessonIdList = body.getJSONArray("lessonIdList");
-        int noticeType = Integer.parseInt(body.getString("noticeType"));
         String detail = body.getString("detail");
         String appendix = body.getString("appendix");
 
@@ -208,27 +218,5 @@ public class TeacherController {
         }
 
         return lessonService.addLessonFile(lessonFileList);
-
-        /*以下为mapper可以批量插入list的代码，仅做参考 可以将上述lessonFileList作为参数然后插入数据库
-        <insert id="insertForeach" parameterType="java.util.List" useGeneratedKeys="false">
-                insert into fund
-        ( id,fund_name,fund_code,date_x,data_y,create_by,create_date,update_by,update_date,remarks,del_flag)
-        values
-                <foreach collection="list" item="item" index="index" separator=",">
-                (
-    					#{item.id},
-    					#{item.fundName},
-    					#{item.fundCode},
-    					#{item.dateX},
-    					#{item.dataY},
-    					#{item.createBy},
-    					#{item.createDate},
-    					#{item.updateBy},
-    					#{item.updateDate},
-    					#{item.remarks},
-    					#{item.delFlag}
-    				)
-    		     </foreach>
-        </insert>*/
     }
 }
