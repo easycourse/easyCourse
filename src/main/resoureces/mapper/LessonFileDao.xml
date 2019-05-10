@@ -20,7 +20,7 @@
 
     <select id="selectByLessonId" resultMap="BaseResultMap">
         select * from lesson_file
-        where lesson_id = #{lessonId}
+        where lesson_id = #{lessonId} and is_delete = 0
     </select>
 
     <select id="selectByTeacherId" parameterType="java.lang.String" resultMap="BaseResultMap">

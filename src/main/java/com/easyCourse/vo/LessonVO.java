@@ -2,8 +2,6 @@ package com.easyCourse.vo;
 
 import lombok.Data;
 
-import java.util.Date;
-
 /**
  * 课程类视图对象
  * <p>

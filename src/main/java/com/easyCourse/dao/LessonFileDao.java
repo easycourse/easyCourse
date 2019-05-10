@@ -15,7 +15,6 @@ public interface LessonFileDao {
 
     /**
      * 获取课程id获取课程文件列表
-     * （这个方法不根据is_delete筛选，如果需要请修改sql语句或重写方法）
      *
      * @return 指定课程文件列表
      */

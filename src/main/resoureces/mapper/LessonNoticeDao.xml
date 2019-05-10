@@ -27,7 +27,7 @@
 
     <select id="findAllNoticeByLessonId" parameterType="java.lang.String" resultMap="BaseResultMap">
         select
-        <include refid="Base_Column_List" />
+        <include refid="Base_Column_List"/>
         from lesson_notice
         where lesson_id = #{lessonId,jdbcType=VARCHAR} and is_delete =0
         ORDER BY create_time DESC
@@ -35,12 +35,11 @@
 
     <select id="findAllNoticeByTeacherId" parameterType="java.lang.String" resultMap="BaseResultMap">
         select
-        <include refid="Base_Column_List" />
+        <include refid="Base_Column_List"/>
         from lesson_notice
         where teacher_id = #{teacherId,jdbcType=VARCHAR} and is_delete =0
         ORDER BY create_time DESC
     </select>
-
 
 
     <insert id="insertSelective" parameterType="com.easyCourse.entity.LessonNotice">
@@ -100,5 +99,22 @@
             </if>
         </trim>
     </insert>
+
+    <select id="findAllNoticeByStudentId" resultType="com.easyCourse.vo.StudentNoticeVO">
+        select
+	        ln.id as id,
+	        ln.lesson_id as lessonId,
+	        ln.teacher_id as teacherId,
+	        ut.teacher_name as teacherName,
+	        ln.title as title,
+	        ln.detail as detail,
+	        ln.notice_type as noticeType,
+	        ln.appendix as appendix,
+	        ln.create_time as createTime
+        from
+	        (student_lesson sl left join lesson_notice ln on sl.lesson_id = ln.lesson_id)
+	        left join user_teacher ut on ln.teacher_id = ut.teacher_id
+	    where sl.student_id = #{studentId} and ln.is_delete = 0
+    </select>
 
 </mapper>

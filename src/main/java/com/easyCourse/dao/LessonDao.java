@@ -2,6 +2,7 @@ package com.easyCourse.dao;
 
 import com.easyCourse.entity.Lesson;
 import com.easyCourse.vo.LessonVO;
+import com.easyCourse.vo.StudentLessonVO;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
@@ -20,6 +21,14 @@ public interface LessonDao {
      * @return 课程视图对象列表
      */
     List<LessonVO> selectByTeacherId(String teacherId);
+
+    /**
+     * 根据学生id获取其所选课程列表
+     *
+     * @param studentId 学生id
+     * @return 课程视图对象列表
+     */
+    List<StudentLessonVO> selectByStudentId(String studentId);
 
     /**
      * 添加课程
