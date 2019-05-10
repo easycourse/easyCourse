@@ -1,6 +1,7 @@
 package com.easyCourse.dao;
 
 import com.easyCourse.entity.LessonNotice;
+import com.easyCourse.vo.StudentNoticeVO;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -28,10 +29,10 @@ public interface LessonNoticeDao {
 
     /**
      * 获取一个老师发布的所有通知,实现了按添加时间降序排序以及过滤掉删除的通知
-     * @param lessonId
+     * @param teacherId
      * @return
      */
-    List<LessonNotice> findAllNoticeByTeacherId(String lessonId);
+    List<LessonNotice> findAllNoticeByTeacherId(String teacherId);
 
     /**
      * 添加一条通知
@@ -39,4 +40,11 @@ public interface LessonNoticeDao {
      * @return
      */
     int insertSelective(LessonNotice lessonNotice);
+
+    /**
+     * 查询与某个学生相关的所有通知
+     * @param studentId
+     * @return
+     */
+    List<StudentNoticeVO> findAllNoticeByStudentId(String studentId);
 }

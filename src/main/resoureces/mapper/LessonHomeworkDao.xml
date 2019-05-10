@@ -19,5 +19,23 @@
         select * from lesson_homework
         where teacher_id = #{teacheId}
     </select>
+    
+    <select id="selectByStudentId" resultType="com.easyCourse.vo.StudentHomeworkVO">
+        select
+		    lh.homework_id as homeworkId,
+		    lh.title as title,
+		    lh.detail as detail,
+		    lh.create_time as createTime,
+		    lh.due_time as dueTime,
+		    lh.appendix as appendix,
+		    l.lesson_id as lessonId,
+		    l.lesson_name as lessonName,
+		    sh.id as submitId
+        from
+		    student_lesson sl left join lesson l on sl.lesson_id = l.lesson_id
+		    left join lesson_homework lh on l.lesson_id = lh.lesson_id
+		    left join student_homework sh on sl.student_id = sh.student_id and sh.homework_id = lh.homework_id
+        where sl.student_id = #{studentId} and sl.is_delete = 0;
+    </select>
 
 </mapper>

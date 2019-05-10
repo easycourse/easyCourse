@@ -2,15 +2,14 @@ package com.easyCourse.vo;
 
 import lombok.Data;
 
+import java.util.Date;
+
 /**
- * 课程类视图对象
- * <p>
- * Created by devin
- * 2019-05-06 19:31
+ * Created by Devin
+ * 2019-05-10 16:05
  */
 @Data
-public class LessonVO {
-
+public class StudentLessonVO {
     /* 以下是课程信息 */
     private String lessonId;
 
@@ -20,10 +19,7 @@ public class LessonVO {
 
     private String detail;
 
-    private int studentNum;
-
     /* 以下是教师信息 */
-    private String teacherId;
 
     private String teacherName;
 
@@ -65,22 +61,6 @@ public class LessonVO {
         this.detail = detail;
     }
 
-    public int getStudentNum() {
-        return studentNum;
-    }
-
-    public void setStudentNum(int studentNum) {
-        this.studentNum = studentNum;
-    }
-
-    public String getTeacherId() {
-        return teacherId;
-    }
-
-    public void setTeacherId(String teacherId) {
-        this.teacherId = teacherId;
-    }
-
     public String getTeacherName() {
         return teacherName;
     }
@@ -112,4 +92,6 @@ public class LessonVO {
     public void setLocation(String location) {
         this.location = location;
     }
+
+
 }

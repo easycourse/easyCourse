@@ -31,6 +31,22 @@
         where lesson.teacher_id = #{teacherId} and lesson.is_delete = 0
     </select>
 
+    <select id="selectByStudentId" resultType="com.easyCourse.vo.StudentLessonVO">
+        select
+		    l.lesson_id as lessonId,
+		    l.lesson_name as lessonName,
+		    l.lesson_time as lessonTime,
+		    l.detail as detail,
+		    ut.teacher_name as teacherName,
+		    ut.phone as phone,
+		    ut.mail as mail,
+		    ut.location as location
+        from
+		    student_lesson sl left join lesson l on sl.lesson_id = l.lesson_id
+		    left join user_teacher ut on l.teacher_id = ut.teacher_id
+        where sl.student_id = #{studentId} and l.is_delete = 0
+    </select>
+
     <insert id="insert">
         insert into lesson (lesson_id, lesson_name, lesson_time, teacher_id, detail, student_num)
         values (#{lessonId}, #{lessonName}, #{lessonTime}, #{teacherId}, #{lessonDetail}, 0)

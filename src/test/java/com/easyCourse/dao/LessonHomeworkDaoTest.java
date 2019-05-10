@@ -1,6 +1,7 @@
 package com.easyCourse.dao;
 
 import com.easyCourse.entity.LessonHomework;
+import com.easyCourse.vo.StudentHomeworkVO;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,5 +23,14 @@ public class LessonHomeworkDaoTest {
         List<LessonHomework> lessonHomeworkList = lessonHomeworkDao.selectByTeacherId(teacherId);
 
         lessonHomeworkList.forEach(System.out::println);
+    }
+
+    @Test
+    public void selectByStudentId() {
+        String studentId = "2016302580297";
+        List<StudentHomeworkVO> studentHomeworkVOList = lessonHomeworkDao.selectByStudentId(studentId);
+
+        studentHomeworkVOList.forEach(System.out::println);
+
     }
 }

@@ -154,12 +154,15 @@
 					teacherLogin() {
                         window.event.returnValue=false
 						$.ajax({
-							type: "post",
+							type: "POST",
 							url: "/teacher/login/verify",
-							data: JSON.stringify(this.teacher),
+                            data:{
+                                teacherId:this.teacher.username,
+                                passwd:this.teacher.password
+                            },
 							dataType: "json",
                             success:function(msg){
-                                var data = JSON.parse(msg)
+							    var data = typeof msg=="string"?JSON.parse(msg):msg
                                 if(data.status == 200){
                                     window.location.href = "/teacher/index"
                                 }else{
@@ -184,7 +187,7 @@
 							},
 							datatype:"json",
 							success:function(msg){
-							    var data = JSON.parse(msg)
+                                var data = JSON.parse(msg)
 								if(data.status == 200){
                                     window.location.href = "/student/index"
 								}else{
