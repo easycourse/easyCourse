@@ -51,7 +51,7 @@
                             <ul class="nav side-menu">
                                 <li><a><i class="fa fa-calendar"></i> 我的课程 <span class="fa fa-chevron-down"></span></a>
                                     <ul class="nav child_menu">
-                                        <li v-cloak v-for="(item,i) in courses" :key="item.id"><a href="index.html">{{item.name}}</a></li>
+                                        <li v-cloak v-for="(item,i) in courses" :key="item.id"><a href="#" @click.prevent="goCourse(item.id)">{{item.name}}</a></li>
 
                                     </ul>
                                 </li>
@@ -101,69 +101,24 @@
                 <!-- top tiles -->
 
                 <div class="row">
-
-
-                    <div class="col-md-3 col-sm-3 col-xs-12">
-                        <div class="x_panel tile fixed_height_320">
+                    <div v-for="(item,i) in inform" class="col-md-3 col-sm-3 col-xs-12">
+                        <div class="x_panel tile fixed_height_200">
                             <div class="x_title">
-                                <h2>Notice1</h2>
+                                <h2 style="font-size: 1.6rem;">{{item.title}}</h2>
+                                <ul class="nav navbar-right panel_toolbox">
+                                    <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                                    </li>
+
+                                    <li><a class="close-link"><i class="fa fa-close"></i></a>
+                                    </li>
+                                </ul>
                                 <div class="clearfix"></div>
                             </div>
                             <div class="x_content">
-
+                                {{item.content}}
                             </div>
                         </div>
                     </div>
-
-                    <div class="col-md-3 col-sm-3 col-xs-12">
-                        <div class="x_panel tile fixed_height_320 overflow_hidden">
-                            <div class="x_title">
-                                <h2>Notice2</h2>
-                                <div class="clearfix"></div>
-                            </div>
-                            <div class="x_content">
-                            </div>
-                        </div>
-                    </div>
-
-
-                    <div class="col-md-3 col-sm-3 col-xs-12">
-                        <div class="x_panel tile fixed_height_320">
-                            <div class="x_title">
-                                <h2>Notice3</h2>
-                                <div class="clearfix"></div>
-                            </div>
-                            <div class="x_content">
-                                <div class="dashboard-widget-content">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3 col-sm-3 col-xs-12">
-                        <div class="x_panel tile fixed_height_320">
-                            <div class="x_title">
-                                <h2>Notice4</h2>
-                                <div class="clearfix"></div>
-                            </div>
-                            <div class="x_content">
-                                <div class="dashboard-widget-content">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3 col-sm-3 col-xs-12">
-                        <div class="x_panel tile fixed_height_320">
-                            <div class="x_title">
-                                <h2>Notice5</h2>
-                                <div class="clearfix"></div>
-                            </div>
-                            <div class="x_content">
-                                <div class="dashboard-widget-content">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
                 </div>
 
 
@@ -210,9 +165,41 @@
                 name: '数据库',
                 id: ''
             }],
+            inform:[{
+                title:'notice',
+                content:''
+            }]
         },
         methods: {
+            goCourse(courseId){
+                window.event.returnValue=false
+                //跳转到指定课程主页
+            }
+        },
+        created(){
+            //获取用户信息
 
+            //获取课程列表
+            $.ajax({
+                type:'GET',
+                data:'',
+                url:'/student/course',
+                dataType:'json',
+                success:function(msg){
+                    var data = JSON.parse(JSON.stringify(msg))
+                }
+            })
+            //获取通知列表
+            $.ajax({
+                type:'GET',
+                data:'',
+                url:'/student/inform',
+                dataType:'json',
+                success:function(msg){
+                    var data = JSON.parse(JSON.stringify(msg))
+
+                }
+            })
         }
     })
 </script>

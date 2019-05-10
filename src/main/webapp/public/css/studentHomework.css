@@ -1,0 +1,35 @@
+.item_top{
+	font-size: 1.4rem;
+}
+.item_right{
+	float: right !important;
+	width: auto !important;
+}
+.content{
+	float: none !important;
+}
+.x_title{
+	background-color: rgb(240,240,240) !important;
+	
+	padding: 5px 5px 0 5px !important;
+}
+.content{
+	padding: 5px 0 8px 0;
+	font-size: 1.45rem;
+	line-height: 170%;
+}
+
+.button_box{
+	padding: 8px 0 0 0 ;
+	border-top: 2px solid rgb(240,240,240);
+}
+.btn_style{
+	font-size: 1.25rem !important;
+	background-color: rgb(230,230,230);
+	border: 1px solid rgb(220,220,220);
+	padding: 5px 20px !important;
+	outline: none !important;
+}
+.btn_style:hover{
+	background-color: rgb(210,210,210);
+}
