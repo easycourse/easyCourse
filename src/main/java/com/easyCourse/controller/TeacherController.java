@@ -153,15 +153,18 @@ public class TeacherController {
         return lessonService.addLesson(lessonName, lessonTime, lessonDetail, teacherId);
     }
 
-    //todo:教师添加学生选课记录
-    @PostMapping("/addChooseLesson")
-    public void addLesson(@RequestBody String param, HttpSession session) {
-        Teacher teacher = (Teacher) session.getAttribute("teacher");
-        String teacherId = teacher.getTeacherId();
-        JSONObject body = JSONObject.parseObject(param);
-        JSONArray studentIdList = body.getJSONArray("studentIdList");
-        JSONArray studentNameList = body.getJSONArray("studentNameList");
-        //根据两个list顺序插入mybatis
+    //教师添加学生选课记录
+    @PostMapping("/importStudents")
+    @ResponseBody
+    public JSONObject importStudents(@RequestParam(value = "lessonId", required = true) String lessonId,
+                          @RequestParam(value = "studentList", required = true) String studentList,HttpSession session) {
+        JSONArray jsonArray = JSONArray.parseArray(studentList);
+        Map<String,String> studentInfoList = new HashMap<>();
+        for(int i=0;i<jsonArray.size();i++){
+            JSONObject job = jsonArray.getJSONObject(i);
+            studentInfoList.put(job.get("studentId").toString(),lessonId);
+        }
+        return teacherService.importStudent(studentInfoList);
     }
 
     /****************************************通知模块******************************************************/

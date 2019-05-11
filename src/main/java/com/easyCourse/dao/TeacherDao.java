@@ -4,6 +4,8 @@ import com.easyCourse.entity.Teacher;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.Map;
+
 /**
  * 教师数据访问层
  * <p>
@@ -83,4 +85,12 @@ public interface TeacherDao {
      * @return
      */
     int deleteByPrimaryKey(String teacherId);
+
+    /**
+     * 插入学生选课记录
+     * @param params
+     * @return
+     */
+    int importStudents(@Param("params") Map<String,String> params);
+
 }

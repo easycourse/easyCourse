@@ -98,4 +98,21 @@ public class TeacherServiceImpl implements TeacherService {
     public Teacher getTeacherById(String teacherId) {
         return teacherDao.selectById(teacherId);
     }
+
+    @Override
+    public JSONObject importStudent(Map<String, String> records) {
+        JSONObject result = new JSONObject();
+
+        int num = teacherDao.importStudents(records);
+        if (num != records.size()) {
+            result.put("status", StatusCode.IMPORT_STUDENTRECORDS_WRONG);
+            result.put("msg", "插入学生选课记录错误");
+            result.put("data", null);
+            return result;
+        }
+        result.put("status", StatusCode.SUCCESS);
+        result.put("msg", "教师登录成功");
+        result.put("data", num);
+        return result;
+    }
 }

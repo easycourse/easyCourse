@@ -295,7 +295,7 @@
 					data:{
 						teacherId: thisVM.importStuInfo.teacherId,
 						lessonId: thisVM.importStuInfo.lessonId,
-						studentList: thisVM.importStuInfo.stuList
+                        studentList: JSON.stringify(thisVM.importStuInfo.stuList)
 					},
 					datatype:"json",
 					success:function(msg){
