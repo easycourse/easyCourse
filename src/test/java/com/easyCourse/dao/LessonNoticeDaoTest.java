@@ -1,6 +1,7 @@
 package com.easyCourse.dao;
 
 import com.easyCourse.entity.LessonNotice;
+import com.easyCourse.vo.StudentNoticeVO;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,6 +46,15 @@ public class LessonNoticeDaoTest {
 
         System.out.println("xxx");
         lessonNoticeList.forEach(System.out::println);
+    }
+
+    @Test
+    public void findNoticeByStudentId() {
+        String studentId = "2016302580297";
+        List<StudentNoticeVO> studentNoticeList = lessonNoticeDao.findAllNoticeByStudentId(studentId);
+
+        System.out.println("xxx");
+        studentNoticeList.forEach(System.out::println);
     }
 
     @Test

@@ -48,19 +48,60 @@ public class TeacherController {
     //返回注册页面
     @GetMapping("/register")
     public String getRegisterIndex(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        return "/register";
+        return "register";
     }
 
-    //注册验证
+    //返回通知页面
+    @GetMapping("/informManage")
+    public String getInformManageIndex(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        return "teacher/informManage";
+    }
+
+    //返回课件页面
+    @GetMapping("/resourceManage")
+    public String getResourceManageIndex(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        return "teacher/resourceManage";
+    }
+
+    //返回作业管理页面
+    @GetMapping("/homeworkManage")
+    public String getHomeworkManageIndex(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        return "teacher/homeworkManage";
+    }
+
+    //添加课程管理页面
+    @GetMapping("/addCourse")
+    public String getAddCourseIndex(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        return "teacher/addCourse";
+    }
+
+    //添加通知页面
+    @GetMapping("/addInform")
+    public String getAddInformIndex(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        return "teacher/addInform";
+    }
+
+    //添加作业页面
+    @GetMapping("/addHomework")
+    public String getAddHomeworkIndex(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        return "teacher/addHomework";
+    }
+
+    //上传课件页面
+    @GetMapping("/addResource")
+    public String getAddResourceIndex(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        return "teacher/addResource";
+    }
+
+
+    /************登录注册模块**************/
+    //注册接口
     @PostMapping("/register/verify")
-    @ResponseBody
-    public JSONObject register(@RequestParam(value = "teacherId", required = true) String teacherId, @RequestParam(value = "passwd", required = true) String password,
+    public void register(@RequestParam(value = "teacherId", required = true) String teacherId, @RequestParam(value = "passwd", required = true) String password,
                                @RequestParam(value = "teacherName", required = true) String teacherName, @RequestParam(value = "phone", required = true) String phone,
                                @RequestParam(value = "mail", required = true) String mail, @RequestParam(value = "location", required = true) String location,
-                               HttpSession session) {
+                         HttpServletResponse httpServletResponse,HttpSession session) throws IOException  {
         JSONObject result = teacherService.register(teacherId, password, teacherName, phone, mail, location);
-
-        // 注册成功，则获取token和教师信息，保存到session中
         if (result.get("data") != null) {
             Map data = (Map) result.get("data");
             Object token = data.get("token").toString();
@@ -68,17 +109,15 @@ public class TeacherController {
             session.setMaxInactiveInterval(3600);
             Teacher teacher = teacherService.getTeacherById(teacherId);
             session.setAttribute("teacher", teacher);
+            httpServletResponse.getWriter().write(String.valueOf(result));
         }
-        return result;
     }
 
     //登录验证
     @PostMapping("/login/verify")
-    @ResponseBody
-    public JSONObject login(@RequestParam(value = "teacherId", required = true) String teacherId,
-                            @RequestParam(value = "passwd", required = true) String password, HttpSession session) {
+    public void login(@RequestParam(value = "teacherId", required = true) String teacherId,
+                            @RequestParam(value = "passwd", required = true) String password, HttpSession session,HttpServletResponse httpServletResponse)throws IOException{
         JSONObject result = teacherService.login(teacherId, password);
-
         // 登录成功
         if (result.get("data") != null) {
             Map data = (Map) result.get("data");
@@ -87,53 +126,60 @@ public class TeacherController {
             session.setMaxInactiveInterval(3600);
             Teacher teacher = teacherService.getTeacherById(teacherId);
             session.setAttribute("teacher", teacher);
+            httpServletResponse.getWriter().write(String.valueOf(result));
         }
-
-        return result;
     }
 
+
+    /***************************************课程管理模块*********************************************************/
+    //教师主页数据，获取教师教授的课程信息
+    @GetMapping("/course")
+    @ResponseBody
+    public JSONObject course(HttpSession session) {
+        Teacher teacher = (Teacher) session.getAttribute("teacher");
+        String teacherId = teacher.getTeacherId();
+        JSONObject result = lessonService.getByTeacherId(teacherId);
+        return result;
+    }
 
     //教师添加课程
     @PostMapping("/addLesson")
     @ResponseBody
     public JSONObject addLesson(@RequestParam(value = "lessonName", required = true) String lessonName, @RequestParam(value = "lessonTime", required = true) String lessonTime,
                                 @RequestParam(value = "lessonDetail", required = false) String lessonDetail, HttpSession session) {
-        // 从session中获取教师信息
         Teacher teacher = (Teacher) session.getAttribute("teacher");
         String teacherId = teacher.getTeacherId();
 
         return lessonService.addLesson(lessonName, lessonTime, lessonDetail, teacherId);
     }
 
-    //返回老师教授的课程信息
-    @GetMapping("/center")
-    @ResponseBody
-    public JSONObject center(HttpSession session) {
-        // 从session中获取教师信息
+    //todo:教师添加学生选课记录
+    @PostMapping("/addChooseLesson")
+    public void addLesson(@RequestBody String param, HttpSession session) {
         Teacher teacher = (Teacher) session.getAttribute("teacher");
         String teacherId = teacher.getTeacherId();
-        return lessonService.getByTeacherId(teacherId);
+        JSONObject body = JSONObject.parseObject(param);
+        JSONArray studentIdList = body.getJSONArray("studentIdList");
+        JSONArray studentNameList = body.getJSONArray("studentNameList");
+        //根据两个list顺序插入mybatis
     }
 
+    /****************************************通知模块******************************************************/
     //查看发布的历史通知
-    @GetMapping("/notice/index")
-    public String getNotice(Model model, HttpSession session) {
-        // 从session中获取教师信息
+    @GetMapping("/inform")
+    public void getInformData(HttpServletResponse httpServletResponse, HttpSession session) throws IOException {
         Teacher teacher = (Teacher) session.getAttribute("teacher");
         String teacherId = teacher.getTeacherId();
-        //根据teacherId查询得到一个notice的list 然后放在resultBean里面返回，status用StatusCode.success表示成功
-
-
         List<LessonNotice> lessonNoticeList = lessonService.getNoticeListByTeacherId(teacherId);
-
-        model.addAttribute("lessonNoticeList", lessonNoticeList);
-
-        return "teacher/notice/index";
+        JSONObject result = new JSONObject();
+        result.put("status",StatusCode.SUCCESS);
+        result.put("lessonNoticeList", lessonNoticeList);
+        httpServletResponse.getWriter().write(String.valueOf(result));
     }
 
-    @PostMapping("/addNotice")
-    @ResponseBody
-    public JSONObject addNotice(@RequestBody JSONObject body,  HttpSession session) {
+    //发布新通知
+    @PostMapping("/inform")
+    public void addNotice(@RequestBody JSONObject body,  HttpServletResponse httpServletResponse, HttpSession session) throws IOException {
         Teacher teacher = (Teacher) session.getAttribute("teacher");
         String teacherId = teacher.getTeacherId();
 
@@ -142,27 +188,29 @@ public class TeacherController {
         int noticeType = Integer.parseInt(body.getString("noticeType"));
         String detail = body.getString("detail");
         String appendix = body.getString("appendix");
-
-
-
-        //和添加课程一样，根据参数然后添加 根据结果进一步判断，status用StatusCode.success表示成功
         JSONObject result = lessonService.addNotice(lessonIdList, teacherId, title, noticeType, detail, appendix);
-        return result;
+        httpServletResponse.getWriter().write(String.valueOf(result));
     }
 
+
+    /****************************************课件模块******************************************************/
     //课件主页
-    @GetMapping("/courseware/index")
-    public String getCourseware(Model model, HttpSession session) {
-        Teacher teacher = (Teacher) session.getAttribute("teacher");
+    @GetMapping("/courseware")
+    public void getCoursewareIndexData(HttpSession httpSession, HttpServletResponse httpServletResponse) throws IOException {
+        Teacher teacher = (Teacher) httpSession.getAttribute("teacher");
         String teacherId = teacher.getTeacherId();
         //根据teacherId查到一个lesson_file的list，然后放在resultBean里面返回
         List<LessonFile> lessonFileList = lessonService.getLessonFileListByTeacherId(teacherId);
-        model.addAttribute("lessonFileList", lessonFileList);
-        return "teacher/courseware/index";
+
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("status",StatusCode.SUCCESS);
+        jsonObject.put("lessonFileList",lessonFileList);
+
+        httpServletResponse.getWriter().write(String.valueOf(jsonObject));
     }
 
     //根据名称搜索相关课件
-    @GetMapping("/courseware/index/{lessonName}")
+    @GetMapping("/courseware/{lessonName}")
     @ResponseBody
     public JSONObject getCoursewareByLessonName(@PathVariable(value = "lessonName") String lessonName,HttpSession session) {
         Teacher teacher = (Teacher) session.getAttribute("teacher");
@@ -187,25 +235,16 @@ public class TeacherController {
         return resultJSON;
     }
 
-
-    //测试完成，添加课件接口
-    @PostMapping("/addCourseware")
-    @ResponseBody
-    public JSONObject addCourseware(@RequestBody String param,  HttpSession session) {
-
+    //添加课件
+    @PostMapping("/courseware")
+    public void addCourseware(@RequestBody String param,  HttpSession session, HttpServletResponse httpServletResponse) throws IOException {
         JSONObject body = JSONObject.parseObject(param);
-
         String title = body.getString("title");
         JSONArray lessonIdList = body.getJSONArray("lessonIdList");
         String detail = body.getString("detail");
         String appendix = body.getString("appendix");
-
-
         Teacher teacher = (Teacher) session.getAttribute("teacher");
         String teacherId = teacher.getTeacherId();
-        //因为可以选择多个课程，所以会有lessonIdList，需要将上述数据一次性插入到数据库中
-
-        //得到lessonFileList
         List<LessonFile> lessonFileList = new ArrayList<>();
         for(int i=0;i<lessonIdList.size();i++){
             LessonFile lessonFile = new LessonFile();
@@ -216,7 +255,30 @@ public class TeacherController {
             lessonFile.setUserId(teacherId);
             lessonFileList.add(lessonFile);
         }
+        JSONObject result = lessonService.addLessonFile(lessonFileList);
+        httpServletResponse.getWriter().write(String.valueOf(result));
+    }
 
-        return lessonService.addLessonFile(lessonFileList);
+    //TODO:******************************************:作业模块********************************************/
+    //查看发布的作业
+    @GetMapping("/homework")
+    public void getHomework(HttpSession session) throws IOException {
+        Teacher teacher = (Teacher) session.getAttribute("teacher");
+        String teacherId = teacher.getTeacherId();
+    }
+
+    //根据id查看某个作业的提交情况
+    @GetMapping("/homework/{homeworkId}")
+    @ResponseBody
+    public JSONObject getHomeworkByHomeworkId(@PathVariable(value = "homeworkId") String homeworkId,HttpSession session) {
+        return null;
+    }
+
+    //发布新作业
+    @PostMapping("/homework")
+    public void addHomework(HttpSession session) throws IOException {
+        Teacher teacher = (Teacher) session.getAttribute("teacher");
+        String teacherId = teacher.getTeacherId();
+
     }
 }

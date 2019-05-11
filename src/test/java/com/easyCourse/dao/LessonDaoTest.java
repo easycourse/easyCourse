@@ -1,6 +1,7 @@
 package com.easyCourse.dao;
 
 import com.easyCourse.vo.LessonVO;
+import com.easyCourse.vo.StudentLessonVO;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +28,14 @@ public class LessonDaoTest {
 
         List<LessonVO> lessonVOList = lessonDao.selectByTeacherId(teacherId);
         lessonVOList.forEach(System.out::println);
+    }
+
+    @Test
+    public void selectByStudentId() {
+        String studentId = "2016302580297";
+        List<StudentLessonVO> studentLessonVOList = lessonDao.selectByStudentId(studentId);
+
+        studentLessonVOList.forEach(System.out::println);
     }
 
     @Test
