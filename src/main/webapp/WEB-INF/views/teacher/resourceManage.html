@@ -1,10 +1,145 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>EasyCourse-课件管理</title>
-</head>
-<body>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<!-- Meta, title, CSS, favicons, etc. -->
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="icon" type="image/x-icon" href="/public/img/icon.png" />
+		
+		<title>EasyCourse-课件管理</title>
+		
+		<!-- Bootstrap -->
+		<link href="/libs/bootstrap3/dist/css/bootstrap.min.css" rel="stylesheet">
+		<!-- Font Awesome -->
+		<link href="/libs/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+		<!-- Custom Theme Style -->
+		<link href="/public/css/custom.min.css" rel="stylesheet">
+		
+		<link href="/public/css/index.css" rel="stylesheet" />
+	</head>
+	<body class="nav-md">
+		<div id="app" class="container body">
+			<div class="main_container">
+				<div class="col-md-3 left_col">
+					<div class="left_col scroll-view">
+						<div class="navbar nav_title" style="border: 0;">
+							<a href="index.html" class="site_title"><i class="icon"></i> <span>EasyCourse</span></a>
+						</div>
 
-</body>
+						<div class="clearfix"></div>
+
+						<!-- menu profile quick info -->
+						<div class="profile clearfix">
+							<div class="profile_pic">
+								<img src="/public/img/default.png" alt="..." class="img-circle profile_img">
+							</div>
+							<div class="profile_info">
+								<span>你好,</span>
+								<h2 v-cloak>{{info.name}} 老师</h2>
+							</div>
+						</div>
+						<!-- /menu profile quick info -->
+						<br />
+						<!-- sidebar menu -->
+						<div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+							<div class="menu_section">
+								<ul class="nav side-menu">
+									<li><a href="index.html"><i class="fa fa-calendar"></i> 课程管理</a>                             
+									</li>
+									<li><a href="resourceManage.html"><i class="fa fa-book"></i> 课件</a>
+									</li>
+									<li><a href="informManage.html"><i class="fa fa-info-circle"></i> 通知 </span></a>
+									</li>
+									<li><a href="homeworkManage.html"><i class="fa fa-tasks"></i> 作业 </span></a>
+									</li>
+								</ul>
+							</div>
+						</div>
+						<!-- /sidebar menu -->						
+					</div>
+				</div>
+
+				<!-- top navigation -->
+				<div class="top_nav">
+					<div class="nav_menu">
+						<nav>
+							<div class="nav toggle">
+								<a id="menu_toggle"><i class="fa fa-bars"></i></a>
+							</div>
+
+							<ul class="nav navbar-nav navbar-right">
+								<li class="">
+									<a v-cloak href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+
+										<img src="/public/img/default.png" alt="" />
+										<span style="margin-left: 0;" v-cloak>{{info.name}}</span>
+										<span class=" fa fa-angle-down"></span>
+									</a>
+									<ul class="dropdown-menu dropdown-usermenu pull-right">
+										<li>
+											<a href="javascript:;">
+												<span>个人中心</span>
+											</a>
+										</li>
+										<li><a href="/"><i class="fa fa-sign-out pull-right"></i> 退出登录</a></li>
+									</ul>
+								</li>
+
+
+							</ul>
+						</nav>
+					</div>
+				</div>
+				<!-- /top navigation -->
+				
+				<!-- page content -->
+				<div class="right_col" role="main">
+					
+				</div>
+
+			</div>
+			<!-- /page content -->
+			
+			<!-- footer content -->
+			<footer>
+				<div class="pull-right">
+			
+				</div>
+				<div class="clearfix"></div>
+			</footer>
+			<!-- /footer content -->
+		</div>
+		
+		<script src="/libs/vue-2.4.0.js"></script>
+		<!-- jQuery -->
+		<script src="/libs/jquery-3.3.1.js"></script>
+		<!-- Bootstrap -->
+		<script src="/libs/bootstrap3/dist/js/bootstrap.min.js"></script>
+
+		<!-- DateJS -->
+		<script src="/libs/date.js"></script>
+				
+		<!-- Custom Theme Scripts -->
+		<script>
+			var vm = new Vue({
+				el: "#app",
+				data: {
+					info: {
+						name: '张xx',
+						id: '222',
+						email: ''
+					}
+				},
+				methods: {
+					
+				}
+			})
+		</script>
+		
+		<script src="/libs/xlsx.full.min.js"></script>
+		<script src="/public/js/custom.min.js"></script>		
+		
+	</body>
 </html>
