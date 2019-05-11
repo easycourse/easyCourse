@@ -7,7 +7,7 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<link rel="icon" type="image/x-icon" href="/public/img/icon.png" />
-		
+
 		<title>EasyCourse-课件管理</title>
 
 		<!-- Bootstrap -->
@@ -16,9 +16,9 @@
 		<link href="/libs/font-awesome/css/font-awesome.min.css" rel="stylesheet">
 		<!-- Custom Theme Style -->
 		<link href="/public/css/custom.min.css" rel="stylesheet">
-		
+
 		<link href="/public/css/index.css" rel="stylesheet" />
-		<link href="/public/css/informManage.css" rel="stylesheet"/>
+		<link href="/public/css/informManage.css" rel="stylesheet" />
 	</head>
 	<body class="nav-md">
 		<div id="app" class="container body">
@@ -47,7 +47,7 @@
 						<div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
 							<div class="menu_section">
 								<ul class="nav side-menu">
-									<li><a href="index.html"><i class="fa fa-calendar"></i> 课程管理</a>                             
+									<li><a href="index.html"><i class="fa fa-calendar"></i> 课程管理</a>
 									</li>
 									<li><a href="resourceManage.html"><i class="fa fa-book"></i> 课件</a>
 									</li>
@@ -58,7 +58,7 @@
 								</ul>
 							</div>
 						</div>
-						<!-- /sidebar menu -->						
+						<!-- /sidebar menu -->
 					</div>
 				</div>
 
@@ -94,7 +94,7 @@
 					</div>
 				</div>
 				<!-- /top navigation -->
-				
+
 				<!-- page content -->
 				<div class="right_col" role="main">
 					<div class="row">
@@ -102,9 +102,9 @@
 							<div class="x_panel">
 								<div class="text-center">
 									<h4>已发布</h4>
-									<h1>{{informs.length}} 个通知</h1>									
-								</div>							
-							</div>	
+									<h1>{{informs.length}} 个通知</h1>
+								</div>
+							</div>
 							<div>
 								<a href="addInform.html" class="btn btn-default btn-block" id="releaseInformBtn">+ 发布新通知</a>
 							</div>
@@ -113,12 +113,12 @@
 									<div class="col-md-4">
 										<h4>通知列表</h4>
 									</div>
-									<div class="title-right">
-										<div class="col-md-2 col-sm-2 col-xs-12 form-group pull-right top_search">
+									<div class="title_right">
+										<div class="col-md-3 col-sm-2 col-xs-12 form-group pull-right top_search">
 											<div class="input-group">
-												<input type="text" class="form-control" placeholder="Search for......"/>
+												<input type="text" class="form-control" placeholder="名称" />
 												<span class="input-group-btn">
-													<button class="btn btn-default" type="button">Go!</button>
+													<button id="searchBtn" class="btn btn-primary" type="button">搜索</button>
 												</span>
 											</div>
 										</div>
@@ -138,23 +138,23 @@
 										<table class="table">
 											<thead>
 												<tr>
-												    <th>名称</th>
-												    <th>详情</th>
-												    <th>发布人</th>
-												    <th>发布时间</th>
-												    <th>操作</th>
+													<th>名称</th>
+													<th>详情</th>
+													<th>发布人</th>
+													<th>发布时间</th>
+													<th>操作</th>
 												</tr>
 											</thead>
 											<tbody>
 												<tr v-for="(item,i) in informs" :key="item.noticeId">
-												    <td><a>{{item.title}}</a></td>
-												    <td>{{item.detail}}</td>
-												    <td>{{item.name}}</td>
-												    <td>{{item.createTime}}</td>
-												    <td width="180">
-												        <a class="btn" id="importStuListBtn" data-toggle="modal" data-target="#importStuListModal" @click="loadModalInfo(item.id)">添加学生</a> &nbsp;
-												        <a class="btn">删除</a>
-												    </td>
+													<td><a>{{item.title}}</a></td>
+													<td>{{item.detail}}</td>
+													<td>{{item.name}}</td>
+													<td>{{item.createTime}}</td>
+													<td width="180">
+														<a>下载附件</a> &nbsp;
+														<a>删除</a>
+													</td>
 												</tr>
 											</tbody>
 										</table>
@@ -164,22 +164,22 @@
 						</div>
 
 					</div>
-					
+
 				</div>
 
 			</div>
 			<!-- /page content -->
-			
+
 			<!-- footer content -->
 			<footer>
 				<div class="pull-right">
-			
+
 				</div>
 				<div class="clearfix"></div>
 			</footer>
 			<!-- /footer content -->
 		</div>
-		
+
 		<script src="/libs/vue-2.4.0.js"></script>
 		<!-- jQuery -->
 		<script src="/libs/jquery-3.3.1.js"></script>
@@ -188,7 +188,7 @@
 
 		<!-- DateJS -->
 		<script src="/libs/date.js"></script>
-				
+
 		<!-- Custom Theme Scripts -->
 		<script>
 			var vm = new Vue({
@@ -199,8 +199,7 @@
 						id: '222',
 						email: ''
 					},
-					informs: [
-						{
+					informs: [{
 							"noticeId": 1,
 							"lessonId": 1,
 							"noticeType": 2,
@@ -223,17 +222,16 @@
 							"appendixStatus": 0,
 							"appendixName": "",
 							"appendixURL": ""
-						}						
+						}
 					]
 				},
 				methods: {
-					
+
 				}
 			})
 		</script>
-		
-		<script src="/libs/xlsx.full.min.js"></script>
-		<script src="/public/js/custom.min.js"></script>		
-		
+
+		<script src="/public/js/custom.min.js"></script>
+
 	</body>
 </html>

@@ -16,8 +16,13 @@
 		<link href="/libs/font-awesome/css/font-awesome.min.css" rel="stylesheet">
 		<!-- Custom Theme Style -->
 		<link href="/public/css/custom.min.css" rel="stylesheet">
+		<!-- Bootstrap-select -->
+		<link href="/libs/bookstrap/css/bootstrap-select.min.css" rel="stylesheet"/>
 		
-		<link href="/public/css/index.css" rel="stylesheet" />
+		<link href="/public/css/index.css" rel="stylesheet" />	
+		<link href="/public/css/green.css" rel="stylesheet"/>
+		<link href="/public/css/addInform.css" rel="stylesheet" />
+
 	</head>
 	<body class="nav-md">
 		<div id="app" class="container body">
@@ -96,7 +101,85 @@
 				
 				<!-- page content -->
 				<div class="right_col" role="main">
-					
+					<div class="row">
+						<div class="col-md-12 col-sm-12 col-xs-12">
+							<div class="x_panel">
+								<div class="x_title">
+									<h2>发布新通知</h2>
+									<div class="clearfix"></div>
+								</div>
+								<div class="x_content">
+									<form class="form-horizontal">
+										<br />
+										<div class="form-group">
+											<label class="control-label col-md-3 col-sm-3 col-xs-3">标题</label>
+											<div class="col-md-6 col-sm-9 col-xs-9">
+												<input type="text" class="form-control" placeholder="标题..." />
+											</div>
+										</div>
+										<br />
+										<div class="form-group">
+											<label class="control-label col-md-3 col-sm-3 col-xs-3">详细描述（选填）</label>
+											<div class="col-md-6 col-sm-9 col-xs-9">
+												<textarea class="form-control" rows="3" placeholder="通知详情..."></textarea>
+											</div>
+										</div>
+										<br />
+										<div class="form-group">
+											<label class="control-label col-md-3 col-sm-3 col-xs-3">课程（多选）</label>
+											<div class="col-md-6 col-sm-9 col-xs-9">
+												<select class="selectpicker" multiple="multiple">
+													<option v-for="course in courses" v-bind:value="course.id">
+														{{course.name}}
+													</option>
+												</select>
+											</div>
+										</div>
+										<br />
+										<div class="form-group">
+											<label class="control-label col-md-3 col-sm-3 col-xs-3">通知类型</label>
+											<div class="radio">
+												<label>
+												  <input type="radio" class="flat" checked name="iCheck"> 考试相关
+												</label>
+												<label>
+												  <input type="radio" class="flat"  name="iCheck"> 课件相关
+												</label>
+												<label>
+												  <input type="radio" class="flat"  name="iCheck"> 作业相关
+												</label>
+												<label>
+												  <input type="radio" class="flat"  name="iCheck"> 成绩相关
+												</label>
+												<label>
+												  <input type="radio" class="flat"  name="iCheck"> 其他
+												</label>
+											</div>
+										</div>
+										<br />
+										<div class="form-group">
+											<label class="control-label col-md-3 col-sm-3 col-xs-3">上传附件</label>
+											<div class="col-md-6 col-sm-9 col-xs-9">
+												<input type="button" value="浏览文件" class="btn btn-default" onclick="$('#addAppendixInput').click();"/>
+												<input id="addAppendixInput" name="file" type="file" accept=".xls, .xlsx" @change="addAppendix" style="display: none">
+												<br />
+												<br />
+												<p>支持扩展名：.rar .zip .doc .docx .pdf .jpg...</p>
+												<ul id="filePathList"></ul>
+											</div>
+										</div>
+										<div class="ln_solid"></div>
+										<div class="form-group">
+											<label class="control-label col-md-3 col-sm-3 col-xs-3"></label>
+											<div class="col-md-2 col-sm-9 col-xs-9">
+												<button type="submit" class="btn btn-success btn-block">提交</button>
+											</div>
+										</div>									
+									</form>
+								</div>
+							</div>
+						</div>
+					</div>
 				</div>
 
 			</div>
@@ -117,6 +200,9 @@
 		<script src="/libs/jquery-3.3.1.js"></script>
 		<!-- Bootstrap -->
 		<script src="/libs/bootstrap3/dist/js/bootstrap.min.js"></script>
+		<script src="/libs/bookstrap/js/bootstrap-select.min.js"></script>
+		<script src="/libs/bookstrap/js/defaults-zh_CN.min.js"></script>
+		<script src="/libs/bookstrap/js/icheck.min.js"></script>
 
 		<!-- DateJS -->
 		<script src="/libs/date.js"></script>
@@ -130,15 +216,27 @@
 						name: '张xx',
 						id: '222',
 						email: ''
-					}
+					},
+					courses: [{
+					    name: '软件工程',
+					    id: '123',
+					    time:'',
+					    number:'',
+					}, {
+					    name: '数据库',
+					    id: '134',
+					    time:'',
+					    number:'',
+					}]
 				},
 				methods: {
-					
+					addAppendix(){
+						
+					}
 				}
 			})
 		</script>
 		
-		<script src="/libs/xlsx.full.min.js"></script>
 		<script src="/public/js/custom.min.js"></script>		
 		
 	</body>

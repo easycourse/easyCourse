@@ -11,11 +11,15 @@
 		<title>EasyCourse-发布作业</title>
 		
 		<!-- Bootstrap -->
-		<link href="/libs/bootstrap3/dist/css/bootstrap.min.css" rel="stylesheet">
+		<link href="/libs/bootstrap3/dist/css/bootstrap.min.css" rel="stylesheet" media="screen">
 		<!-- Font Awesome -->
 		<link href="/libs/font-awesome/css/font-awesome.min.css" rel="stylesheet">
 		<!-- Custom Theme Style -->
 		<link href="/public/css/custom.min.css" rel="stylesheet">
+		<!-- Bootstrap-select -->
+		<link href="/libs/bookstrap/css/bootstrap-select.min.css" rel="stylesheet"/>
+		<!-- Bootstrap-datetimepicker -->
+		<link href="/libs/bookstrap/css/bootstrap-datetimepicker.min.css" rel="stylesheet" media="screen" />
 		
 		<link href="/public/css/index.css" rel="stylesheet" />
 	</head>
@@ -95,12 +99,70 @@
 				<!-- /top navigation -->
 				
 				<!-- page content -->
-				<div class="right_col" role="main">
-					
+					<div class="right_col" role="main">
+						<div class="row">
+							<div class="col-md-12 col-sm-12 col-xs-12">
+								<div class="x_panel">
+									<div class="x_title">
+										<h2>发布作业</h2>
+										<div class="clearfix"></div>
+									</div>
+									<div class="x_content">
+										<form class="form-horizontal">
+											<br />
+											<div class="form-group">
+												<label class="control-label col-md-3 col-sm-3 col-xs-3">标题</label>
+												<div class="col-md-6 col-sm-9 col-xs-9">
+													<input type="text" class="form-control" placeholder="标题..." />
+												</div>
+											</div>
+											<br />
+											<div class="form-group">
+												<label class="control-label col-md-3 col-sm-3 col-xs-3">详细描述（选填）</label>
+												<div class="col-md-6 col-sm-9 col-xs-9">
+													<textarea class="form-control" rows="3" placeholder="作业详情..."></textarea>
+												</div>
+											</div>
+											<br />
+											<div class="form-group">
+												<label class="control-label col-md-3 col-sm-3 col-xs-3">课程（多选）</label>
+												<div class="col-md-6 col-sm-9 col-xs-9">
+													<select class="selectpicker" multiple="multiple">
+														<option v-for="course in courses" v-bind:value="course.id">
+															{{course.name}}
+														</option>
+													</select>
+												</div>
+											</div>
+											<br />
+											<div class="form-group">
+												<label class="control-label col-md-3 col-sm-3 col-xs-3">截至日期</label>
+												<div class="col-md-6 col-sm-9 col-xs-9">
+													<div class="input-group date form_date col-md-6" data-date="" data-date-format="yyyy-mm-dd hh:ii" data-link-field="dueInput" data-link-format="yyyy-mm-dd hh:ii">
+														<input class="form-control" size="16" type="text" value="" readonly>
+														<span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+													</div>
+													<input type="hidden" id="dueInput" value="" />
+												</div>
+												<br/>
+											</div>
+											
+											<div class="ln_solid"></div>
+											<div class="form-group">
+												<label class="control-label col-md-3 col-sm-3 col-xs-3"></label>
+												<div class="col-md-2 col-sm-9 col-xs-9">
+													<button type="submit" class="btn btn-success btn-block">提交</button>
+												</div>
+											</div>									
+										</form>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				
 				</div>
-
-			</div>
-			<!-- /page content -->
+				<!-- /page content -->
 			
 			<!-- footer content -->
 			<footer>
@@ -111,15 +173,35 @@
 			</footer>
 			<!-- /footer content -->
 		</div>
+	
 		
 		<script src="/libs/vue-2.4.0.js"></script>
 		<!-- jQuery -->
 		<script src="/libs/jquery-3.3.1.js"></script>
 		<!-- Bootstrap -->
 		<script src="/libs/bootstrap3/dist/js/bootstrap.min.js"></script>
+		<!-- Bootstrap-select -->
+		<script src="/libs/bookstrap/js/bootstrap-select.min.js"></script>
+		<script src="/libs/bookstrap/js/defaults-zh_CN.min.js"></script>
+		<!-- Bootstrap-datetimepicker -->
+		<script src="/libs/bookstrap/js/bootstrap-datetimepicker.js" charset="UTF-8"></script>
+		<script src="/libs/bookstrap/js/bootstrap-datetimepicker.zh-CN.js" charset="UTF-8"></script>
 
 		<!-- DateJS -->
 		<script src="/libs/date.js"></script>
+				
+		<!-- 日期组件初始化 -->
+		<script type="text/javascript">
+			$('.form_date').datetimepicker({
+				language:  'zh-CN',
+				todayBtn:  1,
+				autoclose: 1,
+				todayHighlight: 1,
+				startView: 2,
+				minView: 0,
+				forceParse: 0
+			});
+		</script>		
 				
 		<!-- Custom Theme Scripts -->
 		<script>
@@ -130,15 +212,25 @@
 						name: '张xx',
 						id: '222',
 						email: ''
-					}
+					},
+					courses: [{
+					    name: '软件工程',
+					    id: '123',
+					    time:'',
+					    number:'',
+					}, {
+					    name: '数据库',
+					    id: '134',
+					    time:'',
+					    number:'',
+					}]
 				},
 				methods: {
-					
+					$('.form_date').datetimepicker({});					
 				}
 			})
 		</script>
 		
-		<script src="/libs/xlsx.full.min.js"></script>
 		<script src="/public/js/custom.min.js"></script>		
 		
 	</body>

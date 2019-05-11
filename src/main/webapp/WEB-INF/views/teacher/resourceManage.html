@@ -7,17 +7,18 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<link rel="icon" type="image/x-icon" href="/public/img/icon.png" />
-		
+
 		<title>EasyCourse-课件管理</title>
-		
+
 		<!-- Bootstrap -->
 		<link href="/libs/bootstrap3/dist/css/bootstrap.min.css" rel="stylesheet">
 		<!-- Font Awesome -->
 		<link href="/libs/font-awesome/css/font-awesome.min.css" rel="stylesheet">
 		<!-- Custom Theme Style -->
 		<link href="/public/css/custom.min.css" rel="stylesheet">
-		
+
 		<link href="/public/css/index.css" rel="stylesheet" />
+		<link href="/public/css/informManage.css" rel="stylesheet" />
 	</head>
 	<body class="nav-md">
 		<div id="app" class="container body">
@@ -46,7 +47,7 @@
 						<div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
 							<div class="menu_section">
 								<ul class="nav side-menu">
-									<li><a href="index.html"><i class="fa fa-calendar"></i> 课程管理</a>                             
+									<li><a href="index.html"><i class="fa fa-calendar"></i> 课程管理</a>
 									</li>
 									<li><a href="resourceManage.html"><i class="fa fa-book"></i> 课件</a>
 									</li>
@@ -57,7 +58,7 @@
 								</ul>
 							</div>
 						</div>
-						<!-- /sidebar menu -->						
+						<!-- /sidebar menu -->
 					</div>
 				</div>
 
@@ -93,25 +94,86 @@
 					</div>
 				</div>
 				<!-- /top navigation -->
-				
+
 				<!-- page content -->
 				<div class="right_col" role="main">
-					
+					<div class="row">
+						<div class="col-md-12 col-sm-12 col-xs-12">
+							<div class="x_panel">
+								<div class="text-center">
+									<h4>已上传</h4>
+									<h1>{{lessonFileList.length}} 个文件</h1>
+								</div>
+							</div>
+							<div>
+								<a href="addResource.html" class="btn btn-default btn-block" id="releaseInformBtn">+ 上传新课件</a>
+							</div>
+							<div class="x_panel">
+								<div class="row x_title">
+									<div class="col-md-4">
+										<h4>文件列表</h4>
+									</div>
+									<div class="title-right">
+										<div class="col-md-3 col-sm-2 col-xs-12 form-group pull-right top_search">
+											<div class="input-group">
+												<input type="text" class="form-control" placeholder="名称" />
+												<span class="input-group-btn">
+													<button id="searchBtn" class="btn btn-primary" type="button">搜索</button>
+												</span>
+											</div>
+										</div>
+									</div>
+									<div class="clearfix"></div>
+								</div>
+								<div class="x_content">
+									<div class="row">
+										<table class="table ">
+											<thead>
+												<tr>
+													<th>课程名</th>
+													<th>文件名</th>
+													<th>描述</th>
+													<th>上传者</th>
+													<th>上传时间</th>
+													<th>操作</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr v-for="(item,i) in lessonFileList" :key="item.id">
+													<td>{{item.lessonName}}</td>
+													<td>{{item.title}}</td>
+													<td>{{item.detail}}</td>
+													<td>{{item.userName}}</td>
+													<td>{{item.createTime}}</td>
+													<td width="180">
+														<a>下载</a> &nbsp;
+														<a>删除</a>
+													</td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+								</div>
+							</div>
+						</div>
+
+					</div>
+
 				</div>
 
 			</div>
 			<!-- /page content -->
-			
+
 			<!-- footer content -->
 			<footer>
 				<div class="pull-right">
-			
+
 				</div>
 				<div class="clearfix"></div>
 			</footer>
 			<!-- /footer content -->
 		</div>
-		
+
 		<script src="/libs/vue-2.4.0.js"></script>
 		<!-- jQuery -->
 		<script src="/libs/jquery-3.3.1.js"></script>
@@ -120,7 +182,7 @@
 
 		<!-- DateJS -->
 		<script src="/libs/date.js"></script>
-				
+
 		<!-- Custom Theme Scripts -->
 		<script>
 			var vm = new Vue({
@@ -130,16 +192,38 @@
 						name: '张xx',
 						id: '222',
 						email: ''
-					}
+					},
+					lessonFileList: [{
+						"appendix": "www.fjiwaljfw.com",
+						"createTime": 1557507719000,
+						"detail": "商务智能的第三章课件",
+						"id": 5,
+						"isDelete": 0,
+						"lessonId": "1",
+						"lessonName": "软件工程",
+						"title": "商务智能",
+						"userId": "1",
+						"userName": "韩笑"
+					}, {
+						"appendix": "http://www.abc.com",
+						"createTime": 1556537438000,
+						"detail": "软件工程实验报告模板",
+						"id": 1,
+						"isDelete": 0,
+						"lessonId": "1",
+						"lessonName": "软件工程",
+						"title": "软件工程实验报告模板",
+						"userId": "1",
+						"userName": "韩笑"
+					}]
 				},
 				methods: {
-					
+
 				}
 			})
 		</script>
-		
-		<script src="/libs/xlsx.full.min.js"></script>
-		<script src="/public/js/custom.min.js"></script>		
-		
+
+		<script src="/public/js/custom.min.js"></script>
+
 	</body>
 </html>

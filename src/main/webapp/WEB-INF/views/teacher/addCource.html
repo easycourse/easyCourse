@@ -18,6 +18,7 @@
 		<link href="/public/css/custom.min.css" rel="stylesheet">
 		
 		<link href="/public/css/index.css" rel="stylesheet" />
+		<link href="/public/css/addInform.css" rel="stylesheet"/>
 	</head>
 	<body class="nav-md">
 		<div id="app" class="container body">
@@ -95,12 +96,58 @@
 				<!-- /top navigation -->
 				
 				<!-- page content -->
-				<div class="right_col" role="main">
-					
+					<div class="right_col" role="main">
+						<div class="row">
+							<div class="col-md-12 col-sm-12 col-xs-12">
+								<div class="x_panel">
+									<div class="x_title">
+										<h2>添加课程</h2>
+										<div class="clearfix"></div>
+									</div>
+									<div class="x_content">
+										<form class="form-horizontal">
+											<br />
+											<div class="form-group">
+												<label class="control-label col-md-3 col-sm-3 col-xs-3">课程名</label>
+												<div class="col-md-6 col-sm-9 col-xs-9">
+													<input type="text" class="form-control" placeholder="课程名..." />
+													<p>请在课程名称中标明班级，例《软件工程》软工4-6班</p>
+												</div>
+											</div>
+											<div class="form-group">
+												<label class="control-label col-md-3 col-sm-3 col-xs-3">课头号</label>
+												<div class="col-md-6 col-sm-9 col-xs-9">
+													<input type="text" class="form-control" disabled="disabled" value="为您生成的课头号为: 年份 + userID + 课程名称"/>
+												</div>
+											</div>
+											<br />
+											<div class="form-group">
+												<label class="control-label col-md-3 col-sm-3 col-xs-3">上传学生列表</label>
+												<div class="col-md-6 col-sm-9 col-xs-9">
+													<input type="button" value="浏览文件" class="btn btn-default" onclick="$('#addAppendixInput').click();"/>
+													<input id="addAppendixInput" name="file" type="file" accept=".xls, .xlsx" @change="addAppendix" style="display: none">
+													<br />
+													<br />
+													<p>支持扩展名：.xls, .xlsx</p>
+													<ul id="filePathList"></ul>
+												</div>
+											</div>
+											<div class="ln_solid"></div>
+											<div class="form-group">
+												<label class="control-label col-md-3 col-sm-3 col-xs-3"></label>
+												<div class="col-md-2 col-sm-9 col-xs-9">
+													<button type="submit" class="btn btn-success btn-block">提交</button>
+												</div>
+											</div>									
+										</form>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				
 				</div>
-
-			</div>
-			<!-- /page content -->
+				<!-- /page content -->
 			
 			<!-- footer content -->
 			<footer>
@@ -133,12 +180,13 @@
 					}
 				},
 				methods: {
-					
+					addAppendix(){
+						
+					}
 				}
 			})
 		</script>
 		
-		<script src="/libs/xlsx.full.min.js"></script>
 		<script src="/public/js/custom.min.js"></script>		
 		
 	</body>

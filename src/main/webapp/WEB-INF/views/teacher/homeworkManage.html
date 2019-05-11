@@ -18,6 +18,7 @@
 		<link href="/public/css/custom.min.css" rel="stylesheet">
 		
 		<link href="/public/css/index.css" rel="stylesheet" />
+		<link href="/public/css/informManage.css" rel="stylesheet" />
 	</head>
 	<body class="nav-md">
 		<div id="app" class="container body">
@@ -95,12 +96,91 @@
 				<!-- /top navigation -->
 				
 				<!-- page content -->
-				<div class="right_col" role="main">
-					
+					<div class="right_col" role="main">
+						<div class="row">
+							<div class="col-md-12 col-sm-12 col-xs-12">
+								<div class="x_panel">
+									<div class="row ">
+										<div class="col-md-6 col-sm-6 col-xs-6 text-center">
+											<h4>
+												未截至
+											</h4>
+											<h1>5项作业</h1>
+										</div>
+										<div class="col-md-6 col-sm-6 col-xs-6 text-center">
+											<h4>
+												已截至
+											</h4>
+											<h1>5项作业</h1>
+										</div>
+									</div>
+								</div>
+								<div>
+									<a href="addInform.html" class="btn btn-default btn-block" id="releaseInformBtn">+ 发布新作业</a>
+								</div>
+								<div class="x_panel">
+									<div class="row x_title">
+										<div class="col-md-4">
+											<h4>作业列表</h4>
+										</div>
+										<div class="title-right">
+											<div class="col-md-2 col-sm-2 col-xs-12 form-group pull-right top_search">
+												<div class="input-group">
+													<div class="input-group">
+														<input type="text" class="form-control" placeholder="名称" />
+														<span class="input-group-btn">
+															<button id="searchBtn" class="btn btn-primary" type="button">搜索</button>
+														</span>
+													</div>
+												</div>
+											</div>
+											<div class="col-md-3 pull-right btn-group">
+												<button type="button" class="btn btn-default active">全部</button>
+												<button type="button" class="btn btn-default">已截至</button>
+												<button type="button" class="btn btn-default">未截至</button>
+											</div>
+										</div>
+										<div class="clearfix"></div>
+									</div>
+									<div class="x_content">
+										<div class="row">
+											<table class="table">
+												<thead>
+													<tr>
+														<th>课程</th>
+														<th>标题</th>
+														<th>描述</th>
+														<th>发布时间</th>
+														<th>截至时间</th>
+														<th>提交人数</th>
+														<th>操作</th>
+													</tr>
+												</thead>
+												<tbody>
+													<tr v-for="(item,i) in lessonHomeworkList" :key="item.homeworkId">
+														<td><a>{{item.lessonName}}</a></td>
+														<td><a>{{item.title}}</a></td>
+														<td>{{item.detail}}</td>
+														<td>{{item.createTime}}</td>
+														<td>{{item.dueTime}}</td>
+														<td>{{item.dueTime}}</td>
+														<td >
+															<a>查看</a> 
+														</td>
+													</tr>
+												</tbody>
+											</table>
+										</div>
+									</div>
+								</div>
+							</div>
+				
+						</div>
+				
+					</div>
+				
 				</div>
-
-			</div>
-			<!-- /page content -->
+				<!-- /page content -->
 			
 			<!-- footer content -->
 			<footer>
@@ -130,7 +210,31 @@
 						name: '张xx',
 						id: '222',
 						email: ''
-					}
+					},
+					"lessonHomeworkList": [
+						{
+							"homeworkId": 1,
+							"lessonId":  1,
+							"lessonName": "软件工程",
+							"title":  "软件工程第一次作业",
+							"detail":  "本次作业...",
+							"createTime":  "2019-4-24 12:00:00",
+							"dueTime":  "2019-5-10 23:59:59",
+							"apendixStaus": 0,
+							"appendixURL": ""
+						},
+						{
+							"homeworkId": 1,
+							"lessonId":  1,
+							"lessonName": "软件工程",
+							"title":  "软件工程第二次作业",
+							"detail":  "本次作业...",
+							"createTime":  "2019-4-24 12:00:00",
+							"dueTime":  "2019-5-10 23:59:59",
+							"apendixStaus": 1,
+							"appendixURL": "swx.cn/resources/test.pdf"
+						},
+					]
 				},
 				methods: {
 					
@@ -138,7 +242,6 @@
 			})
 		</script>
 		
-		<script src="/libs/xlsx.full.min.js"></script>
 		<script src="/public/js/custom.min.js"></script>		
 		
 	</body>
