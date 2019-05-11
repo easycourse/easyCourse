@@ -1,0 +1,10 @@
+
+.btn-group button{
+	border-color: rgba(221,226,232,.49);
+	color: inherit;
+}
+
+#releaseInformBtn{
+	color: inherit;
+	border-style: dashed;
+}
