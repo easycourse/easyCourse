@@ -4,6 +4,8 @@ import com.easyCourse.entity.LessonNotice;
 import com.easyCourse.entity.Teacher;
 import com.alibaba.fastjson.JSONObject;
 
+import java.util.Map;
+
 /**
  * 教师服务接口
  * <p>
@@ -42,4 +44,13 @@ public interface TeacherService {
      * @return 教师信息
      */
     Teacher getTeacherById(String teacherId);
+
+    /**
+     * 教师增加选课人数
+     *
+     * @param records 学号->lessonId 的Map
+     * @return 教师信息
+     */
+    JSONObject importStudent(Map<String,String> records);
+
 }

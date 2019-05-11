@@ -9,6 +9,8 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.sql.Timestamp;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -113,4 +115,17 @@ public class TeacherDaoTest {
 
         System.out.println(i);
     }
+
+    @Test
+    public void importStudents() {
+        Map<String,String> tem = new HashMap<>();
+        tem.put("213","123");
+        tem.put("111","111");
+
+        int i = teacherDao.importStudents(tem);
+
+        System.out.println(i);
+    }
+
+
 }

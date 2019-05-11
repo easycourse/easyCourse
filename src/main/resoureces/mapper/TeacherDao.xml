@@ -157,10 +157,11 @@
         where teacher_id = #{teacherId,jdbcType=VARCHAR}
     </delete>
 
-
-
-
-
-
+    <insert id="importStudents" parameterType="hashmap">
+        INSERT INTO student_lesson (student_id,lesson_id) VALUE
+        <foreach collection="params" index="key" item="value" separator="," >
+            (#{key},#{value})
+        </foreach>
+    </insert>
 
 </mapper>
