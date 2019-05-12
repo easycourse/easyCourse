@@ -1,10 +1,248 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>EasyCourse-课件列表</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!-- Meta, title, CSS, favicons, etc. -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/x-icon" href="/public/img/icon.png" />
+
+    <title>EasyCourse-资料</title>
+
+    <!-- Bootstrap -->
+    <link href="/libs/bootstrap3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="/libs/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+
+    <!-- Custom Theme Style -->
+    <link href="/public/css/custom.min.css" rel="stylesheet">
+
+    <link href="/public/css/courseIndex.css" rel="stylesheet" />
+
+    <link href="/public/css/index.css" rel="stylesheet" />
 </head>
-<body>
+
+<body class="nav-md">
+<div id="app" class="container body">
+    <div class="main_container">
+        <div class="col-md-3 left_col">
+            <div class="left_col scroll-view">
+                <div class="navbar nav_title" style="border: 0;">
+                    <a href="index.html" class="site_title"><i class="icon"></i> <span>EasyCourse</span></a>
+                </div>
+
+                <div class="clearfix"></div>
+
+                <!-- menu profile quick info -->
+                <div class="profile clearfix">
+                    <div class="profile_pic">
+                        <img src="/public/img/default.png" alt="..." class="img-circle profile_img">
+                    </div>
+                    <div class="profile_info">
+                        <span>你好,</span>
+                        <h2 v-cloak>{{info.name}}</h2>
+                    </div>
+                </div>
+                <!-- /menu profile quick info -->
+                <br />
+                <!-- sidebar menu -->
+                <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+                    <div class="menu_section">
+
+                        <ul class="nav side-menu">
+                            <li class="active"><a><i class="fa fa-calendar"></i> 我的课程 <span class="fa fa-chevron-down"></span></a>
+                                <ul class="nav child_menu " style="display: block;">
+                                    <li v-cloak v-for="(item,i) in courses" :key="item.id" :class="{'current-page':item.isNow}"><a href="index.html">{{item.name}}</a></li>
+
+                                </ul>
+                            </li>
+
+                        </ul>
+                    </div>
+                </div>
+                <!-- /sidebar menu -->
+            </div>
+        </div>
+
+        <!-- top navigation -->
+        <div class="top_nav">
+            <div class="nav_menu">
+                <nav>
+                    <div class="nav toggle">
+                        <a id="menu_toggle"><i class="fa fa-bars"></i></a>
+                    </div>
+
+                    <ul class="nav navbar-nav navbar-right">
+                        <li class="">
+                            <a v-cloak href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+
+                                <img src="/public/img/default.png" alt="" />
+                                <span style="margin-left: 0;" v-cloak>{{info.name}}</span>
+                                <span class=" fa fa-angle-down"></span>
+                            </a>
+                            <ul class="dropdown-menu dropdown-usermenu pull-right">
+                                <li>
+                                    <a href="javascript:;">
+                                        <span>个人中心</span>
+                                    </a>
+                                </li>
+                                <li><a href="/"><i class="fa fa-sign-out pull-right"></i> 退出登录</a></li>
+                            </ul>
+                        </li>
+
+
+                    </ul>
+                </nav>
+            </div>
+        </div>
+
+        <!-- /top navigation -->
+
+        <!-- page content -->
+        <div class="right_col" role="main">
+            <!-- top tiles -->
+            <div class="row">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="x_content">
+                        <div class="" role="tabpanel" data-example-id="togglable-tabs">
+                            <ul class="nav nav-tabs bar_tabs" role="tablist">
+                                <li class=""><a href="#">课程主页</a>
+                                </li>
+                                <li class=""><a href="/student/homeworkList">作业预览</a>
+                                </li>
+                                <li class="active"><a href="/student/resourceList">资料共享</a>
+                                </li>
+                                <li class=""><a href="/student/informList">通知列表</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row" style="margin-left: 15px;">
+                <div class="title_left">
+                    <div class="col-md-4 col-sm-4 col-xs-6 form-group  top_search">
+                        <div class="input-group">
+                            <input type="text" v-model="keyword" class="form-control" placeholder="资料关键字">
+                            <span class="input-group-btn">
+										<button class="btn btn-default onleStyle" disabled="disabled"><i class="fa fa-search"></i></button>
+									</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="clearfix"></div>
+
+            </div>
+
+
+            <div class="row" style="margin: 0 5px;">
+                <div v-for="(item,i) in search(keyword)" :key="item.id" class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="x_panel tile ">
+                        <div class="x_content resource">
+                            <h4 class="re_title" v-cloak>{{item.name}}</h4>
+                            <h4 class="re_person" v-cloak>上传人：{{item.person}}</h4>
+                            <h4 class="re_time" v-cloak>上传时间：{{item.time}}</h4>
+                            <a class="btn btn-default download"><i class="fa fa-download"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /page content -->
+
+    <!-- footer content -->
+    <footer>
+        <div class="pull-right">
+
+        </div>
+        <div class="clearfix"></div>
+    </footer>
+    <!-- /footer content -->
+
+</div>
+
+<script src="/libs/vue-2.4.0.js"></script>
+<!-- jQuery -->
+<script src="/libs/jquery-3.3.1.js"></script>
+<!-- Bootstrap -->
+<script src="/libs/bootstrap3/dist/js/bootstrap.min.js"></script>
+
+<!-- DateJS -->
+<script src="/libs/date.js"></script>
+<script src="/public/js/common.js"></script>
+<!-- Custom Theme Scripts -->
+
+<script>
+    var vm = new Vue({
+        el: '#app',
+        data: {
+            info: {
+                name: '张xx',
+                id: '222',
+                email: '',
+            },
+            courses: [{
+                name: '软件工程',
+                id: '123',
+                isNow: false
+            }, {
+                name: '数据库',
+                id: '456',
+                isNow: false
+            }],
+            courseNow: {
+                name: '软件工程',
+                id: '123',
+                introduction: '',
+            },
+            resource: [{
+                id: '',
+                name: '第一张',
+                person: '张哈哈',
+                time: '',
+                url: ''
+            },{
+                id: '',
+                name: '第二张',
+                person: '张哈哈',
+                time: '',
+                url: ''
+            },{
+                id: '',
+                name: '第三张',
+                person: '张哈哈',
+                time: '',
+                url: ''
+            }],
+            //搜索关键字
+            keyword:''
+        },
+        methods: {
+            search(keyword){
+                return this.resource.filter(item=>{
+                    if(item.name.indexOf(keyword)!=-1||item.person.indexOf(keyword)!=-1||item.time.indexOf(keyword)!=-1){
+                        return item
+                    }
+                })
+            }
+        },
+        created() {
+            //暂时设置时间
+            this.resource[0].time = parseDate(new Date())
+        },
+        mounted() {
+            for (var i = 0; i < this.courses.length; i++) {
+                if (this.courses[i].id == this.courseNow.id) this.courses[i].isNow = true
+            }
+
+        }
+    })
+</script>
+<script src="/public/js/custom.min.js"></script>
 
 </body>
 </html>

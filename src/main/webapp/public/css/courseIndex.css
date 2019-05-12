@@ -1,0 +1,76 @@
+.resource{
+	display: flex;
+	flex-direction: row;
+}
+.re_title{
+	width: 35%;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	font-size: 1.6rem !important;
+	color: rgb(120,120,120);
+	line-height: 1.6rem !important;
+}
+
+.in_title{
+	width: 55%;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	font-size: 1.6rem !important;
+	line-height: 1.6rem !important;
+}
+.re_person,.in_person{
+	margin-left: 80px;
+	font-size: 1.2rem !important;
+	line-height: 1.6rem !important;
+	width: 14%;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+.re_time,.in_time{
+	margin-left: 10px;
+	font-size: 1.2rem !important;
+	line-height: 1.6rem !important;
+	width: 20%;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+.onleStyle{
+	cursor: auto !important;
+	color: #93A2B2 !important;
+	border: 1px solid rgba(221,226,232,.49) !important;
+}
+.download{
+	position: absolute;
+	right: 0;
+	width: 38px;
+	height: 38px;
+	border-radius: 50%;
+	padding: 7px;
+	font-size: 1.7rem;
+	color: rgb(120,120,120);
+}
+.box-right{
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-end;
+	margin-right: 15px;
+	margin-top: 2px;
+}
+.inform-btn:hover{
+	background-color: rgb(170,170,170);
+}
+.type-active{
+	background-color: rgb(170,170,170);
+	color: rgb(50,50,50);
+}
+.inform{
+	display: flex !important;
+	flex-direction: row;
+}
+.panel-inform{
+	background: #f0f0f0 !important;
+}

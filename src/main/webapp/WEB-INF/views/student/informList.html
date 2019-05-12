@@ -1,10 +1,312 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>EasyCourse-通知列表</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!-- Meta, title, CSS, favicons, etc. -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/x-icon" href="/public/img/icon.png" />
+
+    <title>EasyCourse-通知css</title>
+
+    <!-- Bootstrap -->
+    <link href="/libs/bootstrap3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="/libs/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+
+    <!-- Custom Theme Style -->
+    <link href="/public/css/custom.min.css" rel="stylesheet">
+
+    <link href="/public/css/courseIndex.css" rel="stylesheet" />
+
+    <link href="/public/css/index.css" rel="stylesheet" />
 </head>
-<body>
+
+<body class="nav-md">
+<div id="app" class="container body">
+    <div class="main_container">
+        <div class="col-md-3 left_col">
+            <div class="left_col scroll-view">
+                <div class="navbar nav_title" style="border: 0;">
+                    <a href="index.html" class="site_title"><i class="icon"></i> <span>EasyCourse</span></a>
+                </div>
+
+                <div class="clearfix"></div>
+
+                <!-- menu profile quick info -->
+                <div class="profile clearfix">
+                    <div class="profile_pic">
+                        <img src="/public/img/default.png" alt="..." class="img-circle profile_img">
+                    </div>
+                    <div class="profile_info">
+                        <span>你好,</span>
+                        <h2 v-cloak>{{info.name}}</h2>
+                    </div>
+                </div>
+                <!-- /menu profile quick info -->
+                <br />
+                <!-- sidebar menu -->
+                <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+                    <div class="menu_section">
+
+                        <ul class="nav side-menu">
+                            <li class="active"><a><i class="fa fa-calendar"></i> 我的课程 <span class="fa fa-chevron-down"></span></a>
+                                <ul class="nav child_menu " style="display: block;">
+                                    <li v-cloak v-for="(item,i) in courses" :key="item.id" :class="{'current-page':item.isNow}"><a href="index.html">{{item.name}}</a></li>
+
+                                </ul>
+                            </li>
+
+                        </ul>
+                    </div>
+                </div>
+                <!-- /sidebar menu -->
+            </div>
+        </div>
+
+        <!-- top navigation -->
+        <div class="top_nav">
+            <div class="nav_menu">
+                <nav>
+                    <div class="nav toggle">
+                        <a id="menu_toggle"><i class="fa fa-bars"></i></a>
+                    </div>
+
+                    <ul class="nav navbar-nav navbar-right">
+                        <li class="">
+                            <a v-cloak href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+
+                                <img src="/public/img/default.png" alt="" />
+                                <span style="margin-left: 0;" v-cloak>{{info.name}}</span>
+                                <span class=" fa fa-angle-down"></span>
+                            </a>
+                            <ul class="dropdown-menu dropdown-usermenu pull-right">
+                                <li>
+                                    <a href="javascript:;">
+                                        <span>个人中心</span>
+                                    </a>
+                                </li>
+                                <li><a href="/"><i class="fa fa-sign-out pull-right"></i> 退出登录</a></li>
+                            </ul>
+                        </li>
+
+
+                    </ul>
+                </nav>
+            </div>
+        </div>
+
+        <!-- /top navigation -->
+
+        <!-- page content -->
+        <div class="right_col" role="main">
+            <!-- top tiles -->
+            <div class="row">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="x_content">
+                        <div class="" role="tabpanel" data-example-id="togglable-tabs">
+                            <ul class="nav nav-tabs bar_tabs" role="tablist">
+                                <li class=""><a href="#">课程主页</a>
+                                </li>
+                                <li class=""><a href="/student/homeworkList">作业预览</a>
+                                </li>
+                                <li class=""><a href="/student/resourceList">资料共享</a>
+                                </li>
+                                <li class="active"><a href="/student/informList">通知列表</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row" style="margin-left: 15px;">
+                <div class="title_left">
+                    <div class="col-md-4 col-sm-4 col-xs-6 form-group  top_search">
+                        <div class="input-group">
+                            <input type="text" v-model="keyword" class="form-control" placeholder="资料关键字">
+                            <span class="input-group-btn">
+										<button class="btn btn-default onleStyle" disabled="disabled"><i class="fa fa-search"></i></button>
+									</span>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="title_right">
+                    <div class="col-md-6 col-sm-6 col-xs-12" style="float: right;">
+                        <div class="button_box box-right">
+                            <div class="btn-group btn-group-sm" role="group" aria-label="...">
+                                <button type="button" @click="changeType(0)" v-cloak :class="{'btn':show,'btn_style':show,'inform-btn':show,'type-active':active(0)}">全部</button>
+                                <button type="button" @click="changeType(1)" v-cloak :class="{'btn':show,'btn_style':show,'inform-btn':show,'type-active':active(1)}">考试相关</button>
+                                <button type="button" @click="changeType(2)" v-cloak :class="{'btn':show,'btn_style':show,'inform-btn':show,'type-active':active(2)}">作业相关</button>
+                                <button type="button" @click="changeType(3)" v-cloak :class="{'btn':show,'btn_style':show,'inform-btn':show,'type-active':active(3)}">课件</button>
+                                <button type="button" @click="changeType(4)" v-cloak :class="{'btn':show,'btn_style':show,'inform-btn':show,'type-active':active(4)}">成绩</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="clearfix"></div>
+
+            </div>
+
+
+            <div class="row" style="margin: 0 5px;">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="x_panel">
+                        <div class="x_content">
+                            <!-- start accordion -->
+                            <div class="accordion" id="accordion" role="tablist" aria-multiselectable="true">
+                                <div v-for="(item,i) in search(keyword)" :key="item.id" class="panel">
+                                    <a class="panel-heading collapsed inform panel-inform" role="tab" :id="setId('heading',item.id)" data-toggle="collapse" data-parent="#accordion"
+                                       :href="setId('collapse',item.id,1)" aria-expanded="false" aria-controls="collapseTwo">
+                                        <h4 class="in_title" v-cloak>{{item.name}}</h4>
+                                        <h4 class="in_person" v-cloak>发布人：{{item.person}}</h4>
+                                        <h4 class="in_time" v-cloak>发布时间：{{item.time}}</h4>
+                                    </a>
+                                    <div :id="setId('collapse',item.id)" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+                                        <div v-cloak class="panel-body">
+                                            <p><strong v-cloak>{{item.name}}</strong>
+                                            </p >
+                                            {{item.content}}
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <!-- end of accordion -->
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /page content -->
+
+    <!-- footer content -->
+    <footer>
+        <div class="pull-right">
+
+        </div>
+        <div class="clearfix"></div>
+    </footer>
+    <!-- /footer content -->
+
+</div>
+
+<script src="/libs/vue-2.4.0.js"></script>
+<!-- jQuery -->
+<script src="/libs/jquery-3.3.1.js"></script>
+<!-- Bootstrap -->
+<script src="/libs/bootstrap3/dist/js/bootstrap.min.js"></script>
+
+<!-- DateJS -->
+<script src="/libs/date.js"></script>
+<script src="/public/js/common.js"></script>
+<!-- Custom Theme Scripts -->
+
+<script>
+    var vm = new Vue({
+        el: '#app',
+        data: {
+            show:true,
+            info: {
+                name: '张xx',
+                id: '222',
+                email: '',
+            },
+            courses: [{
+                name: '软件工程',
+                id: '123',
+                isNow: false
+            }, {
+                name: '数据库',
+                id: '456',
+                isNow: false
+            }],
+            courseNow: {
+                name: '软件工程',
+                id: '123',
+                introduction: '',
+            },
+
+            inform: [{
+                id: '2',
+                type:2,
+                name: '第一次作业',
+                person:'张哈哈',
+                time: '',
+                content: '完成刚刚发布的作业内容'
+            }, {
+                id: '1',
+                name: '考试安排',
+                person: '张哈哈',
+                time: '',
+                type:1,
+                content: ''
+            }, {
+                id: '4',
+                name: '第一次平时成绩公布',
+                person: '张哈哈',
+                time: '',
+                type:4,
+                content: ''
+            }],
+
+            //搜索关键字
+            keyword: '',
+            //消息类型范围 1 考试 2 作业 3 资料 4 成绩 0 全部
+            type: 0
+        },
+        methods: {
+            search(keyword) {
+                //获取当前类型
+                if(this.type == 0){
+                    var arr = this.inform
+                }else{
+                    var arr = this.inform.filter(item =>{
+                        if(item.id == this.type) return item
+                    })
+                }
+                return arr.filter(item => {
+                    if (item.name.indexOf(keyword) != -1 || item.person.indexOf(keyword) != -1 || item.time.indexOf(keyword) != -1) {
+                        return item
+                    }
+                })
+            },
+            //设置id名称
+            setId(str,id,type){
+                if(type){
+                    return '#'+str+id
+                }
+                return str+id
+            },
+            changeType(btnType){
+                //改变类型
+                this.type = btnType
+
+            },
+            //类型按钮样式激活
+            active(btnType){
+                if(btnType==this.type) return true
+                else return false
+            }
+        },
+        created() {
+            this.inform[0].time = parseDate(new Date())
+        },
+        mounted() {
+            for (var i = 0; i < this.courses.length; i++) {
+                if (this.courses[i].id == this.courseNow.id) this.courses[i].isNow = true
+            }
+
+        }
+    })
+</script>
+<script src="/public/js/custom.min.js"></script>
 
 </body>
 </html>
