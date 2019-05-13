@@ -56,4 +56,40 @@
         select * from lesson
         where lesson_id = #{lessonId} and is_delete = 0
     </select>
+
+    <update id="updateByPrimaryKeySelective" parameterType="com.easyCourse.entity.Lesson">
+        update lesson
+        <set>
+            <if test="lessonName != null">
+                lesson_name = #{lessonName, jdbcType=VARCHAR},
+            </if>
+            <if test="teacherId != null">
+                teacher_id = #{teacherId, jdbcType=VARCHAR},
+            </if>
+            <if test="lessonTime != null">
+                lesson_time = #{lessonTime, jdbcType=VARCHAR},
+            </if>
+            <if test="detail != null">
+                detail = #{detail, jdbcType=VARCHAR},
+            </if>
+            <if test="studentNum != null">
+                student_num = #{studentNum, jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime, jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime, jdbcType=TIMESTAMP},
+            </if>
+            <if test="isDelete != null">
+                is_delete = #{isDelete, jdbcType=INTEGER}
+            </if>
+        </set>
+        where lesson_id = #{lessonId,jdbcType=VARCHAR}
+    </update>
+
+    <select id="selectLessonByLessonId" resultMap="BaseResultMap">
+        select * from lesson
+        where lesson_id = #{lessonId} and is_delete = 0
+    </select>
 </mapper>

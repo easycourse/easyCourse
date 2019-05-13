@@ -45,4 +45,18 @@ public interface LessonDao {
 
     //根据id搜索得到Lesson课程
     Lesson selectByLessonId(String lessonId);
+
+    /**
+     * 更新课程
+     * @param lesson
+     * @return
+     */
+    int updateByPrimaryKeySelective(Lesson lesson);
+
+    /**
+     * 根据lessonId获取
+     * @param lessonId
+     * @return
+     */
+    Lesson selectLessonByLessonId(String lessonId);
 }

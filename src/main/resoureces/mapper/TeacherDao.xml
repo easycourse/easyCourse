@@ -108,7 +108,7 @@
         </trim>
     </insert>
 
-    <update id="updateByPrimaryKeyComplete" parameterType="com.easyCourse.model.Teacher">
+    <update id="updateByPrimaryKeyComplete" parameterType="com.easyCourse.entity.Teacher">
         update user_teacher
         set passwd = #{passwd, jdbcType=VARCHAR},
             mail = #{mail, jdbcType=VARCHAR},
@@ -121,7 +121,7 @@
         where teacher_id = #{teacherId,jdbcType=VARCHAR}
     </update>
 
-    <update id="updateByPrimaryKeySelective" parameterType="com.easyCourse.model.Teacher">
+    <update id="updateByPrimaryKeySelective" parameterType="com.easyCourse.entity.Teacher">
         update user_teacher
         <set>
             <if test="passwd != null">
