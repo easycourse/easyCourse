@@ -115,21 +115,16 @@
 												</div>
 											</div>
 											<div class="form-group">
-												<label class="control-label col-md-3 col-sm-3 col-xs-3">课头号</label>
+												<label class="control-label col-md-3 col-sm-3 col-xs-3">上课时间</label>
 												<div class="col-md-6 col-sm-9 col-xs-9">
-													<input type="text" class="form-control" disabled="disabled" value="为您生成的课头号为: 年份 + userID + 课程名称"/>
+													<input type="text" class="form-control" placeholder="上课时间..." required="required"/>
 												</div>
 											</div>
 											<br />
 											<div class="form-group">
-												<label class="control-label col-md-3 col-sm-3 col-xs-3">上传学生列表</label>
+												<label class="control-label col-md-3 col-sm-3 col-xs-3">课程详情（选填）</label>
 												<div class="col-md-6 col-sm-9 col-xs-9">
-													<input type="button" value="浏览文件" class="btn btn-default" onclick="$('#addAppendixInput').click();"/>
-													<input id="addAppendixInput" name="file" type="file" accept=".xls, .xlsx" @change="addAppendix" style="display: none">
-													<br />
-													<br />
-													<p>支持扩展名：.xls, .xlsx</p>
-													<ul id="filePathList"></ul>
+													<textarea class="form-control" rows="3" placeholder="课程详情..."></textarea>
 												</div>
 											</div>
 											<div class="ln_solid"></div>

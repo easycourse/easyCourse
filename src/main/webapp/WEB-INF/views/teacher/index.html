@@ -154,7 +154,7 @@
                                     <div class="col-sm-12 col-md-12 col-xs-12">
                                         <div class="dataTables_paginate">
                                             <ul class="pagination">
-                                                <li class="paginate_button" id="datatable-checkbox_previous"><a href="#">添加课程</a></li>
+                                                <li class="paginate_button" id="datatable-checkbox_previous"><a href="addCourse.html">添加课程</a></li>
                                             </ul>
                                         </div>
                                     </div>
@@ -232,17 +232,7 @@
                 id: '222',
                 email: ''
             },
-            courses: [{
-                name: '软件工程',
-                id: '123',
-                time:'',
-                number:'',
-            }, {
-                name: '数据库',
-                id: '134',
-                time:'',
-                number:'',
-            }],
+            courses: [],
 			importStuInfo:{
 				teacherId: '',
 				lessonId: '',
@@ -300,6 +290,25 @@
 				})
 			}
         }
+		// created() {
+		// 	var thisVM = this;
+		// 	//获取用户信息
+		// 
+		// 	//获取课程列表
+		// 	$.ajax({
+		// 		type: 'GET',
+		// 		data: '',
+		// 		url: '/teacher/course',
+		// 		dataType: 'json',
+		// 		success: function(msg) {
+		// 			var data = JSON.parse(JSON.stringify(msg));
+		// 			if(data.get('status') == '200'){
+		// 				thisVM.courses = data.get('data').get('lessonList');
+		// 			}
+		// 		}
+		// 	})
+		// 
+		// }
     })
 </script>
 
