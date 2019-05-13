@@ -149,7 +149,7 @@ public class StudentController {
 
 
     /**
-     * 获取某个学生对应的通知列表
+     * 根据学生id获取其通知列表
      *
      * @param session  session
      * @param response response
@@ -254,4 +254,71 @@ public class StudentController {
 
         response.getWriter().write(String.valueOf(result));
     }
+
+
+    /**
+     * TODO：根据课程id获取课程作业
+     * @param lessonId  lessonId
+     * @param session  session
+     * @param response response
+     * @throws IOException
+     */
+    @RequestMapping(value = "/getHomeworkByLessonId", method = RequestMethod.GET)
+    public void getHomeworkByLessonId(@RequestParam(value = "lessonId") String lessonId, HttpSession session, HttpServletResponse response) throws IOException {
+        response.setCharacterEncoding("UTF-8");
+
+    }
+
+    /**
+     * TODO：根据课程id获取通知信息
+     * @param lessonId  lessonId
+     * @param session  session
+     * @param response response
+     * @throws IOException
+     */
+    @RequestMapping(value = "/getInformByLessonId", method = RequestMethod.GET)
+    public void getInformByLessonId(@RequestParam(value = "lessonId") String lessonId, HttpSession session, HttpServletResponse response) throws IOException {
+        response.setCharacterEncoding("UTF-8");
+    }
+
+    /**
+     * TODO：根据课程id获取其详情
+     * @param lessonId  lessonId
+     * @param session  session
+     * @param response response
+     * @throws IOException
+     */
+    @RequestMapping(value = "/course/{lessonId}", method = RequestMethod.GET)
+    public void getCourseById(@PathVariable(value = "lessonId") String lessonId, HttpSession session, HttpServletResponse response) throws IOException {
+        response.setCharacterEncoding("UTF-8");
+        //根据lessonId多表查询得到lesson和teacher的相关信息
+    }
+
+    //todo:提交作业
+    @RequestMapping(value = "/commitHomework", method = RequestMethod.POST)
+    public void getScore(@RequestParam("homeworkId") String homeworkId,@RequestParam("homeworkName") String homeworkName,@RequestParam("appendix") String appendix, HttpSession session,HttpServletResponse response) throws IOException {
+        response.setCharacterEncoding("UTF-8");
+        Student student = (Student) session.getAttribute("student");
+        String studentId = student.getStudent_id();
+        //注意如果对于同一个homeworkId和studentId有相同的提交的话，那么直接update appendix
+        //先查询是否有记录是同一个studentId和homeworkId，如果没有那么直接插入，如果有的话那么update appendix
+    }
+
+    //todo:根据HomeworkId查看得分
+    @RequestMapping(value = "/score", method = RequestMethod.GET)
+    public void getScore(@RequestParam("homeworkId") String homeworkId, HttpServletResponse response) throws IOException {
+        response.setCharacterEncoding("UTF-8");
+        //如果是null，表示为还未给出成绩
+    }
+
+    //todo:查看作业提交情况
+    @RequestMapping(value = "/checkHomework", method = RequestMethod.POST)
+    public void checkHomework(@RequestParam("homeworkId") String homeworkId,HttpSession session,HttpServletResponse response) throws IOException {
+        response.setCharacterEncoding("UTF-8");
+        Student student = (Student) session.getAttribute("student");
+        String studentId = student.getStudent_id();
+        //根据student和homeworkID查询，如果查到了那么返回那条记录
+        //如果没有 data里面放null
+    }
+
 }
