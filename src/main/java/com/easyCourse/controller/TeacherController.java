@@ -93,6 +93,12 @@ public class TeacherController {
         return "teacher/addResource";
     }
 
+    //作业批改界面
+    @GetMapping("/homeworkCorrect")
+    public String getHomeworkCorrectIndex(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        return "teacher/homeworkCorrect";
+    }
+
 
     /************登录注册模块**************/
     //注册接口
@@ -149,7 +155,6 @@ public class TeacherController {
                                 @RequestParam(value = "lessonDetail", required = false) String lessonDetail, HttpSession session) {
         Teacher teacher = (Teacher) session.getAttribute("teacher");
         String teacherId = teacher.getTeacherId();
-
         return lessonService.addLesson(lessonName, lessonTime, lessonDetail, teacherId);
     }
 
@@ -180,6 +185,12 @@ public class TeacherController {
         httpServletResponse.getWriter().write(String.valueOf(result));
     }
 
+    //TODO：根据类型筛选通知
+    @GetMapping("/searchInform")
+    public void getInformDataByType(@RequestParam(value = "noticeType",required = true) String noticeType, HttpServletResponse httpServletResponse, HttpSession session) throws IOException {
+        //根据noticeType进行筛选通知
+    }
+
     //发布新通知
     @PostMapping("/inform")
     public void addNotice(@RequestBody JSONObject body,  HttpServletResponse httpServletResponse, HttpSession session) throws IOException {
@@ -202,7 +213,7 @@ public class TeacherController {
     public void getCoursewareIndexData(HttpSession httpSession, HttpServletResponse httpServletResponse) throws IOException {
         Teacher teacher = (Teacher) httpSession.getAttribute("teacher");
         String teacherId = teacher.getTeacherId();
-        //根据teacherId查到一个lesson_file的list，然后放在resultBean里面返回
+        httpServletResponse.setCharacterEncoding("UTF-8");
         List<LessonFile> lessonFileList = lessonService.getLessonFileListByTeacherId(teacherId);
 
         JSONObject jsonObject = new JSONObject();
@@ -213,9 +224,9 @@ public class TeacherController {
     }
 
     //根据名称搜索相关课件
-    @GetMapping("/courseware/{lessonName}")
+    @GetMapping("/searchCourseware")
     @ResponseBody
-    public JSONObject getCoursewareByLessonName(@PathVariable(value = "lessonName") String lessonName,HttpSession session) {
+    public JSONObject getCoursewareByLessonName(@RequestParam(value = "lessonName") String lessonName,HttpSession session) {
         Teacher teacher = (Teacher) session.getAttribute("teacher");
         String teacherId = teacher.getTeacherId();
         //根据teacherId查到一个lesson_file的list，然后放在resultBean里面返回
@@ -268,9 +279,10 @@ public class TeacherController {
     public void getHomework(HttpSession session) throws IOException {
         Teacher teacher = (Teacher) session.getAttribute("teacher");
         String teacherId = teacher.getTeacherId();
+        //包含信息有 课程	作业标题	作业描述	发布时间	截至时间	提交人数
     }
 
-    //根据id查看某个作业的提交情况
+    //根据id查看某个作业的提交情况(包括提交的学生姓名、时间、学号、分数等等)
     @GetMapping("/homework/{homeworkId}")
     @ResponseBody
     public JSONObject getHomeworkByHomeworkId(@PathVariable(value = "homeworkId") String homeworkId,HttpSession session) {
@@ -279,9 +291,36 @@ public class TeacherController {
 
     //发布新作业
     @PostMapping("/homework")
-    public void addHomework(HttpSession session) throws IOException {
+    public void addHomework(@RequestBody String param, HttpSession session) throws IOException {
+        JSONObject body = JSONObject.parseObject(param);
+        String title = body.getString("title");
+        JSONArray lessonIdList = body.getJSONArray("lessonIdList");
+        String detail = body.getString("detail");
+        String dueTime = body.getString("dueTime");
+
         Teacher teacher = (Teacher) session.getAttribute("teacher");
         String teacherId = teacher.getTeacherId();
+
+    }
+
+    //导入学生成绩
+    @PostMapping("/correctHomework")
+    public void correctHomework(@RequestParam(value = "homeworkId", required = true) String lessonId,
+                                @RequestParam(value = "studentList", required = true) String studentList,@RequestParam(value = "scoreList", required = true) String scoreList,HttpSession session) throws IOException {
+        Teacher teacher = (Teacher) session.getAttribute("teacher");
+        String teacherId = teacher.getTeacherId();
+
+        //可以参考importStudents接口里面相关的mybatis导入map的操作
+        JSONArray idArray = JSONArray.parseArray(studentList);
+        JSONArray scoreArray = JSONArray.parseArray(scoreList);
+
+
+        Map<String,String> studentScoreInfoList = new HashMap<>();
+        for(int i=0;i<idArray.size();i++){
+            JSONObject id = idArray.getJSONObject(i);
+            JSONObject score = scoreArray.getJSONObject(i);
+            studentScoreInfoList.put(id.getString("studentId"),score.getString("score"));
+        }
 
     }
 }
