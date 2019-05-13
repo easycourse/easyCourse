@@ -1,7 +1,9 @@
 package com.easyCourse.service.impl;
 
 import com.alibaba.fastjson.JSONObject;
+import com.easyCourse.dao.LessonDao;
 import com.easyCourse.dao.TeacherDao;
+import com.easyCourse.entity.Lesson;
 import com.easyCourse.entity.Teacher;
 import com.easyCourse.service.TeacherService;
 import com.easyCourse.utils.Jwt;
@@ -13,6 +15,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 
 /**
@@ -26,6 +29,8 @@ public class TeacherServiceImpl implements TeacherService {
 
     @Autowired
     private TeacherDao teacherDao;
+    @Autowired
+    private LessonDao lessonDao;
 
     @Override
     public JSONObject register(String teacherId, String password, String teacherName,
@@ -110,6 +115,24 @@ public class TeacherServiceImpl implements TeacherService {
             result.put("data", null);
             return result;
         }
+
+        //从map中获取lessonId
+        Iterator<String> iter = records.keySet().iterator();
+        String tempKey =iter.next();
+        String lessonIdX = records.get(tempKey);
+        Lesson lesson = lessonDao.selectByLessonId(lessonIdX);
+        //更新选课人数和更新时间
+        lesson.setStudentNum(lesson.getStudentNum() + records.size());
+        lesson.setUpdateTime(new Date());
+
+        int updateCount = lessonDao.updateByPrimaryKeySelective(lesson);
+        if(updateCount!=1){
+            result.put("status", StatusCode.IMPORT_STUDENTRECORDS_WRONG);
+            result.put("msg", "更新选课人数错误");
+            result.put("data", null);
+            return result;
+        }
+
         result.put("status", StatusCode.SUCCESS);
         result.put("msg", "教师登录成功");
         result.put("data", num);
