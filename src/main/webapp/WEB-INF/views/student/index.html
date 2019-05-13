@@ -19,124 +19,134 @@
     <link href="/public/css/custom.min.css" rel="stylesheet">
 
     <link href="/public/css/index.css" rel="stylesheet" />
+    <link href="/public/css/component.css" rel="stylesheet" />
+    <link href="/public/css/courseIndex.css" rel="stylesheet" />
 </head>
 
 <body class="nav-md">
-    <div id="app" class="container body">
-        <div class="main_container">
-            <div class="col-md-3 left_col">
-                <div class="left_col scroll-view">
-                    <div class="navbar nav_title" style="border: 0;">
-                        <a href="/student/index" class="site_title"><i class="icon"></i> <span>EasyCourse</span></a>
-                    </div>
-
-                    <div class="clearfix"></div>
-
-                    <!-- menu profile quick info -->
-                    <div class="profile clearfix">
-                        <div class="profile_pic">
-                            <img src="/public/img/default.png" alt="..." class="img-circle profile_img">
-                        </div>
-                        <div class="profile_info">
-                            <span>你好,</span>
-                            <h2 v-cloak>{{info.name}}</h2>
-                        </div>
-                    </div>
-                    <!-- /menu profile quick info -->
-                    <br />
-                    <!-- sidebar menu -->
-                    <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
-                        <div class="menu_section">
-
-                            <ul class="nav side-menu">
-                                <li><a><i class="fa fa-calendar"></i> 我的课程 <span class="fa fa-chevron-down"></span></a>
-                                    <ul class="nav child_menu">
-                                        <li v-cloak v-for="(item,i) in courses" :key="item.id"><a href="#" @click.prevent="goCourse(item.id)">{{item.name}}</a></li>
-
-                                    </ul>
-                                </li>
-
-                            </ul>
-                        </div>
-                    </div>
-                    <!-- /sidebar menu -->
+<div id="app" class="container body">
+    <div class="md-modal md-effect-5 col-md-4 col-sm-4 col-xs-9" id="modal">
+        <div class="md-content">
+            <h3><strong v-cloak>{{informActive.name}}</strong></h3>
+            <p v-cloak>
+                {{informActive.content}}
+            </p>
+        </div>
+    </div>
+    <div class="main_container">
+        <div class="col-md-3 left_col">
+            <div class="left_col scroll-view">
+                <div class="navbar nav_title" style="border: 0;">
+                    <a href="/student/index" class="site_title"><i class="icon"></i> <span>EasyCourse</span></a>
                 </div>
-            </div>
 
-            <!-- top navigation -->
-            <div class="top_nav">
-                <div class="nav_menu">
-                    <nav>
-                        <div class="nav toggle">
-                            <a id="menu_toggle"><i class="fa fa-bars"></i></a>
-                        </div>
+                <div class="clearfix"></div>
 
-                        <ul class="nav navbar-nav navbar-right">
-                            <li class="">
-                                <a v-cloak href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                <!-- menu profile quick info -->
+                <div class="profile clearfix">
+                    <div class="profile_pic">
+                        <img src="/public/img/default.png" alt="..." class="img-circle profile_img">
+                    </div>
+                    <div class="profile_info">
+                        <span>你好,</span>
+                        <h2 v-cloak>{{info.name}}</h2>
+                    </div>
+                </div>
+                <!-- /menu profile quick info -->
+                <br />
+                <!-- sidebar menu -->
+                <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+                    <div class="menu_section">
 
-                                    <img src="/public/img/default.png"  alt=""/>
-                                    <span style="margin-left: 0;" v-cloak>{{info.name}}</span>
-                                    <span class=" fa fa-angle-down"></span>
-                                </a>
-                                <ul class="dropdown-menu dropdown-usermenu pull-right">
-                                    <li>
-                                        <a href="javascript:;">
-                                            <span>个人中心</span>
-                                        </a>
-                                    </li>
-                                    <li><a href="/"><i class="fa fa-sign-out pull-right"></i> 退出登录</a></li>
+                        <ul class="nav side-menu">
+                            <li><a><i class="fa fa-calendar"></i> 我的课程 <span class="fa fa-chevron-down"></span></a>
+                                <ul class="nav child_menu">
+                                    <li v-cloak v-for="(item,i) in courses" :key="item.id"><a href="#" @click.prevent="goCourse(item.id)">{{item.name}}</a></li>
+
                                 </ul>
                             </li>
 
-
                         </ul>
-                    </nav>
+                    </div>
                 </div>
+                <!-- /sidebar menu -->
             </div>
-            <!-- /top navigation -->
+        </div>
 
-            <!-- page content -->
-            <div class="right_col" role="main">
-                <!-- top tiles -->
+        <!-- top navigation -->
+        <div class="top_nav">
+            <div class="nav_menu">
+                <nav>
+                    <div class="nav toggle">
+                        <a id="menu_toggle"><i class="fa fa-bars"></i></a>
+                    </div>
 
-                <div class="row">
-                    <div v-for="(item,i) in inform" class="col-md-3 col-sm-3 col-xs-12">
-                        <div class="x_panel tile fixed_height_200">
-                            <div class="x_title">
-                                <h2 style="font-size: 1.6rem;">{{item.title}}</h2>
-                                <ul class="nav navbar-right panel_toolbox">
-                                    <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                                    </li>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li class="">
+                            <a v-cloak href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
 
-                                    <li><a class="close-link"><i class="fa fa-close"></i></a>
-                                    </li>
-                                </ul>
-                                <div class="clearfix"></div>
-                            </div>
-                            <div class="x_content">
-                                {{item.content}}
-                            </div>
+                                <img src="/public/img/default.png"  alt=""/>
+                                <span style="margin-left: 0;" v-cloak>{{info.name}}</span>
+                                <span class=" fa fa-angle-down"></span>
+                            </a>
+                            <ul class="dropdown-menu dropdown-usermenu pull-right">
+                                <li>
+                                    <a href="javascript:;">
+                                        <span>个人中心</span>
+                                    </a>
+                                </li>
+                                <li><a href="/"><i class="fa fa-sign-out pull-right"></i> 退出登录</a></li>
+                            </ul>
+                        </li>
+
+
+                    </ul>
+                </nav>
+            </div>
+        </div>
+        <!-- /top navigation -->
+
+        <!-- page content -->
+        <div class="right_col" role="main">
+            <!-- top tiles -->
+
+            <div class="row">
+                <div v-for="(item,i) in inform" class="col-md-3 col-sm-3 col-xs-12">
+                    <div class="x_panel tile fixed_height_200 md-trigger" @click="changeActive(item)">
+                        <div class="x_title">
+                            <h2 style="font-size: 1.6rem; color: #555555;"><strong v-cloak>{{item.name}}</strong></h2>
+                            <ul class="nav navbar-right panel_toolbox">
+                                <li><a class="collapse-link" onclick="event.stopPropagation();"><i class="fa fa-chevron-up"></i></a>
+                                </li>
+                            </ul>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="x_content inform-item " v-cloak >
+                            发布人：{{item.person}}<br/>
+                            发布时间：{{item.time}}<br />
+                            <span class="inform-content">{{item.content}}</span>
+
                         </div>
                     </div>
                 </div>
-
-
-
             </div>
+
+
+
         </div>
-        <!-- /page content -->
-
-        <!-- footer content -->
-        <footer>
-            <div class="pull-right">
-
-            </div>
-            <div class="clearfix"></div>
-        </footer>
-        <!-- /footer content -->
-
     </div>
+    <!-- /page content -->
+
+    <!-- footer content -->
+    <footer>
+        <div class="pull-right">
+
+        </div>
+        <div class="clearfix"></div>
+    </footer>
+    <!-- /footer content -->
+    <div class="md-overlay" style="z-index: 999;"></div>
+</div>
 
 <script src="/libs/vue-2.4.0.js"></script>
 <!-- jQuery -->
@@ -166,14 +176,35 @@
                 id: ''
             }],
             inform:[{
-                title:'notice',
+                id: '1',
+                type:2,
+                name: '第一次作业',
+                person:'张哈哈',
+                time: '2019-03-12 23:15:11',
+                content: '完成刚刚发布的作业内容完成刚刚发布的作业内容完成刚刚发布的作业内容完成刚刚发布的作业内容完成刚刚发布的作业内容完成刚刚发布的作业内容完成刚刚发布的作业内容完成刚刚发布的作业内容'
+            },{
+                id: '2',
+                name: '考试安排',
+                person: '张哈哈',
+                time: '',
+                type:1,
+                content: ''
+            }],
+            //当前点击的通知
+            informActive:{
+                name:'',
                 content:''
-            }]
+            }
         },
         methods: {
             goCourse(courseId){
                 window.event.returnValue=false
                 //跳转到指定课程主页
+                window.location.href = '/student/courseIndex?courseId='+courseId
+            },
+            changeActive(item){
+                this.informActive.name = item.name
+                this.informActive.content = item.content
             }
         },
         created(){
@@ -204,5 +235,7 @@
     })
 </script>
 <script src="/public/js/custom.min.js"></script>
+<script src="/public/js/classie.js"></script>
+<script src="/public/js/modalEffects.js"></script>
 </body>
 </html>
