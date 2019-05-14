@@ -190,6 +190,8 @@
 
 		<!-- DateJS -->
 		<script src="/libs/date.js"></script>
+
+		<script src="/public/js/toggleTstamp.js"></script>
 				
 		<!-- Custom Theme Scripts -->
 		<script>
@@ -215,6 +217,10 @@
 								var data = typeof msg=="string"?JSON.parse(msg):msg;
 								if(data.status == 200){
 									thisVM.lessonHomeworkList = data.homeworkListResult;
+                                    for (var i = 0; i < thisVM.lessonHomeworkList.length; i++) {
+                                        thisVM.lessonHomeworkList[i].createTime = toggleTstamp(thisVM.lessonHomeworkList[i].createTime);
+                                        thisVM.lessonHomeworkList[i].dueTime = toggleTstamp(thisVM.lessonHomeworkList[i].dueTime);
+                                    }
 								}
 							},
 							error:function(xhr,type,errorThrown){

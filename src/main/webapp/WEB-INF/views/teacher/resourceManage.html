@@ -183,6 +183,8 @@
 		<!-- DateJS -->
 		<script src="/libs/date.js"></script>
 
+		<script src="/public/js/toggleTstamp.js"></script>
+
 		<!-- Custom Theme Scripts -->
 		<script>
 			var vm = new Vue({
@@ -207,6 +209,9 @@
 								var data = typeof msg=="string"?JSON.parse(msg):msg;
 								if(data.status == 200){
 									thisVM.lessonFileList = data.lessonFileList;
+                                    for (var i = 0; i < thisVM.lessonFileList.length; i++) {
+                                        thisVM.lessonFileList[i].createTime = toggleTstamp(thisVM.lessonFileList[i].createTime);
+                                    }
 								}
 							},
 							error:function(xhr,type,errorThrown){

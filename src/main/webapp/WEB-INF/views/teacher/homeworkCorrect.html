@@ -173,6 +173,8 @@
 		<!-- DateJS -->
 		<script src="/libs/date.js"></script>
 
+		<script src="/public/js/toggleTstamp.js"></script>
+
 		<script>
             function getQueryString(name) {
                 var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
@@ -209,6 +211,9 @@
                                 var data = typeof msg=="string"?JSON.parse(msg):msg;
                                 if(data.statusCode == 200){
                                     thisVM.homeworkList = data.homeworkList;
+                                    for (var i = 0; i < thisVM.homeworkList.length; i++) {
+                                        thisVM.homeworkList[i].submitTime = toggleTstamp(thisVM.homeworkList[i].submitTime);
+                                    }
                                 }
                             },
                             error:function(xhr,type,errorThrown){

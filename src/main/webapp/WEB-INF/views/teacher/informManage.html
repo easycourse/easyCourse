@@ -179,22 +179,8 @@
 
 		<!-- DateJS -->
 		<script src="/libs/date.js"></script>
-		
-		<script>
-			function toggleTstamp(timestamp){
-				/*1.重写了toLocaleString方法*/
-				Date.prototype.toLocaleString = function() {
-				          return this.getFullYear() + "年" + 
-				          (this.getMonth() + 1) + "月" + 
-				          this.getDate() + "日 " 
-				          + this.getHours() + "点"
-				          + this.getMinutes() + "分"
-				          + this.getSeconds() + "秒";
-				}; 
-				var timestring=new Date(timestamp);/*传入毫秒数返回东八区中国标准时间*/
-				return timestring.toLocaleString();
-			}
-		</script>
+
+		<script src="/public/js/toggleTstamp.js"></script>
 
 		<!-- Custom Theme Scripts -->
 		<script>
