@@ -189,6 +189,7 @@
 							success:function(msg){
                                 var data = JSON.parse(msg)
 								if(data.status == 200){
+                                    window.sessionStorage.setItem('userName',data.studentName)
                                     window.location.href = "/student/index"
 								}else{
 								    thisVM.prompt = '帐户名或密码错误！'
