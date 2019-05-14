@@ -130,7 +130,7 @@
 											<label class="control-label col-md-3 col-sm-3 col-xs-3">课程（多选）</label>
 											<div class="col-md-6 col-sm-9 col-xs-9">
 												<select class="selectpicker" multiple="multiple" v-model="informInfo.lessonIdList">
-													<option  v-for="item in courses" :key="item.lessonId">
+													<option  v-for="item in courses" :value="item.lessonId">
 														{{item.lessonName}}
 													</option>
 												</select>
@@ -236,9 +236,7 @@
 						var thisVM = this;
 						//获取全部课程
 						$.ajax({
-							data:{
-								teacherId: '123'
-							},
+							data:{},
 							dataType:'json',//服务器返回json格式数据
 							type:'get',//HTTP请求类型
 							url: '/teacher/course',
@@ -289,9 +287,9 @@
                             dataType:'json',//服务器返回json格式数据
 							type:'post',//HTTP请求类型
 							url: '/teacher/inform',
-							success:function(data){
-								var data = JSON.parse(msg)
-								if(data.status == 200){
+							success:function(msg){
+                                var data = typeof msg=="string"?JSON.parse(msg):msg;
+                                if(data.status == 200){
 									alert("发布通知成功！");
 								}
 							},

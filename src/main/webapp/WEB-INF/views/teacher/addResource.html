@@ -129,8 +129,8 @@
 												<label class="control-label col-md-3 col-sm-3 col-xs-3">课程（多选）</label>
 												<div class="col-md-6 col-sm-9 col-xs-9">
 													<select class="selectpicker" multiple="multiple" required="required" v-model="resourceInfo.lessonIdList">
-														<option v-for="course in courses">
-															{{course.name}}
+														<option v-for="item in courses" :value="item.lessonId">
+															{{item.lessonName}}
 														</option>
 													</select>
 												</div>
@@ -200,17 +200,7 @@
 						id: '222',
 						email: ''
 					},
-					courses: [{
-					    name: '软件工程',
-					    id: '123',
-					    time:'',
-					    number:'',
-					}, {
-					    name: '数据库',
-					    id: '134',
-					    time:'',
-					    number:'',
-					}],
+					courses: [],
 					resourceInfo:{
 						teacherId: "",
 						title: "",
@@ -220,6 +210,25 @@
 					}
 				},
 				methods: {
+                    dataInit(){
+                        var thisVM = this;
+                        //获取全部课程
+                        $.ajax({
+                            data:{},
+                            dataType:'json',//服务器返回json格式数据
+                            type:'get',//HTTP请求类型
+                            url: '/teacher/course',
+                            success:function(msg){
+                                var data = typeof msg=="string"?JSON.parse(msg):msg;
+                                if(data.status == 200){
+                                    thisVM.courses = data.data.lessonList;
+                                }
+                            },
+                            error:function(xhr,type,errorThrown){
+
+                            }
+                        });
+                    },
 					addAppendix(file){
 						this.resourceInfo.appendix = file.target.value;
 						var formData = new FormData();
@@ -250,23 +259,26 @@
 					},
 					submitResource(){
 						var thisVM = this;
-						thisVM.resourceInfo.teacherId = this.info.id;
-						$.ajax({
-							data:Json.Stringfy(thisVM.resourceInfo),
-							dataType:'json',//服务器返回json格式数据
-							type:'post',//HTTP请求类型
-							url: '/teacher/courseware',
-							success:function(data){
-								var data = JSON.parse(msg)
-								if(data.status == 200){
-									alert("课件已上传！");
-								}
-							},
-							error:function(xhr,type,errorThrown){
-								alert("上传失败！请联系管理员！");
-							}
-						});
+                        $.ajax({
+                            data: JSON.stringify(thisVM.resourceInfo),
+                            contentType : "application/json",
+                            dataType:'json',//服务器返回json格式数据
+                            type:'post',//HTTP请求类型
+                            url: '/teacher/courseware',
+                            success:function(msg){
+                                var data = typeof msg=="string"?JSON.parse(msg):msg;
+                                if(data.status == 200){
+                                    alert("上传课件成功！");
+                                }
+                            },
+                            error:function(xhr,type,errorThrown){
+                                console.log(xhr);
+                            }
+                        });
 					}
+				},
+				created(){
+				    this.dataInit();
 				}
 			})
 		</script>

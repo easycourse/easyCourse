@@ -113,23 +113,23 @@
 											<div class="form-group">
 												<label class="control-label col-md-3 col-sm-3 col-xs-3">标题</label>
 												<div class="col-md-6 col-sm-9 col-xs-9">
-													<input type="text" class="form-control" placeholder="标题..." required="required" v-model="title"/>
+													<input type="text" class="form-control" placeholder="标题..." required="required" v-model="homeworkInfo.title"/>
 												</div>
 											</div>
 											<br />
 											<div class="form-group">
 												<label class="control-label col-md-3 col-sm-3 col-xs-3">详细描述（选填）</label>
 												<div class="col-md-6 col-sm-9 col-xs-9">
-													<textarea class="form-control" rows="3" placeholder="作业详情..." v-model="detail"></textarea>
+													<textarea class="form-control" rows="3" placeholder="作业详情..." v-model="homeworkInfo.detail"></textarea>
 												</div>
 											</div>
 											<br />
 											<div class="form-group">
 												<label class="control-label col-md-3 col-sm-3 col-xs-3">课程（多选）</label>
 												<div class="col-md-6 col-sm-9 col-xs-9">
-													<select class="selectpicker" multiple="multiple" required="required" v-model="lessonIdList">
-														<option v-for="course in courses">
-															{{course.name}}
+													<select class="selectpicker" multiple="multiple" required="required" v-model="homeworkInfo.lessonIdList">
+														<option v-for="item in courses" :value="item.lessonId">
+															{{item.lessonName}}
 														</option>
 													</select>
 												</div>
@@ -138,12 +138,14 @@
 											<div class="form-group">
 												<label class="control-label col-md-3 col-sm-3 col-xs-3">截至日期</label>
 												<div class="col-md-6 col-sm-9 col-xs-9">
-													<div class="input-group date form_date col-md-6" data-date="" data-date-format="yyyy-mm-dd hh:ii">
-														<input class="form-control" size="16" type="text" value="" required="required" v-model="dueTime">
-														<span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
-													</div>
+													<!--<div class="input-group date form_date col-md-6" data-date="" data-date-format="yyyy-mm-dd hh:ii">-->
+														<!--<input class="form-control" size="16" type="text" required="required" v-model="homeworkInfo.dueTime">-->
+														<!--<span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>-->
+													<!--</div>-->
 													<!-- <input type="hidden" id="dueInput" value="" /> -->
-													
+													<input id="datetimeInput" class="form-control form_date" type="text" required="required">
+
+
 												</div>
 												<br/>
 											</div>
@@ -199,19 +201,8 @@
 						id: '222',
 						email: ''
 					},
-					courses: [{
-					    name: '软件工程',
-					    id: '123',
-					    time:'',
-					    number:'',
-					}, {
-					    name: '数据库',
-					    id: '134',
-					    time:'',
-					    number:'',
-					}],
+					courses: [],
 					homeworkInfo:{
-						teacherId: "",
 						title: "",
 						detail: "",
 						lessonIdList: [],
@@ -219,25 +210,48 @@
 					}
 				},
 				methods: {
+                    dataInit(){
+                        var thisVM = this;
+                        //获取全部课程
+                        $.ajax({
+                            data:{},
+                            dataType:'json',//服务器返回json格式数据
+                            type:'get',//HTTP请求类型
+                            url: '/teacher/course',
+                            success:function(msg){
+                                var data = typeof msg=="string"?JSON.parse(msg):msg;
+                                if(data.status == 200){
+                                    thisVM.courses = data.data.lessonList;
+                                }
+                            },
+                            error:function(xhr,type,errorThrown){
+
+                            }
+                        });
+                    },
 					submitHomework(){
 						var thisVM = this;
-						thisVM.homeworkInfo.teacherId = thisVM.info.id;
-						$.ajax({
-							data:JSON.stringify(thisVM.homeworkInfo),
-							dataType:'json',//服务器返回json格式数据
-							type:'post',//HTTP请求类型
-							url: '/teacher/addHomework',
-							success:function(data){
-								alert("发布作业成功！");
-							},
-							error:function(xhr,type,errorThrown){
-								
-							}
-						});
+                        this.homeworkInfo.dueTime = $("#datetimeInput").val();
+                        $.ajax({
+                            data: JSON.stringify(thisVM.homeworkInfo),
+                            contentType : "application/json",
+                            dataType:'json',//服务器返回json格式数据
+                            type:'post',//HTTP请求类型
+                            url: '/teacher/addHomework',
+                            success:function(msg){
+                                var data = typeof msg=="string"?JSON.parse(msg):msg;
+                                if(data.status == 200){
+                                    alert("发布作业成功！");
+                                }
+                            },
+                            error:function(xhr,type,errorThrown){
+                                console.log(xhr);
+                            }
+                        });
 					}
 				},
 				created(){
-					
+					this.dataInit();
 				}
 			})
 		</script>
@@ -245,12 +259,12 @@
 		<script src="/public/js/custom.min.js"></script>		
 		
 		<!-- Bootstrap-datetimepicker -->
-		<script src="/libs/bookstrap/js/bootstrap-datetimepicker.js" charset="UTF-8"></script>
-		<script src="/libs/bookstrap/js/bootstrap-datetimepicker.zh-CN.js" charset="UTF-8"></script>
-				
+		<script src="/libs/bookstrap/js/bootstrap-datetimepicker.js"></script>
+		<script src="/libs/bookstrap/js/bootstrap-datetimepicker.zh-CN.js"></script>
+
 		<!-- 日期组件初始化 -->
 		<script type="text/javascript">
-			$('.form_date').datetimepicker({
+			$('#datetimeInput').datetimepicker({
 				language:  'zh-CN',
 				// todayBtn:  1,
 				autoclose: 1,
@@ -260,6 +274,12 @@
 				forceParse: 0,
 				startDate: new Date()
 			});
+            //当选择器隐藏时，讲选择框只赋值给data里面的time
+            $('#datetimeInput').datetimepicker()
+                .on('hide', function (ev) {
+                    var value = $("#datetimeInput").val();
+                    self.time = value;
+                });
 		</script>	
 		
 	</body>
