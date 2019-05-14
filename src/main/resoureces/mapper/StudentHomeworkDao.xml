@@ -57,4 +57,10 @@
         where student_id = #{studentId} and homework_id = #{homeworkId}
     </update>
 
+    <update id="updateStudentHomeworkScore">
+        update student_homework
+        set score = #{score},
+        update_time = now()
+        where student_id = #{studentId} and homework_id = #{homeworkId}
+    </update>
 </mapper>
