@@ -3,9 +3,13 @@ package com.easyCourse.dao;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.easyCourse.entity.LessonHomework;
+import com.easyCourse.entity.StudentHomework;
 import com.easyCourse.entity.Teacher;
+import com.easyCourse.service.IStudentService;
 import com.easyCourse.service.LessonService;
 import com.easyCourse.service.TeacherService;
+import com.easyCourse.service.impl.StudentServiceImpl;
+import com.easyCourse.utils.StatusCode;
 import com.easyCourse.vo.LessonVO;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -30,6 +34,8 @@ public class TeacherDaoTest {
     private LessonService lessonService;
     @Autowired
     private TeacherService teacherService;
+    @Autowired
+    private IStudentService studentService;
 
     @Test
     public void selectByIdAndPassword() {
@@ -180,5 +186,27 @@ public class TeacherDaoTest {
         System.out.println(totalHWArray);
     }
 
+    @Test
+    public void test(){
+        String homeworkId = "1";
+
+        JSONArray homeworkArray =  new JSONArray();
+
+        List<StudentHomework> studentHomeworkList = teacherService.getSubmitHomeworkByHomeworkId(homeworkId);
+        for (StudentHomework sHomework:
+                studentHomeworkList) {
+            JSONObject homework = new JSONObject();
+            String studentName = studentService.getStudentByStudentId(sHomework.getStudentId()).getStudent_name();
+            homework.put("studentName", studentName);
+            homework.put("submitTime", sHomework.getCreateTime());
+            homework.put("studentId", sHomework.getStudentId());
+            homework.put("score", sHomework.getScore());
+            homeworkArray.add(homework);
+        }
+
+        JSONObject result = new JSONObject();
+        result.put("statusCode", StatusCode.SUCCESS);
+        result.put("homeworkList", homeworkArray);
+    }
 
 }

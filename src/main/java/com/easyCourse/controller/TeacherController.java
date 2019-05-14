@@ -5,6 +5,7 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 
 import com.easyCourse.entity.*;
+import com.easyCourse.service.IStudentService;
 import com.easyCourse.service.LessonService;
 import com.easyCourse.service.TeacherService;
 //import net.minidev.json.JSONArray;
@@ -36,6 +37,9 @@ public class TeacherController {
 
     @Resource
     private LessonService lessonService;
+
+    @Resource
+    private IStudentService studentService;
 
     //返回教师主页
     @GetMapping("/index")
@@ -338,8 +342,27 @@ public class TeacherController {
     //根据id查看某个作业的提交情况(包括提交的学生姓名、时间、学号、分数等等)
     @GetMapping("/homework/{homeworkId}")
     @ResponseBody
-    public JSONObject getHomeworkByHomeworkId(@PathVariable(value = "homeworkId") String homeworkId,HttpSession session) {
-        return null;
+    public void getHomeworkByHomeworkId(@PathVariable(value = "homeworkId") String homeworkId,HttpSession session, HttpServletResponse httpServletResponse) throws IOException {
+
+        JSONArray homeworkArray =  new JSONArray();
+
+        List<StudentHomework> studentHomeworkList = teacherService.getSubmitHomeworkByHomeworkId(homeworkId);
+        for (StudentHomework sHomework:
+             studentHomeworkList) {
+            JSONObject homework = new JSONObject();
+            String studentName = studentService.getStudentByStudentId(sHomework.getStudentId()).getStudent_name();
+            homework.put("studentName", studentName);
+            homework.put("submitTime", sHomework.getCreateTime());
+            homework.put("studentId", sHomework.getStudentId());
+            homework.put("score", sHomework.getScore());
+            homeworkArray.add(homework);
+        }
+
+        JSONObject result = new JSONObject();
+        result.put("statusCode",StatusCode.SUCCESS);
+        result.put("homeworkList", homeworkArray);
+        httpServletResponse.getWriter().write(String.valueOf(result));
+
     }
 
     //发布新作业

@@ -2,10 +2,7 @@ package com.easyCourse.service.impl;
 
 import com.alibaba.fastjson.JSONArray;
 import com.easyCourse.dao.*;
-import com.easyCourse.entity.Lesson;
-import com.easyCourse.entity.LessonFile;
-import com.easyCourse.entity.LessonHomework;
-import com.easyCourse.entity.LessonNotice;
+import com.easyCourse.entity.*;
 import com.easyCourse.service.LessonService;
 import com.easyCourse.utils.StatusCode;
 import com.easyCourse.vo.LessonVO;

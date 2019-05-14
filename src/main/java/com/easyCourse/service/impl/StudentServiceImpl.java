@@ -64,4 +64,9 @@ public class StudentServiceImpl implements IStudentService {
     public List<LessonFile> getAllLessonFilesByLessonId(String lessonId) {
         return lessonFileDao.selectByLessonId(lessonId);
     }
+
+    @Override
+    public Student getStudentByStudentId(String id){
+        return studentDao.selectStudentById(id);
+    }
 }

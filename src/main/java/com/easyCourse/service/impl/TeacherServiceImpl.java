@@ -6,6 +6,7 @@ import com.easyCourse.dao.LessonHomeworkDao;
 import com.easyCourse.dao.StudentHomeworkDao;
 import com.easyCourse.dao.TeacherDao;
 import com.easyCourse.entity.Lesson;
+import com.easyCourse.entity.StudentHomework;
 import com.easyCourse.entity.Teacher;
 import com.easyCourse.service.TeacherService;
 import com.easyCourse.utils.Jwt;
@@ -15,10 +16,7 @@ import com.easyCourse.utils.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
+import java.util.*;
 
 /**
  * 教师服务实现类
@@ -146,5 +144,10 @@ public class TeacherServiceImpl implements TeacherService {
     @Override
     public int getSubmitCountForSingleHomework(String homeworkId){
         return studentHomeworkDao.selectByHomeworkId(homeworkId).size();
+    }
+
+    @Override
+    public List<StudentHomework> getSubmitHomeworkByHomeworkId(String homeworkId){
+        return studentHomeworkDao.selectByHomeworkId(homeworkId);
     }
 }

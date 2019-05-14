@@ -1,9 +1,11 @@
 package com.easyCourse.service;
 
 import com.easyCourse.entity.LessonNotice;
+import com.easyCourse.entity.StudentHomework;
 import com.easyCourse.entity.Teacher;
 import com.alibaba.fastjson.JSONObject;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -53,5 +55,17 @@ public interface TeacherService {
      */
     JSONObject importStudent(Map<String,String> records);
 
+    /**
+     * 获取某个作业的提交人数
+     * @param homeworkId
+     * @return
+     */
     int getSubmitCountForSingleHomework(String homeworkId);
+
+    /**
+     * 获取某个作业的提交情况
+     * @param homeworkId
+     * @return
+     */
+    List<StudentHomework> getSubmitHomeworkByHomeworkId(String homeworkId);
 }

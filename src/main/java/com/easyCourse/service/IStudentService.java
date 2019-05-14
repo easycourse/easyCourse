@@ -26,4 +26,7 @@ public interface IStudentService {
 
     // 获取某一课程的所有课件
     List<LessonFile> getAllLessonFilesByLessonId(String lessonId);
+
+    //根据学生id获取学生
+    Student getStudentByStudentId(String id);
 }
