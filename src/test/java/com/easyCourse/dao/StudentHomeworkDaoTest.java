@@ -1,7 +1,6 @@
 package com.easyCourse.dao;
 
 import com.easyCourse.entity.StudentHomework;
-import com.easyCourse.vo.StudentHomeworkVO;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,12 +29,7 @@ public class StudentHomeworkDaoTest {
     }
 
     @Test
-    public void selectVOByHomeworkIdAndStudentId() {
-        String studentId = "2016302580297";
-        String homeworkId = "1";
-
-        StudentHomeworkVO studentHomeworkVO = studentHomeworkDao.selectVOByHomeworkIdAndStudentId(homeworkId, studentId);
-
-        System.out.println(studentHomeworkVO);
+    public void test(){
+        int i = studentHomeworkDao.updateStudentHomeworkScore("2016302580297","1",100);
     }
 }

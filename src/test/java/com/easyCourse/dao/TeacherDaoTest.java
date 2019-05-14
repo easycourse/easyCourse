@@ -201,6 +201,11 @@ public class TeacherDaoTest {
             homework.put("submitTime", sHomework.getCreateTime());
             homework.put("studentId", sHomework.getStudentId());
             homework.put("score", sHomework.getScore());
+            if(sHomework.getScore() != -1){
+                homework.put("scoreStatus", "已批改");
+            } else {
+                homework.put("scoreStatus", "未批改");
+            }
             homeworkArray.add(homework);
         }
 

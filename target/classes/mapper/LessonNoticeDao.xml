@@ -3,7 +3,7 @@
 
 <mapper namespace="com.easyCourse.dao.LessonNoticeDao">
 
-    <resultMap id="BaseResultMap" type="com.easyCourse.model.LessonNotice">
+    <resultMap id="BaseResultMap" type="com.easyCourse.entity.LessonNotice">
         <id column="id" jdbcType="INTEGER" property="id"/>
         <result column="lesson_id" jdbcType="VARCHAR" property="lessonId"/>
         <result column="teacher_id" jdbcType="VARCHAR" property="teacherId"/>
@@ -15,9 +15,106 @@
         <result column="appendix" jdbcType="VARCHAR" property="appendix"/>
     </resultMap>
 
+    <sql id="Base_Column_List">
+        id, lesson_id, teacher_id, title, detail, notice_type, create_time, is_delete, appendix
+    </sql>
+
     <select id="selectByLessonId" resultMap="BaseResultMap">
         select * from lesson_notice
         where lesson_id = #{lessonId}
+    </select>
+
+
+    <select id="findAllNoticeByLessonId" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from lesson_notice
+        where lesson_id = #{lessonId,jdbcType=VARCHAR} and is_delete =0
+        ORDER BY create_time DESC
+    </select>
+
+    <select id="findAllNoticeByTeacherId" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from lesson_notice
+        where teacher_id = #{teacherId,jdbcType=VARCHAR} and is_delete =0
+        ORDER BY create_time DESC
+    </select>
+
+
+    <insert id="insertSelective" parameterType="com.easyCourse.entity.LessonNotice">
+        insert into lesson_notice
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="lessonId != null">
+                lesson_id,
+            </if>
+            <if test="teacherId != null">
+                teacher_id,
+            </if>
+            <if test="title != null">
+                title,
+            </if>
+            <if test="detail != null">
+                detail,
+            </if>
+            <if test="noticeType != null">
+                notice_type,
+            </if>
+            create_time,
+            <if test="isDelete != null">
+                is_delete,
+            </if>
+            <if test="appendix != null">
+                appendix,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id, jdbcType=INTEGER},
+            </if>
+            <if test="lessonId != null">
+                #{lessonId, jdbcType=VARCHAR},
+            </if>
+            <if test="teacherId != null">
+                #{teacherId, jdbcType=VARCHAR},
+            </if>
+            <if test="title != null">
+                #{title, jdbcType=VARCHAR},
+            </if>
+            <if test="detail != null">
+                #{detail, jdbcType=VARCHAR},
+            </if>
+            <if test="noticeType != null">
+                #{noticeType, jdbcType=INTEGER},
+            </if>
+            now(),
+            <if test="isDelete != null">
+                #{isDelete, jdbcType=INTEGER},
+            </if>
+            <if test="appendix != null">
+                #{appendix, jdbcType=VARCHAR}
+            </if>
+        </trim>
+    </insert>
+
+    <select id="findAllNoticeByStudentId" resultType="com.easyCourse.vo.StudentNoticeVO">
+        select
+	        ln.id as id,
+	        ln.lesson_id as lessonId,
+	        ln.teacher_id as teacherId,
+	        ut.teacher_name as teacherName,
+	        ln.title as title,
+	        ln.detail as detail,
+	        ln.notice_type as noticeType,
+	        ln.appendix as appendix,
+	        ln.create_time as createTime
+        from
+	        (student_lesson sl left join lesson_notice ln on sl.lesson_id = ln.lesson_id)
+	        left join user_teacher ut on ln.teacher_id = ut.teacher_id
+	    where sl.student_id = #{studentId} and ln.is_delete = 0
     </select>
 
 </mapper>

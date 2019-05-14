@@ -1,5 +1,6 @@
 package com.easyCourse.service;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.easyCourse.entity.Lesson;
 import com.easyCourse.entity.LessonFile;
@@ -87,5 +88,8 @@ public interface LessonService {
 
     List<LessonHomework> getLessonHWListBylessonId(String lessonId);
 
+    JSONObject addNewHomework(LessonHomework lessonHomework);
+
+    JSONObject addNewHomeworkList(List<LessonHomework> lessonHomeworkList);
 
 }

@@ -8,7 +8,9 @@ public class StatusCode {
     public static final int INCORRECT_PASSWORD = 204;
     public static final int INSERT_NOTICE_ERROR = 205;
     public static final int INSERT_COURSEWARE_ERROR = 206;
-    public static final int IMPORT_STUDENTRECORDS_WRONG = 206;
+    public static final int IMPORT_STUDENTRECORDS_WRONG = 207;
+    public static final int INSERT_LESSON_HOMEWORK_ERROR = 208;
+    public static final int IMPORT_SCORE_WRONG = 209;
 
 
 

@@ -68,4 +68,12 @@ public interface TeacherService {
      * @return
      */
     List<StudentHomework> getSubmitHomeworkByHomeworkId(String homeworkId);
+
+    /**
+     * 导入学生成绩
+     * @param records
+     * @param homeworkId
+     * @return
+     */
+    JSONObject importScores(Map<String, String> records, String homeworkId);
 }

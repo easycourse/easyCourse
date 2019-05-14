@@ -347,14 +347,18 @@ public class TeacherController {
         JSONArray homeworkArray =  new JSONArray();
 
         List<StudentHomework> studentHomeworkList = teacherService.getSubmitHomeworkByHomeworkId(homeworkId);
-        for (StudentHomework sHomework:
-             studentHomeworkList) {
+        for (StudentHomework sHomework : studentHomeworkList) {
             JSONObject homework = new JSONObject();
             String studentName = studentService.getStudentByStudentId(sHomework.getStudentId()).getStudent_name();
             homework.put("studentName", studentName);
             homework.put("submitTime", sHomework.getCreateTime());
             homework.put("studentId", sHomework.getStudentId());
             homework.put("score", sHomework.getScore());
+            if(sHomework.getScore() != -1){
+                homework.put("scoreStatus", "已批改");
+            } else {
+                homework.put("scoreStatus", "未批改");
+            }
             homeworkArray.add(homework);
         }
 
@@ -367,21 +371,34 @@ public class TeacherController {
 
     //发布新作业
     @PostMapping("/homework")
-    public void addHomework(@RequestBody String param, HttpSession session) throws IOException {
+    public void addHomework(@RequestBody String param, HttpSession session, HttpServletResponse httpServletResponse) throws IOException {
+        Teacher teacher = (Teacher) session.getAttribute("teacher");
+        String teacherId = teacher.getTeacherId();
+
         JSONObject body = JSONObject.parseObject(param);
         String title = body.getString("title");
         JSONArray lessonIdList = body.getJSONArray("lessonIdList");
         String detail = body.getString("detail");
         String dueTime = body.getString("dueTime");
+        String appendix = body.getString("appendix");
 
-        Teacher teacher = (Teacher) session.getAttribute("teacher");
-        String teacherId = teacher.getTeacherId();
+        List<LessonHomework> lessonHomeworkList = new ArrayList<>();
+        for(int i=0;i<lessonIdList.size();i++){
+            LessonHomework lessonHomework = new LessonHomework();
+            lessonHomework.setLessonId(lessonIdList.get(i).toString());
+            lessonHomework.setTeacherId(teacherId);
+            lessonHomework.setTitle(title);
+            lessonHomework.setDetail(detail);
+            lessonHomework.setAppendix(appendix);
+        }
+        JSONObject result = lessonService.addNewHomeworkList(lessonHomeworkList);
+        httpServletResponse.getWriter().write(String.valueOf(result));
 
     }
 
     //导入学生成绩
     @PostMapping("/correctHomework")
-    public void correctHomework(@RequestParam(value = "homeworkId", required = true) String lessonId,
+    public JSONObject correctHomework(@RequestParam(value = "homeworkId", required = true) String homeworkId,
                                 @RequestParam(value = "studentList", required = true) String studentList,@RequestParam(value = "scoreList", required = true) String scoreList,HttpSession session) throws IOException {
         Teacher teacher = (Teacher) session.getAttribute("teacher");
         String teacherId = teacher.getTeacherId();
@@ -390,13 +407,14 @@ public class TeacherController {
         JSONArray idArray = JSONArray.parseArray(studentList);
         JSONArray scoreArray = JSONArray.parseArray(scoreList);
 
-
         Map<String,String> studentScoreInfoList = new HashMap<>();
         for(int i=0;i<idArray.size();i++){
             JSONObject id = idArray.getJSONObject(i);
             JSONObject score = scoreArray.getJSONObject(i);
             studentScoreInfoList.put(id.getString("studentId"),score.getString("score"));
         }
+
+        return teacherService.importScores(studentScoreInfoList, homeworkId);
 
     }
 }

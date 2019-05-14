@@ -35,4 +35,6 @@ public interface LessonHomeworkDao {
      * @return
      */
     List<LessonHomework> selectByLessonId(String lessonId);
+
+    int insertSelective(LessonHomework lessonHomework);
 }

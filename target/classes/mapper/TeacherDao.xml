@@ -3,7 +3,7 @@
 
 <mapper namespace="com.easyCourse.dao.TeacherDao">
 
-    <resultMap id="BaseResultMap" type="com.easyCourse.model.Teacher">
+    <resultMap id="BaseResultMap" type="com.easyCourse.entity.Teacher">
         <id column="teacher_id" jdbcType="VARCHAR" property="teacherId"/>
         <result column="passwd" jdbcType="VARCHAR" property="passwd"/>
         <result column="mail" jdbcType="VARCHAR" property="mail"/>
@@ -15,11 +15,14 @@
         <result column="is_delete" jdbcType="INTEGER" property="isDelete"/>
     </resultMap>
 
+    <select id="selectAll" resultMap="BaseResultMap">
+        select * from user_teacher
+    </select>
+
     <select id="selectByIdAndPassword" resultMap="BaseResultMap">
         select * from user_teacher
         where teacher_id = #{teacherId} and passwd = #{password} and is_delete = 0
     </select>
-
 
     <select id="selectByMail" resultMap="BaseResultMap">
         select * from user_teacher
@@ -34,6 +37,131 @@
     <insert id="insert">
         insert into user_teacher (teacher_id, passwd, mail, teacher_name, phone, location)
         values (#{teacherId}, #{password}, #{mail}, #{teacherName}, #{phone}, #{location})
+    </insert>
+
+    <insert id="insertComplete" parameterType="com.easyCourse.model.Teacher">
+        insert into user_teacher (teacher_id, passwd, mail, teacher_name, phone, location, create_time, update_time, is_delete)
+        values (
+            #{teacherId, jdbcType=VARCHAR},
+            #{passwd, jdbcType=VARCHAR},
+            #{mail, jdbcType=VARCHAR},
+            #{teacherName, jdbcType=VARCHAR},
+            #{phone, jdbcType=VARCHAR},
+            #{location, jdbcType=VARCHAR},
+            #{createTime, jdbcType=TIMESTAMP},
+            #{updateTime, jdbcType=TIMESTAMP},
+            #{isDelete, jdbcType=INTEGER}
+        )
+    </insert>
+
+    <insert id="insertSelective" parameterType="com.easyCourse.model.Teacher">
+        insert into user_teacher
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="teacherId != null">
+                teacher_id,
+            </if>
+            <if test="passwd != null">
+                passwd,
+            </if>
+            <if test="mail != null">
+                mail,
+            </if>
+            <if test="teacherName != null">
+                teacher_name,
+            </if>
+            <if test="phone != null">
+                phone,
+            </if>
+            <if test="location != null">
+                location,
+            </if>
+            create_time,
+            update_time,
+            <if test="isDelete != null">
+                is_delete,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="teacherId != null">
+                #{teacherId, jdbcType=VARCHAR},
+            </if>
+            <if test="passwd != null">
+                #{passwd, jdbcType=VARCHAR},
+            </if>
+            <if test="mail != null">
+                #{mail, jdbcType=VARCHAR},
+            </if>
+            <if test="teacherName != null">
+                #{teacherName, jdbcType=VARCHAR},
+            </if>
+            <if test="phone != null">
+                #{phone, jdbcType=VARCHAR},
+            </if>
+            <if test="location != null">
+                #{location, jdbcType=VARCHAR},
+            </if>
+            now(),
+            now(),
+            <if test="isDelete != null">
+                #{isDelete, jdbcType=INTEGER}
+            </if>
+        </trim>
+    </insert>
+
+    <update id="updateByPrimaryKeyComplete" parameterType="com.easyCourse.entity.Teacher">
+        update user_teacher
+        set passwd = #{passwd, jdbcType=VARCHAR},
+            mail = #{mail, jdbcType=VARCHAR},
+            teacher_name = #{teacherName, jdbcType=VARCHAR},
+            phone = #{phone, jdbcType=VARCHAR},
+            location = #{location, jdbcType=VARCHAR},
+            create_time = #{createTime, jdbcType=TIMESTAMP},
+            update_time = #{updateTime, jdbcType=TIMESTAMP},
+            is_delete = #{isDelete, jdbcType=INTEGER}
+        where teacher_id = #{teacherId,jdbcType=VARCHAR}
+    </update>
+
+    <update id="updateByPrimaryKeySelective" parameterType="com.easyCourse.entity.Teacher">
+        update user_teacher
+        <set>
+            <if test="passwd != null">
+                passwd = #{passwd, jdbcType=VARCHAR},
+            </if>
+            <if test="mail != null">
+                mail = #{mail, jdbcType=VARCHAR},
+            </if>
+            <if test="teacherName != null">
+                teacher_name = #{teacherName, jdbcType=VARCHAR},
+            </if>
+            <if test="phone != null">
+                phone = #{phone, jdbcType=VARCHAR},
+            </if>
+            <if test="location != null">
+                location = #{location, jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime, jdbcType=VARCHAR},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime, jdbcType=VARCHAR},
+            </if>
+            <if test="isDelete != null">
+                is_delete = #{isDelete, jdbcType=INTEGER}
+            </if>
+        </set>
+        where teacher_id = #{teacherId,jdbcType=VARCHAR}
+    </update>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+        delete from user_teacher
+        where teacher_id = #{teacherId,jdbcType=VARCHAR}
+    </delete>
+
+    <insert id="importStudents" parameterType="hashmap">
+        INSERT INTO student_lesson (student_id,lesson_id) VALUE
+        <foreach collection="params" index="key" item="value" separator="," >
+            (#{key},#{value})
+        </foreach>
     </insert>
 
 </mapper>

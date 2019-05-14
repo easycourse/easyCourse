@@ -33,4 +33,15 @@ public class LessonHomeworkDaoTest {
         studentHomeworkVOList.forEach(System.out::println);
 
     }
+
+    @Test
+    public void insertSelective(){
+        LessonHomework lessonHomework = new LessonHomework();
+        lessonHomework.setHomeworkId(6666);
+        lessonHomework.setLessonId("1");
+        lessonHomework.setTeacherId("1");
+        lessonHomework.setIsDelete(0);
+        lessonHomework.setTitle("xxxx");
+        int i = lessonHomeworkDao.insertSelective(lessonHomework);
+    }
 }

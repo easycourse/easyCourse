@@ -150,4 +150,26 @@ public class TeacherServiceImpl implements TeacherService {
     public List<StudentHomework> getSubmitHomeworkByHomeworkId(String homeworkId){
         return studentHomeworkDao.selectByHomeworkId(homeworkId);
     }
+
+    @Override
+    public JSONObject importScores(Map<String, String> records, String homeworkId) {
+        JSONObject result = new JSONObject();
+
+        int updateCount = 0;
+        for (String studentIdKey : records.keySet()) {
+            updateCount += studentHomeworkDao.updateStudentHomeworkScore(studentIdKey,homeworkId,Integer.parseInt(records.get(studentIdKey)));
+        }
+
+        if (updateCount != records.size()) {
+            result.put("status", StatusCode.IMPORT_SCORE_WRONG);
+            result.put("msg", "更新学生成绩错误");
+            result.put("data", null);
+            return result;
+        }
+
+        result.put("status", StatusCode.SUCCESS);
+        result.put("msg", "更新学生成绩成功");
+        result.put("data", updateCount);
+        return result;
+    }
 }

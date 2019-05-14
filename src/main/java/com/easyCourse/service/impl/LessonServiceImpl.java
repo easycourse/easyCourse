@@ -152,4 +152,39 @@ public class LessonServiceImpl implements LessonService {
     public List<LessonHomework> getLessonHWListBylessonId(String lessonId){
         return lessonHomeworkDao.selectByLessonId(lessonId);
     }
+
+    @Override
+    public JSONObject addNewHomework(LessonHomework lessonHomework){
+        JSONObject result = new JSONObject();
+        int i = lessonHomeworkDao.insertSelective(lessonHomework);
+        if(i!=1){
+            result.put("status",StatusCode.INSERT_LESSON_HOMEWORK_ERROR);
+            result.put("msg","添加作业失败");
+        } else {
+            result.put("status", StatusCode.SUCCESS);
+            result.put("msg","添加作业成功");
+        }
+        return result;
+    }
+
+    @Override
+    public JSONObject addNewHomeworkList(List<LessonHomework> lessonHomeworkList){
+        JSONObject result = new JSONObject();
+        int count = 0;
+        for(int i = 0; i < lessonHomeworkList.size(); i++){
+            count += lessonHomeworkDao.insertSelective(lessonHomeworkList.get(i));
+        }
+
+        if(count != lessonHomeworkList.size()) {
+            result.put("status", StatusCode.INSERT_COURSEWARE_ERROR);
+            result.put("msg", "添加课件失败");
+
+        } else {
+            result.put("status", StatusCode.SUCCESS);
+            result.put("msg", "添加课件成功");
+        }
+
+        return result;
+
+    }
 }

@@ -3,7 +3,7 @@
 
 <mapper namespace="com.easyCourse.dao.StudentHomeworkDao">
 
-    <resultMap id="BaseResultMap" type="com.easyCourse.model.StudentHomework">
+    <resultMap id="BaseResultMap" type="com.easyCourse.entity.StudentHomework">
         <id column="id" jdbcType="INTEGER" property="id"/>
         <result column="student_id" jdbcType="VARCHAR" property="studentId"/>
         <result column="homework_id" jdbcType="VARCHAR" property="homeworkId"/>
@@ -19,5 +19,12 @@
         select * from student_homework
         where homework_id = #{homeworkId}
     </select>
+
+    <update id="updateStudentHomeworkScore">
+        update student_homework
+        set score = #{score},
+            update_time = now()
+        where student_id = #{studentId} and homework_id = #{homeworkId}
+    </update>
 
 </mapper>

@@ -42,4 +42,58 @@
         select * from lesson_homework
         where lesson_id = #{lessonId}
     </select>
+
+    <insert id="insertSelective" parameterType="com.easyCourse.entity.LessonHomework">
+        insert into lesson_homework
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="homeworkId != null">
+                homework_id,
+            </if>
+            <if test="lessonId != null">
+                lesson_id,
+            </if>
+            <if test="teacherId != null">
+                teacher_id,
+            </if>
+            <if test="title != null">
+                title,
+            </if>
+            <if test="detail != null">
+                detail,
+            </if>
+            <if test="appendix != null">
+                appendix,
+            </if>
+            create_time,
+            due_time,
+            <if test="isDelete != null">
+                is_delete,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="homeworkId != null">
+                #{homeworkId, jdbcType=INTEGER},
+            </if>
+            <if test="lessonId != null">
+                #{lessonId, jdbcType=VARCHAR},
+            </if>
+            <if test="teacherId != null">
+                #{teacherId, jdbcType=VARCHAR},
+            </if>
+            <if test="title != null">
+                #{title, jdbcType=VARCHAR},
+            </if>
+            <if test="detail != null">
+                #{detail, jdbcType=VARCHAR},
+            </if>
+            <if test="appendix != null">
+                #{appendix, jdbcType=VARCHAR},
+            </if>
+            now(),
+            now(),
+            <if test="isDelete != null">
+                #{isDelete, jdbcType=INTEGER}
+            </if>
+        </trim>
+    </insert>
 </mapper>

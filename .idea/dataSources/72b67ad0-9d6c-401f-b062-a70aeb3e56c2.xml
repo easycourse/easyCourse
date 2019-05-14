@@ -1228,6 +1228,8 @@ notice_type</ColNames>
       <Position>6</Position>
       <Comment>学生提交此次作业的得分</Comment>
       <DataType>int(11)|0s</DataType>
+      <NotNull>1</NotNull>
+      <DefaultExpression>-1</DefaultExpression>
       <ColumnKind>normal</ColumnKind>
     </column>
     <column id="279" parent="230" name="create_time">

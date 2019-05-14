@@ -3,7 +3,7 @@
 
 <mapper namespace="com.easyCourse.dao.LessonHomeworkDao">
 
-    <resultMap id="BaseResultMap" type="com.easyCourse.model.LessonHomework">
+    <resultMap id="BaseResultMap" type="com.easyCourse.entity.LessonHomework">
         <id column="homework_id" jdbcType="INTEGER" property="homeworkId"/>
         <result column="lesson_id" jdbcType="VARCHAR" property="lessonId"/>
         <result column="teacher_id" jdbcType="VARCHAR" property="teacherId"/>
@@ -19,5 +19,81 @@
         select * from lesson_homework
         where teacher_id = #{teacheId}
     </select>
+    
+    <select id="selectByStudentId" resultType="com.easyCourse.vo.StudentHomeworkVO">
+        select
+		    lh.homework_id as homeworkId,
+		    lh.title as title,
+		    lh.detail as detail,
+		    lh.create_time as createTime,
+		    lh.due_time as dueTime,
+		    lh.appendix as appendix,
+		    l.lesson_id as lessonId,
+		    l.lesson_name as lessonName,
+		    sh.id as submitId
+        from
+		    student_lesson sl left join lesson l on sl.lesson_id = l.lesson_id
+		    left join lesson_homework lh on l.lesson_id = lh.lesson_id
+		    left join student_homework sh on sl.student_id = sh.student_id and sh.homework_id = lh.homework_id
+        where sl.student_id = #{studentId} and sl.is_delete = 0;
+    </select>
 
+    <select id="selectByLessonId" resultMap="BaseResultMap">
+        select * from lesson_homework
+        where lesson_id = #{lessonId}
+    </select>
+
+    <insert id="insertSelective" parameterType="com.easyCourse.entity.LessonHomework">
+        insert into lesson_homework
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="homeworkId != null">
+                homework_id,
+            </if>
+            <if test="lessonId != null">
+                lesson_id,
+            </if>
+            <if test="teacherId != null">
+                teacher_id,
+            </if>
+            <if test="title != null">
+                title,
+            </if>
+            <if test="detail != null">
+                detail,
+            </if>
+            <if test="appendix != null">
+                appendix,
+            </if>
+            create_time,
+            due_time,
+            <if test="isDelete != null">
+                is_delete,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="homeworkId != null">
+                #{homeworkId, jdbcType=INTEGER},
+            </if>
+            <if test="lessonId != null">
+                #{lessonId, jdbcType=VARCHAR},
+            </if>
+            <if test="teacherId != null">
+                #{teacherId, jdbcType=VARCHAR},
+            </if>
+            <if test="title != null">
+                #{title, jdbcType=VARCHAR},
+            </if>
+            <if test="detail != null">
+                #{detail, jdbcType=VARCHAR},
+            </if>
+            <if test="appendix != null">
+                #{appendix, jdbcType=VARCHAR},
+            </if>
+            now(),
+            now(),
+            <if test="isDelete != null">
+                #{isDelete, jdbcType=INTEGER}
+            </if>
+        </trim>
+    </insert>
 </mapper>
