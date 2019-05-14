@@ -49,9 +49,10 @@
                     <div class="menu_section">
 
                         <ul class="nav side-menu">
-                            <li><a><i class="fa fa-calendar"></i> 我的课程 <span class="fa fa-chevron-down"></span></a>
-                                <ul class="nav child_menu">
-                                    <li v-cloak v-for="(item,i) in courses" :key="item.id"><a href="#" @click.prevent="goCourse(item.id)">{{item.name}}</a></li>
+                            <li class="active"><a><i class="fa fa-calendar"></i> 我的课程 <span class="fa fa-chevron-down"></span></a>
+                                <ul class="nav child_menu " style="display: block;">
+                                    <li v-cloak v-for="(item,i) in courses" :key="item.id" :class="{'current-page':item.isNow}"><a href="index.html">{{item.name}}</a></li>
+
                                 </ul>
                             </li>
 
@@ -147,7 +148,6 @@
                         </div>
                         <div class="x_content">
                             <h4 v-cloak>{{teacher.name}}</h4>
-                            <h4 v-cloak>{{teacher.intro}}</h4>
                             <h4 v-cloak>联系方式： {{teacher.phone}}</h4>
                             <h4 v-cloak>email：{{teacher.email}}</h4>
                             <h4 v-cloak>办公室： {{teacher.location}}</h4>
@@ -189,17 +189,9 @@
         el: '#app',
         data: {
             info: {
-                name: '张xx',
-                id: '222',
-                email: ''
+                name: ''
             },
-            courses: [{
-                name: '软件工程',
-                id: ''
-            }, {
-                name: '数据库',
-                id: ''
-            }],
+            courses: [],
             courseNow: {
                 name: '软件工程',
                 id: '',
@@ -211,21 +203,26 @@
                 email: '',
                 phone: '',
                 location: '',
-                intro: ''
             },
-            assistant: [{
-                name: 'zz',
-                qq: '419111111'
-            },{
-                name:'xx',
-                qq:'22222222'
-            }]
         },
         methods: {
             goCourse(courseId){
                 window.event.returnValue=false
                 //跳转到指定课程主页
             }
+        },
+        created(){
+            //多有课程 local
+            this.info.name = window.sessionStorage.userName
+            var courseList = JSON.parse(window.sessionStorage.courses)
+            courseList.forEach(function(item){
+                console.log(Object.prototype.toString.call(this.courses))
+                var obj = {}
+                obj.id = item.id
+                obj.name = item.name
+                this.courses.push(obj)
+            })
+            //根据 courseId （lessonId）获取信息 /course/lessonId
         }
     })
 </script>

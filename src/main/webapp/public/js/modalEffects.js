@@ -8,7 +8,7 @@
  * Copyright 2013, Codrops
  * http://www.codrops.com
  */
-var ModalEffects = (function() {
+var ModalEffects = function() {
 
 	function init() {
 
@@ -54,4 +54,4 @@ var ModalEffects = (function() {
 
 	init();
 
-})();
+};

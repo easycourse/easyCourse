@@ -95,7 +95,7 @@
                                         <span>个人中心</span>
                                     </a>
                                 </li>
-                                <li><a href="/"><i class="fa fa-sign-out pull-right"></i> 退出登录</a></li>
+                                <li><a href="#" @click="signOut"><i class="fa fa-sign-out pull-right"></i> 退出登录</a></li>
                             </ul>
                         </li>
 
@@ -109,7 +109,44 @@
         <!-- page content -->
         <div class="right_col" role="main">
             <!-- top tiles -->
+            <div class="row">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="x_panel">
+                        <div class="x_title">
+                            <h2 style="font-size: 1.6rem; color: #555555"><i class="fa fa-align-left"></i><strong> 未提交作业列表</strong></h2>
+                            <ul class="nav navbar-right panel_toolbox">
+                                <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                                </li>
+                            </ul>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="x_content">
 
+                            <!-- start accordion -->
+                            <div class="accordion" id="accordion" role="tablist" aria-multiselectable="true">
+                                <div class="panel" v-for="(item,i) in homework" :key="item.id">
+                                    <a class="panel-heading homework_prompt" href="#" @click="goHomework(item.courseId)" >
+                                        <h4 class="panel-title prompt_item" style="font-size: 1.3rem;width: 20%;margin-right: 15px" >
+                                            <strong v-cloak="">{{item.courseName}}:</strong>
+                                        </h4>
+                                        <h4 class="panel-title prompt_item" style="font-size: 1.3rem;width: 40%;margin-right: 15px" >
+                                            <strong v-cloak="">{{item.name}}</strong>
+                                        </h4>
+                                        <h4 class="panel-title prompt_item" style="font-size: 1.3rem;width: 35%;position: absolute;right: 0;text-align: right;margin-right: 3%" >
+                                            <strong v-cloak="">截至日期：{{item.time}}</strong>
+                                        </h4>
+                                    </a>
+                                </div>
+
+                            </div>
+                            <!-- end of accordion -->
+
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
             <div class="row">
                 <div v-for="(item,i) in inform" class="col-md-3 col-sm-3 col-xs-12">
                     <div class="x_panel tile fixed_height_200 md-trigger" @click="changeActive(item)">
@@ -122,6 +159,7 @@
                             <div class="clearfix"></div>
                         </div>
                         <div class="x_content inform-item " v-cloak >
+                            课程：{{item.courseName}}<br/>
                             发布人：{{item.person}}<br/>
                             发布时间：{{item.time}}<br />
                             <span class="inform-content">{{item.content}}</span>
@@ -157,39 +195,19 @@
 <!-- DateJS -->
 <script src="/libs/date.js"></script>
 
+<script src="/public/js/modalEffects.js"></script>
+
+<script src="/public/js/common.js"></script>
 <!-- Custom Theme Scripts -->
 
 <script>
     var vm = new Vue({
         el: '#app',
         data: {
-            info: {
-                name: '张xx',
-                id: '222',
-                email: ''
-            },
-            courses: [{
-                name: '软件工程',
-                id: ''
-            }, {
-                name: '数据库',
-                id: ''
-            }],
-            inform:[{
-                id: '1',
-                type:2,
-                name: '第一次作业',
-                person:'张哈哈',
-                time: '2019-03-12 23:15:11',
-                content: '完成刚刚发布的作业内容完成刚刚发布的作业内容完成刚刚发布的作业内容完成刚刚发布的作业内容完成刚刚发布的作业内容完成刚刚发布的作业内容完成刚刚发布的作业内容完成刚刚发布的作业内容'
-            },{
-                id: '2',
-                name: '考试安排',
-                person: '张哈哈',
-                time: '',
-                type:1,
-                content: ''
-            }],
+            info: {},//name,
+            courses: [],
+            inform:[],
+            homework:[],
             //当前点击的通知
             informActive:{
                 name:'',
@@ -205,12 +223,23 @@
             changeActive(item){
                 this.informActive.name = item.name
                 this.informActive.content = item.content
+            },
+            goHomework(courseId){
+                window.event.returnValue=false
+                window.location.href = '/student/homeworkList?courseId='+courseId
+            },
+            signOut(){
+                window.event.returnValue=false
+                window.sessionStorage.clear()
+                window.location.href='/'
             }
         },
         created(){
             //获取用户信息
-
-            //获取课程列表
+            this.info.name = window.sessionStorage.userName
+            //获取课程列表 /student/course
+            //存起来名字和id
+            var thisData = this
             $.ajax({
                 type:'GET',
                 data:'',
@@ -218,9 +247,20 @@
                 dataType:'json',
                 success:function(msg){
                     var data = JSON.parse(JSON.stringify(msg))
+                    console.log(data)
+                    var lessonList = data.data.studentLessonList
+                    var arr = [...lessonList]
+                    arr.forEach(function(item){
+                        var obj = {}
+                        obj.name = item.lessonName
+                        obj.id = item.lessonId
+                        thisData.courses.push(obj)
+                    })
+                    //加入session
+                    window.sessionStorage.setItem('courses',JSON.stringify(thisData.courses))
                 }
             })
-            //获取通知列表
+            //获取通知列表 /student/inform
             $.ajax({
                 type:'GET',
                 data:'',
@@ -228,14 +268,56 @@
                 dataType:'json',
                 success:function(msg){
                     var data = JSON.parse(JSON.stringify(msg))
-
+                    var informList = data.data.studentNoticeList
+                    var arr = [...informList]
+                    arr.forEach(function(item){
+                        var obj = {}
+                        obj.name = item.title
+                        obj.id = item.id
+                        obj.courseName = ''//
+                        obj.type = item.noticeType
+                        obj.person = item.teacherName
+                        obj.content = item.detail
+                        obj.time = parseDate(new Date(item.createTime))
+                        thisData.inform.push(obj)
+                    })
                 }
             })
+            //获取作业列表
+            $.ajax({
+                type:'GET',
+                data:'',
+                url:'/student/homework',
+                dataType:'json',
+                success:function(msg){
+                    var data = JSON.parse(JSON.stringify(msg))
+                    var homeworkList = data.data.unSubmittedHomeworkList
+                    var arr = [...homeworkList]
+                    arr.forEach(function(item){
+                        var obj = {}
+                        obj.name = item.title
+                        obj.id = item.homeworkId
+                        obj.courseId = item.lessonId
+                        obj.courseName = item.lessonName
+                        obj.time = parseDate(new Date(item.dueTime))
+                        thisData.homework.push(obj)
+                    })
+                }
+            })
+        },
+        mounted(){
+            window.onload=function(){
+                ModalEffects();
+            }
+
         }
+
     })
 </script>
 <script src="/public/js/custom.min.js"></script>
+
 <script src="/public/js/classie.js"></script>
-<script src="/public/js/modalEffects.js"></script>
+
+
 </body>
 </html>

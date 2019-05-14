@@ -99,6 +99,7 @@ public class StudentController {
             resultJSON.put("status", StatusCode.SUCCESS);
             resultJSON.put("msg", "登陆成功");
             resultJSON.put("token", token);
+            resultJSON.put("studentName",student.getStudent_name());
             //存储session
             session.setAttribute("userToken", token);
             session.setMaxInactiveInterval(3600);//session过期时间为1个小时
@@ -138,6 +139,7 @@ public class StudentController {
                 resultJSON.put("status", StatusCode.SUCCESS);
                 resultJSON.put("msg", "注册成功");
                 resultJSON.put("token", token);
+
                 //存储session
                 Student student = this.studentService.loginVerify(studentId, StringUtils.MD5(passwd));
                 session.setAttribute("userToken", token);
