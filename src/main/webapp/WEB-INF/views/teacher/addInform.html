@@ -285,7 +285,8 @@
 						var thisVM = this;
 						$.ajax({
 							data: JSON.stringify(thisVM.informInfo),
-							dataType:'json',//服务器返回json格式数据
+                            contentType : "application/json",
+                            dataType:'json',//服务器返回json格式数据
 							type:'post',//HTTP请求类型
 							url: '/teacher/inform',
 							success:function(data){

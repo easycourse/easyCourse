@@ -199,10 +199,10 @@ public class TeacherController {
 
     //发布新通知
     @PostMapping("/inform")
-    public void addNotice(@RequestBody String param,  HttpServletResponse httpServletResponse, HttpSession session) throws IOException {
+    public void addNotice(@RequestBody JSONObject body,  HttpServletResponse httpServletResponse, HttpSession session) throws IOException {
         Teacher teacher = (Teacher) session.getAttribute("teacher");
         String teacherId = teacher.getTeacherId();
-        JSONObject body = JSONObject.parseObject(param);
+//        JSONObject body = JSONObject.parseObject(param);
         JSONArray lessonIdList = body.getJSONArray("lessonIdList");
         String title = body.getString("title");
         int noticeType = Integer.parseInt(body.getString("noticeType"));
@@ -258,8 +258,7 @@ public class TeacherController {
 
     //添加课件
     @PostMapping("/courseware")
-    public void addCourseware(@RequestBody String param,  HttpSession session, HttpServletResponse httpServletResponse) throws IOException {
-        JSONObject body = JSONObject.parseObject(param);
+    public void addCourseware(@RequestBody JSONObject body,  HttpSession session, HttpServletResponse httpServletResponse) throws IOException {
         String title = body.getString("title");
         JSONArray lessonIdList = body.getJSONArray("lessonIdList");
         String detail = body.getString("detail");
@@ -302,10 +301,7 @@ public class TeacherController {
 
         response.getWriter().write(String.valueOf(result));
     }
-    @GetMapping("/upload")
-    public String upload() {
-        return "teacher/addCourse";
-    }
+
 
     //TODO:******************************************:作业模块********************************************/
     //查看发布的作业
@@ -391,11 +387,10 @@ public class TeacherController {
 
     //发布新作业
     @PostMapping("/homework")
-    public void addHomework(@RequestBody String param, HttpSession session, HttpServletResponse httpServletResponse) throws IOException {
+    public void addHomework(@RequestBody JSONObject body, HttpSession session, HttpServletResponse httpServletResponse) throws IOException {
         Teacher teacher = (Teacher) session.getAttribute("teacher");
         String teacherId = teacher.getTeacherId();
 
-        JSONObject body = JSONObject.parseObject(param);
         String title = body.getString("title");
         JSONArray lessonIdList = body.getJSONArray("lessonIdList");
         String detail = body.getString("detail");
