@@ -85,7 +85,7 @@
                                         <span>个人中心</span>
                                     </a>
                                 </li>
-                                <li><a href="/"><i class="fa fa-sign-out pull-right"></i> 退出登录</a></li>
+                                <li><a href="#" @click="signOut"><i class="fa fa-sign-out pull-right"></i> 退出登录</a></li>
                             </ul>
                         </li>
 
@@ -131,7 +131,7 @@
                             <div class="clearfix"></div>
                         </div>
                         <div class="x_content">
-                            <h4 v-cloak>上课时间：{{courseNow.time}}<br/>{{courseNow.introduction}}</h4>
+                            <h4 v-cloak>上课时间：{{courseNow.time}}<br/><br/>{{courseNow.introduction}}</h4>
                         </div>
                     </div>
                 </div>
@@ -182,6 +182,7 @@
 <!-- DateJS -->
 <script src="/libs/date.js"></script>
 
+<script src="/public/js/common.js"></script>
 <!-- Custom Theme Scripts -->
 
 <script>
@@ -193,7 +194,7 @@
             },
             courses: [],
             courseNow: {
-                name: '软件工程',
+                name: '',
                 id: '',
                 introduction: '',
                 time:'',
@@ -209,20 +210,42 @@
             goCourse(courseId){
                 window.event.returnValue=false
                 //跳转到指定课程主页
+            },
+            signOut(){
+                window.event.returnValue=false
+                window.sessionStorage.clear()
+                window.location.href='/'
             }
         },
         created(){
             //多有课程 local
             this.info.name = window.sessionStorage.userName
             var courseList = JSON.parse(window.sessionStorage.courses)
+            var thisData = this
             courseList.forEach(function(item){
-                console.log(Object.prototype.toString.call(this.courses))
                 var obj = {}
                 obj.id = item.id
                 obj.name = item.name
-                this.courses.push(obj)
+                thisData.courses.push(obj)
             })
             //根据 courseId （lessonId）获取信息 /course/lessonId
+            $.ajax({
+                type:'GET',
+                url:'/student/course/'+getVariable('courseId'),
+                data:'',
+                datatype:'json',
+                success:function(msg){
+                    var data = JSON.parse(msg).data.lesson
+                    thisData.courseNow.name = data.lessonName
+                    thisData.courseNow.id = data.lessonId
+                    thisData.courseNow.introduction = data.detail
+                    thisData.courseNow.time = data.lessonTime
+                    thisData.teacher.name = data.teacherName
+                    thisData.teacher.phone = data.phone
+                    thisData.teacher.email = data.mail
+                    thisData.teacher.location = data.location
+                }
+            })
         }
     })
 </script>

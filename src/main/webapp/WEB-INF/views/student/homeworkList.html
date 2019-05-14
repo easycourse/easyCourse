@@ -87,7 +87,7 @@
                                         <span>个人中心</span>
                                     </a>
                                 </li>
-                                <li><a href="/"><i class="fa fa-sign-out pull-right"></i> 退出登录</a></li>
+                                <li><a href="#" @click="signOut"><i class="fa fa-sign-out pull-right"></i> 退出登录</a></li>
                             </ul>
                         </li>
 
@@ -203,6 +203,11 @@
             goCourse(courseId) {
                 window.event.returnValue = false
                 //跳转到指定课程主页
+            },
+            signOut(){
+                window.event.returnValue=false
+                window.sessionStorage.clear()
+                window.location.href='/'
             }
         },
         created() {
