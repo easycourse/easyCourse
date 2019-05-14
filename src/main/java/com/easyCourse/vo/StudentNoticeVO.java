@@ -15,6 +15,8 @@ public class StudentNoticeVO {
 
     private String lessonId;
 
+    private String lessonName;
+
     private String teacherId;
 
     private String teacherName;

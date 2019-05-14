@@ -70,4 +70,10 @@ public class LessonNoticeDaoTest {
         System.out.println(i);
 
     }
+
+    @Test
+    public void findAllNoticeByStudentId() {
+        List<StudentNoticeVO> list = lessonNoticeDao.findAllNoticeByStudentId("2016302580297");
+        list.forEach(System.out::println);
+    }
 }
