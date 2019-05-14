@@ -275,27 +275,12 @@ public class TeacherController {
         httpServletResponse.getWriter().write(String.valueOf(result));
     }
 
-    //TODO:******************************************:作业模块********************************************/
+    //******************************************:作业模块********************************************/
     //查看发布的作业
     @GetMapping("/homework")
     public void getHomework(HttpSession session, HttpServletResponse httpServletResponse) throws IOException {
         Teacher teacher = (Teacher) session.getAttribute("teacher");
         String teacherId = teacher.getTeacherId();
-        //包含信息有 课程	作业标题	作业描述	发布时间	截至时间	提交人数
-        //totalHWArray:[
-        //      lessonHWObj:{
-        //          "lessonId":"xxxx",
-        //          "homeworkList":[
-        //              singleHWObj:{
-        //                  "lessonId":"xxxx",
-        //                  "homeworkId":"xxxx",
-        //                  "title":"xxxx",
-        //                  "lessonId":"xxxx"
-        //                     ...
-        //              }
-        //          ]
-        //      }
-        // ]
         JSONArray totalHWArray = new JSONArray();
 
         //根据teacherId在lesson表中获取老师的所有课程（课程Id）
