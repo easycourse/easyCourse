@@ -331,6 +331,7 @@ public class TeacherController {
             for (LessonHomework homework: lessonHomeworkList) {
                 JSONObject singleHWObj = new JSONObject();
                 singleHWObj.put("lessonId", lessonId);
+                singleHWObj.put("lessonName", lesson.getLessonName());
                 singleHWObj.put("homeworkId", homework.getHomeworkId());
                 singleHWObj.put("title", homework.getTitle());
                 singleHWObj.put("detail", homework.getDetail());
