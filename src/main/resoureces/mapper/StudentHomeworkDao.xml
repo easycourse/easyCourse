@@ -20,10 +20,40 @@
         where homework_id = #{homeworkId}
     </select>
 
-    <update id="updateStudentHomeworkScore">
-        update student_homework
-        set score = #{score},
-            update_time = now()
+    <select id="selectVOByHomeworkIdAndStudentId" resultType="com.easyCourse.vo.StudentHomeworkVO">
+        select
+            lh.homework_id as homeworkId,
+            lh.title as title,
+            lh.detail as detail,
+            lh.create_time as createTime,
+            lh.due_time as dueTime,
+            lh.appendix as appendix,
+            l.lesson_id as lessonId,
+            l.lesson_name as lessonName,
+            sh.id as submitId
+        from
+            student_homework sh
+                left join
+            lesson_homework lh on sh.homework_id = lh.homework_id
+                left join
+            lesson l on lh.lesson_id = l.lesson_id
+        where sh.homework_id = #{homeworkId} and sh.student_id = #{studentId} and sh.is_delete = 0;
+    </select>
+
+    <select id="selectByHomeworkIdAndStudentId" resultMap="BaseResultMap">
+        select * from student_homework
+        where student_id = #{studentId} and homework_id = #{homeworkId} and is_delete = 0;
+    </select>
+
+    <insert id="insert">
+        insert into student_homework
+            (student_id, homework_id, homework_name, appendix)
+        values
+            (#{studentId}, #{homeworkId}, #{homeworkName}, #{appendix})
+    </insert>
+
+    <update id="updateAppendix">
+        update student_homework set appendix = #{appendix}
         where student_id = #{studentId} and homework_id = #{homeworkId}
     </update>
 
