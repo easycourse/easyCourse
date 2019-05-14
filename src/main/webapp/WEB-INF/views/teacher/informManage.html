@@ -114,6 +114,7 @@
 										<h4>通知列表</h4>
 									</div>
 									<div class="title_right">
+										
 										<div class="col-md-4 pull-right btn-group">
 											<button type="button" class="btn btn-default active">全部</button>
 											<button type="button" class="btn btn-default">考试相关</button>
@@ -132,7 +133,6 @@
 												<tr>
 													<th>名称</th>
 													<th>详情</th>
-													<th>发布人</th>
 													<th>发布时间</th>
 													<th>操作</th>
 												</tr>
@@ -141,7 +141,6 @@
 												<tr v-for="(item,i) in informs" :key="item.noticeId">
 													<td><a>{{item.title}}</a></td>
 													<td>{{item.detail}}</td>
-													<td>{{item.name}}</td>
 													<td>{{item.createTime}}</td>
 													<td width="180">
 														<a>下载附件</a> &nbsp;
@@ -180,6 +179,22 @@
 
 		<!-- DateJS -->
 		<script src="/libs/date.js"></script>
+		
+		<script>
+			function toggleTstamp(timestamp){
+				/*1.重写了toLocaleString方法*/
+				Date.prototype.toLocaleString = function() {
+				          return this.getFullYear() + "年" + 
+				          (this.getMonth() + 1) + "月" + 
+				          this.getDate() + "日 " 
+				          + this.getHours() + "点"
+				          + this.getMinutes() + "分"
+				          + this.getSeconds() + "秒";
+				}; 
+				var timestring=new Date(timestamp);/*传入毫秒数返回东八区中国标准时间*/
+				return timestring.toLocaleString();
+			}
+		</script>
 
 		<!-- Custom Theme Scripts -->
 		<script>
@@ -191,34 +206,33 @@
 						id: '222',
 						email: ''
 					},
-					informs: [{
-							"noticeId": 1,
-							"lessonId": 1,
-							"noticeType": 2,
-							"name": "王老师",
-							"title": "软件工程第一次作业通知",
-							"detail": "第一次作业已经发布，请大家尽快完成",
-							"createTime": "2019-04-26  14:03",
-							"appendixStatus": 1,
-							"appendixName": "第一次作业.doc",
-							"appendixURL": "xxx.xxx/第一次作业.doc"
-						},
-						{
-							"noticeId": 1,
-							"lessonId": 1,
-							"noticeType": 1,
-							"name": "王老师",
-							"title": "软件工程考试通知",
-							"detail": "软件工程将于x月xx号考试...",
-							"createTime": "2019-04-26  14:03",
-							"appendixStatus": 0,
-							"appendixName": "",
-							"appendixURL": ""
-						}
-					]
+					informs: []
 				},
 				methods: {
-
+					dataInit(){
+						var thisVM = this;
+						//todo: 获取教师信息
+						//获取全部通知
+						$.ajax({
+							data:{},
+							dataType:'json',//服务器返回json格式数据
+							type:'get',//HTTP请求类型
+							url: '/teacher/inform',
+							success:function(msg){
+								var data = typeof msg=="string"?JSON.parse(msg):msg;
+								thisVM.informs = data.lessonNoticeList;
+								for (var i = 0; i < thisVM.informs.length; i++) {
+									thisVM.informs[i].createTime = toggleTstamp(thisVM.informs[i].createTime);
+								}
+							},
+							error:function(xhr,type,errorThrown){
+								
+							}
+						});
+					}
+				},
+				created(){
+					this.dataInit();
 				}
 			})
 		</script>

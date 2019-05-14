@@ -193,32 +193,30 @@
 						id: '222',
 						email: ''
 					},
-					lessonFileList: [{
-						"appendix": "www.fjiwaljfw.com",
-						"createTime": 1557507719000,
-						"detail": "商务智能的第三章课件",
-						"id": 5,
-						"isDelete": 0,
-						"lessonId": "1",
-						"lessonName": "软件工程",
-						"title": "商务智能",
-						"userId": "1",
-						"userName": "韩笑"
-					}, {
-						"appendix": "http://www.abc.com",
-						"createTime": 1556537438000,
-						"detail": "软件工程实验报告模板",
-						"id": 1,
-						"isDelete": 0,
-						"lessonId": "1",
-						"lessonName": "软件工程",
-						"title": "软件工程实验报告模板",
-						"userId": "1",
-						"userName": "韩笑"
-					}]
+					lessonFileList: []
 				},
 				methods: {
+					dataInit(){
+						var thisVM = this;
+						$.ajax({
+							data:{},
+							dataType:'json',//服务器返回json格式数据
+							type:'get',//HTTP请求类型
+							url: '/teacher/courseware',
+							success:function(msg){
+								var data = typeof msg=="string"?JSON.parse(msg):msg;
+								if(data.status == 200){
+									thisVM.lessonFileList = data.lessonFileList;
+								}
+							},
+							error:function(xhr,type,errorThrown){
 
+							}
+						})
+					}
+				},
+				created(){
+					this.dataInit();
 				}
 			})
 		</script>

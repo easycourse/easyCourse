@@ -132,7 +132,7 @@
 				                                                <td>{{item.submitStatus}}</td>
 				                                                <td contenteditable="true">{{item.score}}</td>
 				                                                <td width="180">
-				                                                    <a >下载</a>
+				                                                    <a >下载附件</a>
 				                                                </td>
 				                                            </tr>
 				                                            </tbody>
@@ -203,7 +203,24 @@
 					]
 				},
 				methods: {
-					
+					dataInit(){
+						var thisVM = thihs;
+						//todo: 获取老师信息
+						
+						//获取全部作业
+						$.ajax({
+							data:{},
+							dataType:'json',//服务器返回json格式数据
+							type:'get',//HTTP请求类型
+							timeout:10000,//超时时间设置为10秒；
+							success:function(data){
+								
+							},
+							error:function(xhr,type,errorThrown){
+								
+							}
+						});
+					}
 				}
 			})
 		</script>
