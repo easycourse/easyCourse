@@ -76,4 +76,12 @@ public interface TeacherService {
      * @return
      */
     JSONObject importScores(Map<String, String> records, String homeworkId);
+
+    /**
+     * 导入学生成绩2
+     * @param records
+     * @param homeworkId
+     * @return
+     */
+    //JSONObject importScoresWithForeach(Map<String, Integer> records, String homeworkId);
 }

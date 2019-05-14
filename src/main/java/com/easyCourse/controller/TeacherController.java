@@ -404,8 +404,7 @@ public class TeacherController {
             studentScoreInfoList.put(id.getString("studentId"),score.getString("score"));
         }
 
-        //return teacherService.importScores(studentScoreInfoList, homeworkId);
-        return null;
+        return teacherService.importScores(studentScoreInfoList, homeworkId);
 
     }
 }

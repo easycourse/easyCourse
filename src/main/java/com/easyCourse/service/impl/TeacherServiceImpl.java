@@ -157,7 +157,7 @@ public class TeacherServiceImpl implements TeacherService {
 
         int updateCount = 0;
         for (String studentIdKey : records.keySet()) {
-            updateCount += studentHomeworkDao.updateStudentHomeworkScore(studentIdKey,homeworkId,Integer.parseInt(records.get(studentIdKey)));
+            updateCount += studentHomeworkDao.updateStudentHomeworkScore(studentIdKey,homeworkId, Integer.parseInt(records.get(studentIdKey)));
         }
 
         if (updateCount != records.size()) {
