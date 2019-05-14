@@ -1,7 +1,10 @@
 package com.easyCourse.service;
 
 import com.easyCourse.entity.LessonFile;
+import com.easyCourse.entity.LessonHomework;
+import com.easyCourse.entity.LessonNotice;
 import com.easyCourse.entity.Student;
+import com.easyCourse.vo.LessonVO;
 import com.easyCourse.vo.StudentHomeworkVO;
 import com.easyCourse.vo.StudentLessonVO;
 import com.easyCourse.vo.StudentNoticeVO;
@@ -29,4 +32,18 @@ public interface IStudentService {
 
     //根据学生id获取学生
     Student getStudentByStudentId(String id);
+
+    // 根据课程id获取作业列表
+    List<LessonHomework> getHomeworkByLessonId(String lessonId);
+
+    // 根据课程id获取通知列表
+    List<LessonNotice> getLessonNoticesByLessonId(String lessonId);
+
+    LessonVO getLessonInfoByLessonId(String lessonId);
+
+    int commitHomework(String studentId, String homeworkId, String homeworkName, String appendix);
+
+    int getHomeworkScore(String studentId, String homeworkId);
+
+    StudentHomeworkVO getHomeworkByHomeworkIdAndStudentId(String homeworkId, String studentId);
 }

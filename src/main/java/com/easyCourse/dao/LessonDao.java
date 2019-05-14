@@ -59,4 +59,12 @@ public interface LessonDao {
      * @return
      */
     Lesson selectLessonByLessonId(String lessonId);
+
+    /**
+     * 根据课程id获取课程视图对象
+     *
+     * @param lessonId 课程id
+     * @return 课程视图对象
+     */
+    LessonVO selectLessonVOByLessonId(String lessonId);
 }

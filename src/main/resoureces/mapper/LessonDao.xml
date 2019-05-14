@@ -92,4 +92,20 @@
         select * from lesson
         where lesson_id = #{lessonId} and is_delete = 0
     </select>
+
+    <select id="selectLessonVOByLessonId" resultType="com.easyCourse.vo.LessonVO">
+        select
+            lesson.lesson_id as lessonId,
+            lesson.lesson_name as lessonName,
+            lesson.lesson_time as lessonTime,
+            lesson.detail as detail,
+            lesson.student_num as studentNum,
+            user_teacher.teacher_id as teacherId,
+            user_teacher.teacher_name as teacherName,
+            user_teacher.phone as phone,
+            user_teacher.mail as mail,
+            user_teacher.location as location
+        from lesson left join user_teacher on lesson.teacher_id = user_teacher.teacher_id
+        where lesson.lesson_id = #{lessonId} and lesson.is_delete = 0
+    </select>
 </mapper>

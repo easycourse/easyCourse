@@ -1,12 +1,12 @@
 package com.easyCourse.controller;
 
-import com.easyCourse.entity.LessonFile;
-import com.easyCourse.entity.Student;
+import com.easyCourse.entity.*;
 import com.easyCourse.service.IStudentService;
 import com.easyCourse.utils.Jwt;
 import com.easyCourse.utils.StatusCode;
 import com.easyCourse.utils.StringUtils;
 import com.alibaba.fastjson.JSONObject;
+import com.easyCourse.vo.LessonVO;
 import com.easyCourse.vo.StudentHomeworkVO;
 import com.easyCourse.vo.StudentLessonVO;
 import com.easyCourse.vo.StudentNoticeVO;
@@ -257,8 +257,9 @@ public class StudentController {
 
 
     /**
-     * TODO：根据课程id获取课程作业
-     * @param lessonId  lessonId
+     * 根据课程id获取课程作业
+     *
+     * @param lessonId lessonId
      * @param session  session
      * @param response response
      * @throws IOException
@@ -266,12 +267,22 @@ public class StudentController {
     @RequestMapping(value = "/getHomeworkByLessonId", method = RequestMethod.GET)
     public void getHomeworkByLessonId(@RequestParam(value = "lessonId") String lessonId, HttpSession session, HttpServletResponse response) throws IOException {
         response.setCharacterEncoding("UTF-8");
+        List<LessonHomework> homeworkList = studentService.getHomeworkByLessonId(lessonId);
 
+        JSONObject result = new JSONObject();
+        result.put("status", 200);
+        result.put("msg", "success");
+        Map<String, Object> resultMap = new HashMap<>();
+        resultMap.put("homeworkList", homeworkList);
+        result.put("data", resultMap);
+
+        response.getWriter().write(String.valueOf(result));
     }
 
     /**
-     * TODO：根据课程id获取通知信息
-     * @param lessonId  lessonId
+     * 根据课程id获取通知信息
+     *
+     * @param lessonId lessonId
      * @param session  session
      * @param response response
      * @throws IOException
@@ -279,11 +290,22 @@ public class StudentController {
     @RequestMapping(value = "/getInformByLessonId", method = RequestMethod.GET)
     public void getInformByLessonId(@RequestParam(value = "lessonId") String lessonId, HttpSession session, HttpServletResponse response) throws IOException {
         response.setCharacterEncoding("UTF-8");
+
+        List<LessonNotice> informList = studentService.getLessonNoticesByLessonId(lessonId);
+        JSONObject result = new JSONObject();
+        result.put("status", 200);
+        result.put("msg", "success");
+        Map<String, Object> resultMap = new HashMap<>();
+        resultMap.put("informList", informList);
+        result.put("data", resultMap);
+
+        response.getWriter().write(String.valueOf(result));
     }
 
     /**
-     * TODO：根据课程id获取其详情
-     * @param lessonId  lessonId
+     * 根据课程id获取其详情
+     *
+     * @param lessonId lessonId
      * @param session  session
      * @param response response
      * @throws IOException
@@ -291,34 +313,99 @@ public class StudentController {
     @RequestMapping(value = "/course/{lessonId}", method = RequestMethod.GET)
     public void getCourseById(@PathVariable(value = "lessonId") String lessonId, HttpSession session, HttpServletResponse response) throws IOException {
         response.setCharacterEncoding("UTF-8");
-        //根据lessonId多表查询得到lesson和teacher的相关信息
+
+        LessonVO lesson = studentService.getLessonInfoByLessonId(lessonId);
+        JSONObject result = new JSONObject();
+        result.put("status", 200);
+        result.put("msg", "success");
+        Map<String, Object> resultMap = new HashMap<>();
+        resultMap.put("lesson", lesson);
+        result.put("data", resultMap);
+
+        response.getWriter().write(String.valueOf(result));
     }
 
-    //todo:提交作业
+    /**
+     * 学生提交作业
+     *
+     * @param homeworkId   作业Id
+     * @param homeworkName 作业名称
+     * @param appendix     附件url
+     * @param session      session
+     * @param response     response
+     * @throws IOException io异常
+     */
     @RequestMapping(value = "/commitHomework", method = RequestMethod.POST)
-    public void getScore(@RequestParam("homeworkId") String homeworkId,@RequestParam("homeworkName") String homeworkName,@RequestParam("appendix") String appendix, HttpSession session,HttpServletResponse response) throws IOException {
+    public void getScore(@RequestParam("homeworkId") String homeworkId, @RequestParam("homeworkName") String homeworkName, @RequestParam("appendix") String appendix, HttpSession session, HttpServletResponse response) throws IOException {
         response.setCharacterEncoding("UTF-8");
         Student student = (Student) session.getAttribute("student");
         String studentId = student.getStudent_id();
-        //注意如果对于同一个homeworkId和studentId有相同的提交的话，那么直接update appendix
-        //先查询是否有记录是同一个studentId和homeworkId，如果没有那么直接插入，如果有的话那么update appendix
+
+        int status = studentService.commitHomework(studentId, homeworkId, homeworkName, appendix);
+
+        JSONObject result = new JSONObject();
+        result.put("status", status);
+        if (status == 200) {
+            result.put("msg", "success");
+        } else if (status == 500) {
+            result.put("msg", "提交失败");
+        } else if (status == 301) {
+            result.put("msg", "作业已截止");
+        }
+        result.put("data", null);
+
+        response.getWriter().write(String.valueOf(result));
     }
 
     //todo:根据HomeworkId查看得分
     @RequestMapping(value = "/score", method = RequestMethod.GET)
-    public void getScore(@RequestParam("homeworkId") String homeworkId, HttpServletResponse response) throws IOException {
-        response.setCharacterEncoding("UTF-8");
-        //如果是null，表示为还未给出成绩
-    }
-
-    //todo:查看作业提交情况
-    @RequestMapping(value = "/checkHomework", method = RequestMethod.POST)
-    public void checkHomework(@RequestParam("homeworkId") String homeworkId,HttpSession session,HttpServletResponse response) throws IOException {
+    public void getScore(@RequestParam("homeworkId") String homeworkId, HttpServletResponse response, HttpSession session) throws IOException {
         response.setCharacterEncoding("UTF-8");
         Student student = (Student) session.getAttribute("student");
         String studentId = student.getStudent_id();
-        //根据student和homeworkID查询，如果查到了那么返回那条记录
-        //如果没有 data里面放null
+
+        int status = studentService.getHomeworkScore(studentId, homeworkId);
+
+        JSONObject result = new JSONObject();
+        if (status == 301) {
+            result.put("status", 301);
+            result.put("msg", "未提交作业");
+        } else if (status == 302) {
+            result.put("status", 302);
+            result.put("msg", "老师尚未给分");
+        } else {
+            result.put("status", 200);
+            result.put("msg", "success");
+            Map<String, Object> resultMap = new HashMap<>();
+            resultMap.put("score", status);
+            result.put("data", resultMap);
+        }
+
+        response.getWriter().write(String.valueOf(result));
+    }
+
+    /**
+     * 学生查看作业提交情况
+     * @param homeworkId 作业id
+     * @param session session
+     * @param response response
+     * @throws IOException
+     */
+    @RequestMapping(value = "/checkHomework", method = RequestMethod.GET)
+    public void checkHomework(@RequestParam("homeworkId") String homeworkId, HttpSession session, HttpServletResponse response) throws IOException {
+        response.setCharacterEncoding("UTF-8");
+        Student student = (Student) session.getAttribute("student");
+        String studentId = student.getStudent_id();
+
+        StudentHomeworkVO studentHomeworkVO = studentService.getHomeworkByHomeworkIdAndStudentId(homeworkId, studentId);
+        JSONObject result = new JSONObject();
+        result.put("status", 200);
+        result.put("msg", "success");
+        Map<String, Object> resultMap = new HashMap<>();
+        resultMap.put("homework", studentHomeworkVO);
+        result.put("data", resultMap);
+
+        response.getWriter().write(String.valueOf(result));
     }
 
 }
