@@ -275,10 +275,11 @@ public class TeacherController {
         httpServletResponse.getWriter().write(String.valueOf(result));
     }
 
-    //******************************************:作业模块********************************************/
+    //TODO:******************************************:作业模块********************************************/
     //查看发布的作业
     @GetMapping("/homework")
     public void getHomework(HttpSession session, HttpServletResponse httpServletResponse) throws IOException {
+        httpServletResponse.setCharacterEncoding("UTF-8");
         Teacher teacher = (Teacher) session.getAttribute("teacher");
         String teacherId = teacher.getTeacherId();
         JSONArray totalHWArray = new JSONArray();
@@ -328,6 +329,8 @@ public class TeacherController {
     @GetMapping("/homework/{homeworkId}")
     @ResponseBody
     public void getHomeworkByHomeworkId(@PathVariable(value = "homeworkId") String homeworkId,HttpSession session, HttpServletResponse httpServletResponse) throws IOException {
+
+        httpServletResponse.setCharacterEncoding("UTF-8");
 
         JSONArray homeworkArray =  new JSONArray();
 

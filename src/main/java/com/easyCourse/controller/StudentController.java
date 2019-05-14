@@ -162,6 +162,7 @@ public class StudentController {
 
         Student student = (Student) session.getAttribute("student");
         String studentId = student.getStudent_id();
+
         List<StudentNoticeVO> studentNoticeList = studentService.getAllNoticeByStudentId(studentId);
         JSONObject result = new JSONObject();
         result.put("status", 200);
