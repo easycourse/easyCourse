@@ -110,28 +110,28 @@
 											<div class="form-group">
 												<label class="control-label col-md-3 col-sm-3 col-xs-3">课程名</label>
 												<div class="col-md-6 col-sm-9 col-xs-9">
-													<input type="text" class="form-control" placeholder="课程名..." />
+													<input type="text" class="form-control" placeholder="课程名..." required="required" v-model="courseInfo.lessonName"/>
 													<p>请在课程名称中标明班级，例《软件工程》软工4-6班</p>
 												</div>
 											</div>
 											<div class="form-group">
 												<label class="control-label col-md-3 col-sm-3 col-xs-3">上课时间</label>
 												<div class="col-md-6 col-sm-9 col-xs-9">
-													<input type="text" class="form-control" placeholder="上课时间..." required="required"/>
+													<input type="text" class="form-control" placeholder="上课时间..." required="required" v-model="courseInfo.lessonTime"/>
 												</div>
 											</div>
 											<br />
 											<div class="form-group">
 												<label class="control-label col-md-3 col-sm-3 col-xs-3">课程详情（选填）</label>
 												<div class="col-md-6 col-sm-9 col-xs-9">
-													<textarea class="form-control" rows="3" placeholder="课程详情..."></textarea>
+													<textarea class="form-control" rows="3" placeholder="课程详情..." v-model="courseInfo.lessonDetail"></textarea>
 												</div>
 											</div>
 											<div class="ln_solid"></div>
 											<div class="form-group">
 												<label class="control-label col-md-3 col-sm-3 col-xs-3"></label>
 												<div class="col-md-2 col-sm-9 col-xs-9">
-													<button type="submit" class="btn btn-success btn-block">提交</button>
+													<button type="submit" class="btn btn-success btn-block" @click="submitCourse">提交</button>
 												</div>
 											</div>									
 										</form>
@@ -172,11 +172,36 @@
 						name: '张xx',
 						id: '222',
 						email: ''
+					},
+					courseInfo:{
+						// teacherId: "",
+						lessonName: "",
+						lessonTime: "",
+						lessonDetail: ""
 					}
 				},
 				methods: {
-					addAppendix(){
-						
+					submitCourse(){
+						var thisVM = this;
+						$.ajax({
+							data: thisVM.courseInfo,
+							dataType:'json',//服务器返回json格式数据
+							type:'post',//HTTP请求类型
+							url: '/teacher/addLesson',
+							success:function(msg){
+								var data = typeof msg=="string"?JSON.parse(msg):msg;
+								if(data.status == 200){
+									alert("添加课程成功！");
+									window.location.href = "/teacher/index";
+								}
+							},
+							error:function(xhr,type,errorThrown){
+								console.log(xhr);
+							},
+							complete:function(){
+								console.log('complete');
+							}
+						});
 					}
 				}
 			})

@@ -135,13 +135,13 @@
                                             </tr>
                                             </thead>
                                             <tbody>
-                                            <tr v-for="(item,i) in courses" :key="item.id">
-                                                <td><a>{{item.id}}</a></td>
-                                                <td>{{item.name}}</td>
-                                                <td>{{item.time}}</td>
-                                                <td>{{item.number}}</td>
+                                            <tr v-for="(item,i) in courses" :key="item.lessonId">
+                                                <td><a>{{item.lessonId}}</a></td>
+                                                <td>{{item.lessonName}}</td>
+                                                <td>{{item.lessonTime}}</td>
+                                                <td>{{item.studentNum}}</td>
                                                 <td width="180">
-                                                    <a id="importStuListBtn" data-toggle="modal" data-target="#importStuListModal" @click="loadModalInfo(item.id)">添加学生</a> &nbsp;
+                                                    <a id="importStuListBtn" data-toggle="modal" data-target="#importStuListModal" @click="loadModalInfo(item.lessonId)">添加学生</a> &nbsp;
                                                     <a >删除</a>
                                                 </td>
                                             </tr>
@@ -154,7 +154,7 @@
                                     <div class="col-sm-12 col-md-12 col-xs-12">
                                         <div class="dataTables_paginate">
                                             <ul class="pagination">
-                                                <li class="paginate_button" id="datatable-checkbox_previous"><a href="addCourse.html">添加课程</a></li>
+                                                <li class="paginate_button" id="datatable-checkbox_previous"><a href="/teacher/addCourse">添加课程</a></li>
                                             </ul>
                                         </div>
                                     </div>
@@ -229,7 +229,7 @@
         data: {
             info: {
                 name: '张xx',
-                id: '222',
+                id: '123',
                 email: ''
             },
             courses: [],
@@ -242,10 +242,31 @@
 			}
         },
         methods: {
+			dataInit(){
+				var thisVM = this;
+				//todo: 获取教师信息
+				//获取全部课程
+				$.ajax({
+					data:{
+						teacherId: '123'
+					},
+					dataType:'json',//服务器返回json格式数据
+					type:'get',//HTTP请求类型
+					url: '/teacher/course',
+					success:function(msg){
+						var data = typeof msg=="string"?JSON.parse(msg):msg;
+						if(data.status == 200){
+							thisVM.courses = data.data.lessonList;
+						}
+					},
+					error:function(xhr,type,errorThrown){
+						
+					}
+				});
+			},
 			loadModalInfo(lessonId){
 				this.importStuInfo.teacherId = this.info.id;
 				this.importStuInfo.lessonId = lessonId;
-				
 			},
 			handleExcelFileChange(file){
 				const files = file.target.files;
@@ -271,12 +292,12 @@
 			importStuList(){
 				var thisVM = this;
 				$.ajax({
-					type:"POST",
+					type:'post',
 					url:"/teacher/importStudents",
 					data:{
 						teacherId: thisVM.importStuInfo.teacherId,
 						lessonId: thisVM.importStuInfo.lessonId,
-                        studentList: JSON.stringify(thisVM.importStuInfo.stuList)
+						studentList: JSON.stringify(thisVM.importStuInfo.stuList) 
 					},
 					datatype:"json",
 					success:function(msg){
@@ -289,26 +310,10 @@
 					}
 				})
 			}
-        }
-		// created() {
-		// 	var thisVM = this;
-		// 	//获取用户信息
-		// 
-		// 	//获取课程列表
-		// 	$.ajax({
-		// 		type: 'GET',
-		// 		data: '',
-		// 		url: '/teacher/course',
-		// 		dataType: 'json',
-		// 		success: function(msg) {
-		// 			var data = JSON.parse(JSON.stringify(msg));
-		// 			if(data.get('status') == '200'){
-		// 				thisVM.courses = data.get('data').get('lessonList');
-		// 			}
-		// 		}
-		// 	})
-		// 
-		// }
+        },
+		created(){
+			this.dataInit();
+		}
     })
 </script>
 

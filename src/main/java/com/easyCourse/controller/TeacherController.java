@@ -152,12 +152,13 @@ public class TeacherController {
 
     //教师添加课程
     @PostMapping("/addLesson")
-    @ResponseBody
-    public JSONObject addLesson(@RequestParam(value = "lessonName", required = true) String lessonName, @RequestParam(value = "lessonTime", required = true) String lessonTime,
-                                @RequestParam(value = "lessonDetail", required = false) String lessonDetail, HttpSession session) {
+    public void addLesson(@RequestParam(value = "lessonName", required = true) String lessonName, @RequestParam(value = "lessonTime", required = true) String lessonTime,
+                                @RequestParam(value = "lessonDetail", required = false) String lessonDetail, HttpSession session,HttpServletResponse response) throws IOException{
+        response.setCharacterEncoding("UTF-8");
         Teacher teacher = (Teacher) session.getAttribute("teacher");
         String teacherId = teacher.getTeacherId();
-        return lessonService.addLesson(lessonName, lessonTime, lessonDetail, teacherId);
+        JSONObject result = lessonService.addLesson(lessonName, lessonTime, lessonDetail, teacherId);
+        response.getWriter().write(String.valueOf(result));
     }
 
     //教师添加学生选课记录
@@ -178,6 +179,7 @@ public class TeacherController {
     //查看发布的历史通知
     @GetMapping("/inform")
     public void getInformData(HttpServletResponse httpServletResponse, HttpSession session) throws IOException {
+        httpServletResponse.setCharacterEncoding("UTF-8");
         Teacher teacher = (Teacher) session.getAttribute("teacher");
         String teacherId = teacher.getTeacherId();
         List<LessonNotice> lessonNoticeList = lessonService.getNoticeListByTeacherId(teacherId);
@@ -195,10 +197,10 @@ public class TeacherController {
 
     //发布新通知
     @PostMapping("/inform")
-    public void addNotice(@RequestBody JSONObject body,  HttpServletResponse httpServletResponse, HttpSession session) throws IOException {
+    public void addNotice(@RequestBody String param,  HttpServletResponse httpServletResponse, HttpSession session) throws IOException {
         Teacher teacher = (Teacher) session.getAttribute("teacher");
         String teacherId = teacher.getTeacherId();
-
+        JSONObject body = JSONObject.parseObject(param);
         JSONArray lessonIdList = body.getJSONArray("lessonIdList");
         String title = body.getString("title");
         int noticeType = Integer.parseInt(body.getString("noticeType"));
@@ -207,6 +209,7 @@ public class TeacherController {
         JSONObject result = lessonService.addNotice(lessonIdList, teacherId, title, noticeType, detail, appendix);
         httpServletResponse.getWriter().write(String.valueOf(result));
     }
+
 
 
     /****************************************课件模块******************************************************/

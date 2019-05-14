@@ -114,23 +114,23 @@
 										<div class="form-group">
 											<label class="control-label col-md-3 col-sm-3 col-xs-3">标题</label>
 											<div class="col-md-6 col-sm-9 col-xs-9">
-												<input type="text" class="form-control" placeholder="标题..." />
+												<input type="text" class="form-control" placeholder="标题..." required="required" v-model="informInfo.title"/>
 											</div>
 										</div>
 										<br />
 										<div class="form-group">
 											<label class="control-label col-md-3 col-sm-3 col-xs-3">详细描述（选填）</label>
 											<div class="col-md-6 col-sm-9 col-xs-9">
-												<textarea class="form-control" rows="3" placeholder="通知详情..."></textarea>
+												<textarea class="form-control" rows="3" placeholder="通知详情..." v-model="informInfo.detail"></textarea>
 											</div>
 										</div>
 										<br />
 										<div class="form-group">
 											<label class="control-label col-md-3 col-sm-3 col-xs-3">课程（多选）</label>
 											<div class="col-md-6 col-sm-9 col-xs-9">
-												<select class="selectpicker" multiple="multiple">
-													<option v-for="course in courses" v-bind:value="course.id">
-														{{course.name}}
+												<select class="selectpicker" multiple="multiple" v-model="informInfo.lessonIdList">
+													<option  v-for="item in courses" :key="item.lessonId">
+														{{item.lessonName}}
 													</option>
 												</select>
 											</div>
@@ -140,31 +140,34 @@
 											<label class="control-label col-md-3 col-sm-3 col-xs-3">通知类型</label>
 											<div class="radio">
 												<label>
-												  <input type="radio" class="flat" checked name="iCheck"> 考试相关
+												  <input type="radio" class="flat"  name="iCheck" value="0" v-model="informInfo.noticeType"> 考试相关
 												</label>
 												<label>
-												  <input type="radio" class="flat"  name="iCheck"> 课件相关
+												  <input type="radio" class="flat"  name="iCheck" value="1" v-model="informInfo.noticeType"> 课件相关
 												</label>
 												<label>
-												  <input type="radio" class="flat"  name="iCheck"> 作业相关
+												  <input type="radio" class="flat"  name="iCheck" value="2" v-model="informInfo.noticeType"> 作业相关
 												</label>
 												<label>
-												  <input type="radio" class="flat"  name="iCheck"> 成绩相关
+												  <input type="radio" class="flat"  name="iCheck" value="3" v-model="informInfo.noticeType"> 成绩相关
 												</label>
 												<label>
-												  <input type="radio" class="flat"  name="iCheck"> 其他
+												  <input type="radio" class="flat"  name="iCheck" value="4" v-model="informInfo.noticeType"> 其他
 												</label>
 											</div>
 										</div>
 										<br />
 										<div class="form-group">
-											<label class="control-label col-md-3 col-sm-3 col-xs-3">上传附件</label>
+											<label class="control-label col-md-3 col-sm-3 col-xs-3">上传附件（选填）</label>
 											<div class="col-md-6 col-sm-9 col-xs-9">
-												<input type="button" value="浏览文件" class="btn btn-default" onclick="$('#addAppendixInput').click();"/>
-												<input id="addAppendixInput" name="file" type="file" accept=".xls, .xlsx" @change="addAppendix" style="display: none">
-												<br />
-												<br />
-												<p>支持扩展名：.rar .zip .doc .docx .pdf .jpg...</p>
+												<div class="input-group">
+												    <input class="form-control" v-model="informInfo.appendix">
+												    <label class="input-group-btn">
+												        <input type="button" value="浏览文件" class="btn btn-primary" onclick="$('#addAppendixInput').click();"/>
+												    </label>
+												</div>
+												<!-- <input type="button" value="浏览文件" class="btn btn-default" onclick="$('#addAppendixInput').click();"/> -->
+												<input id="addAppendixInput" name="file" type="file" style="display: none" @change="addAppendix">
 												<ul id="filePathList"></ul>
 											</div>
 										</div>
@@ -172,7 +175,7 @@
 										<div class="form-group">
 											<label class="control-label col-md-3 col-sm-3 col-xs-3"></label>
 											<div class="col-md-2 col-sm-9 col-xs-9">
-												<button type="submit" class="btn btn-success btn-block">提交</button>
+												<button type="submit" class="btn btn-success btn-block" @click="submitInform">提交</button>
 											</div>
 										</div>									
 									</form>
@@ -217,22 +220,62 @@
 						id: '222',
 						email: ''
 					},
-					courses: [{
-					    name: '软件工程',
-					    id: '123',
-					    time:'',
-					    number:'',
-					}, {
-					    name: '数据库',
-					    id: '134',
-					    time:'',
-					    number:'',
-					}]
+					courses: [],
+					informInfo:{
+						// teacherId:
+						title: "",
+						detail: "",
+						lessonIdList: ['1'],
+						noticeType: "0",
+						appendix: ""
+					}
 				},
 				methods: {
-					addAppendix(){
-						
+					dataInit(){
+						var thisVM = this;
+						//获取全部课程
+						$.ajax({
+							data:{
+								teacherId: '123'
+							},
+							dataType:'json',//服务器返回json格式数据
+							type:'get',//HTTP请求类型
+							url: '/teacher/course',
+							success:function(msg){
+								var data = typeof msg=="string"?JSON.parse(msg):msg;
+								if(data.status == 200){
+									thisVM.courses = data.data.lessonList;
+								}
+							},
+							error:function(xhr,type,errorThrown){
+								
+							}
+						});
+					},
+					addAppendix(file){
+						this.informInfo.appendix = file.target.value;
+					},
+					submitInform(){
+						var thisVM = this;
+						$.ajax({
+							data: JSON.stringify(thisVM.informInfo),
+							dataType:'json',//服务器返回json格式数据
+							type:'post',//HTTP请求类型
+							url: '/teacher/inform',
+							success:function(data){
+								var data = JSON.parse(msg)
+								if(data.status == 200){
+									alert("发布通知成功！");
+								}
+							},
+							error:function(xhr,type,errorThrown){
+								console.log(xhr);
+							}
+						});
 					}
+				},
+				created(){
+					this.dataInit();
 				}
 			})
 		</script>
