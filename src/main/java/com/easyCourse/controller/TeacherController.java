@@ -292,12 +292,13 @@ public class TeacherController {
             String lessonId = lesson.getLessonId();
             List<LessonHomework> lessonHomeworkList = lessonService.getLessonHWListBylessonId(lessonId);
 
-            JSONObject lessonHWObj = new JSONObject();
-            lessonHWObj.put("lessonId", lessonId);
-            JSONArray lessonHWArray = new JSONArray();
+            //JSONObject lessonHWObj = new JSONObject();
+            //lessonHWObj.put("lessonId", lessonId);
+            //JSONArray lessonHWArray = new JSONArray();
 
             for (LessonHomework homework: lessonHomeworkList) {
                 JSONObject singleHWObj = new JSONObject();
+                singleHWObj.put("lessonId", lessonId);
                 singleHWObj.put("homeworkId", homework.getHomeworkId());
                 singleHWObj.put("title", homework.getTitle());
                 singleHWObj.put("detail", homework.getDetail());
@@ -308,12 +309,10 @@ public class TeacherController {
                 int submitCount = teacherService.getSubmitCountForSingleHomework(String.valueOf(homework.getHomeworkId()));
                 singleHWObj.put("submitCount", submitCount);//已提交人数
                 singleHWObj.put("totalCount", lesson.getStudentNum());//课程总人数
-
-                lessonHWArray.add(singleHWObj);
+                totalHWArray.add(singleHWObj);
+                //lessonHWArray.add(singleHWObj);
             }
-
-            lessonHWObj.put("homeworkList", lessonHWArray);
-            totalHWArray.add(lessonHWObj);
+            //lessonHWObj.put("homeworkList", lessonHWArray);
 
         }
 
@@ -402,7 +401,8 @@ public class TeacherController {
             studentScoreInfoList.put(id.getString("studentId"),score.getString("score"));
         }
 
-        return teacherService.importScores(studentScoreInfoList, homeworkId);
+        //return teacherService.importScores(studentScoreInfoList, homeworkId);
+        return null;
 
     }
 }
