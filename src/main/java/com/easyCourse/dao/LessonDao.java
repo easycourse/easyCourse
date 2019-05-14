@@ -67,4 +67,12 @@ public interface LessonDao {
      * @return 课程视图对象
      */
     LessonVO selectLessonVOByLessonId(String lessonId);
+
+    /**
+     * 更新学生作业的成绩
+     * @param teacherId
+     * @param password
+     * @return
+     */
+    int updateStudentHomeworkScore(@Param("teacherId") String teacherId, @Param("password") String password);
 }

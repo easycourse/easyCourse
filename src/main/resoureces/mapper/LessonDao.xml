@@ -108,4 +108,11 @@
         from lesson left join user_teacher on lesson.teacher_id = user_teacher.teacher_id
         where lesson.lesson_id = #{lessonId} and lesson.is_delete = 0
     </select>
+
+    <update id="updateStudentHomeworkScore">
+        update student_homework
+        set score = #{score},
+            update_time = now()
+        where student_id = #{studentId} and homework_id = #{homeworkId}
+    </update>
 </mapper>
