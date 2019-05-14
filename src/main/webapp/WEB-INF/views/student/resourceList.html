@@ -143,7 +143,6 @@
                     <div class="x_panel tile ">
                         <div class="x_content resource">
                             <h4 class="re_title" v-cloak>{{item.name}}</h4>
-                            <h4 class="re_person" v-cloak>上传人：{{item.person}}</h4>
                             <h4 class="re_time" v-cloak>上传时间：{{item.time}}</h4>
                             <a class="btn btn-default download"><i class="fa fa-download"></i></a>
                         </div>
@@ -202,19 +201,16 @@
             resource: [{
                 id: '',
                 name: '第一张',
-                person: '张哈哈',
                 time: '',
                 url: ''
             },{
                 id: '',
                 name: '第二张',
-                person: '张哈哈',
                 time: '',
                 url: ''
             },{
                 id: '',
                 name: '第三张',
-                person: '张哈哈',
                 time: '',
                 url: ''
             }],
@@ -233,6 +229,8 @@
         created() {
             //暂时设置时间
             this.resource[0].time = parseDate(new Date())
+
+            //lessonId  /student/resource
         },
         mounted() {
             for (var i = 0; i < this.courses.length; i++) {

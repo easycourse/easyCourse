@@ -11,7 +11,7 @@ function getVariable(variable)
     return(false);
 }
 
-function parseDate(date){
+function parseDate(d){
     var year=d.getFullYear();
     var month=change(d.getMonth()+1);
     var day=change(d.getDate());
@@ -26,5 +26,5 @@ function parseDate(date){
         }
     }
     var time=year+'-'+month+'-'+day+' '+hour+':'+minute+':'+second;
-    document.write(time);
+    return time
 }

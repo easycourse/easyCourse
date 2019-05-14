@@ -83,5 +83,15 @@
     -webkit-box-orient: vertical;
 }
 .inform-item{
-	font-size: 1.2rem;
+	font-size: 1.3rem;
+}
+.homework_prompt{
+    display: flex !important;
+    flex-direction: row;
+
+}
+.prompt_item{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }

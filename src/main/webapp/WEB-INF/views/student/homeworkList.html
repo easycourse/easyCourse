@@ -51,9 +51,9 @@
                     <div class="menu_section">
 
                         <ul class="nav side-menu">
-                            <li><a><i class="fa fa-calendar"></i> 我的课程 <span class="fa fa-chevron-down"></span></a>
-                                <ul class="nav child_menu">
-                                    <li v-cloak v-for="(item,i) in courses" :key="item.id"><a href="#" @click.prevent="goCourse(item.id)">{{item.name}}</a></li>
+                            <li class="active"><a><i class="fa fa-calendar"></i> 我的课程 <span class="fa fa-chevron-down"></span></a>
+                                <ul class="nav child_menu " style="display: block;">
+                                    <li v-cloak v-for="(item,i) in courses" :key="item.id" :class="{'current-page':item.isNow}"><a href="index.html">{{item.name}}</a></li>
 
                                 </ul>
                             </li>
@@ -211,27 +211,14 @@
             //暂时设个时间
             this.homework[0].timeStart = parseDate(new Date())
             this.homework[0].timeEnd = parseDate(new Date())
-            //获取课程列表
-            $.ajax({
-                type: 'GET',
-                data: '',
-                url: '/student/course',
-                dataType: 'json',
-                success: function(msg) {
-                    var data = JSON.parse(JSON.stringify(msg))
-                }
-            })
-            //获取通知列表
-            $.ajax({
-                type: 'GET',
-                data: '',
-                url: '/student/inform',
-                dataType: 'json',
-                success: function(msg) {
-                    var data = JSON.parse(JSON.stringify(msg))
+            //获取作业 /student/getHomeworkByLessonId   {lessonId}
 
-                }
-            })
+            // / homeworkId name appendix  提交作业  /../commitHomework
+
+            //提交情况 homeworkId  /checkHomework
+
+            //查看成绩 homeworkId  /score
+
         }
     })
 </script>
