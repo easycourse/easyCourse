@@ -3,6 +3,7 @@ package com.easyCourse.controller;
 import com.easyCourse.entity.*;
 import com.easyCourse.service.IStudentService;
 import com.easyCourse.utils.Jwt;
+import com.easyCourse.utils.OSSClientUtil;
 import com.easyCourse.utils.StatusCode;
 import com.easyCourse.utils.StringUtils;
 import com.alibaba.fastjson.JSONObject;
@@ -12,6 +13,7 @@ import com.easyCourse.vo.StudentLessonVO;
 import com.easyCourse.vo.StudentNoticeVO;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -407,6 +409,33 @@ public class StudentController {
         result.put("data", resultMap);
 
         response.getWriter().write(String.valueOf(result));
+    }
+
+    @PostMapping("/upload")
+    public void singleFileUpload(@RequestParam("file") MultipartFile file, HttpServletResponse response) throws IOException{
+
+        response.setCharacterEncoding("UTF-8");
+        // 获取上传文件的文件名
+        String fileName = OSSClientUtil.createFileName(file.getOriginalFilename());
+        // 上传该文件
+        OSSClientUtil.uploadFile(file.getInputStream(), fileName);
+        // 获取下载URL
+        String fileurl = OSSClientUtil.getURL(fileName);
+        // 文件大小
+        long fileSize = Long.valueOf(OSSClientUtil.calculateSize(file.getSize()));
+        // 上传时间
+
+
+        JSONObject result = new JSONObject();
+        result.put("url", fileurl);
+        result.put("status", StatusCode.SUCCESS);
+        result.put("name", fileName);
+
+        response.getWriter().write(String.valueOf(result));
+    }
+    @GetMapping("/upload")
+    public String upload() {
+        return "teacher/addCourse";
     }
 
 }

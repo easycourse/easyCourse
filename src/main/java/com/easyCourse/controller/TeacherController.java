@@ -10,11 +10,13 @@ import com.easyCourse.service.LessonService;
 import com.easyCourse.service.TeacherService;
 //import net.minidev.json.JSONArray;
 //import net.minidev.json.JSONObject;
+import com.easyCourse.utils.OSSClientUtil;
 import com.easyCourse.utils.StatusCode;
 import com.easyCourse.vo.LessonVO;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
 import javax.json.JsonObject;
@@ -276,6 +278,33 @@ public class TeacherController {
         }
         JSONObject result = lessonService.addLessonFile(lessonFileList);
         httpServletResponse.getWriter().write(String.valueOf(result));
+    }
+
+    @PostMapping("/upload")
+    public void singleFileUpload(@RequestParam("file") MultipartFile file, HttpServletResponse response) throws IOException{
+
+        response.setCharacterEncoding("UTF-8");
+        // 获取上传文件的文件名
+        String fileName = OSSClientUtil.createFileName(file.getOriginalFilename());
+        // 上传该文件
+        OSSClientUtil.uploadFile(file.getInputStream(), fileName);
+        // 获取下载URL
+        String fileurl = OSSClientUtil.getURL(fileName);
+        // 文件大小
+        long fileSize = Long.valueOf(OSSClientUtil.calculateSize(file.getSize()));
+        // 上传时间
+
+
+        JSONObject result = new JSONObject();
+        result.put("url", fileurl);
+        result.put("status", StatusCode.SUCCESS);
+        result.put("name", fileName);
+
+        response.getWriter().write(String.valueOf(result));
+    }
+    @GetMapping("/upload")
+    public String upload() {
+        return "teacher/addCourse";
     }
 
     //TODO:******************************************:作业模块********************************************/

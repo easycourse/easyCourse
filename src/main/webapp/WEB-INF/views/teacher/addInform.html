@@ -109,7 +109,8 @@
 									<div class="clearfix"></div>
 								</div>
 								<div class="x_content">
-									<form class="form-horizontal">
+									<form id="form1" class="form-horizontal" onsubmit="return false" action="##" method="post"
+										  enctype="multipart/form-data">
 										<br />
 										<div class="form-group">
 											<label class="control-label col-md-3 col-sm-3 col-xs-3">标题</label>
@@ -254,6 +255,31 @@
 					},
 					addAppendix(file){
 						this.informInfo.appendix = file.target.value;
+						var formData = new FormData();
+						formData.append("file", $("#addAppendixInput")[0].files[0]);
+						$.ajax({
+							//几个参数需要注意一下
+							type: "POST",//方法类型
+							dataType: "json",//预期服务器返回的数据类型
+							url: "upload",//url
+							data: formData,
+							contentType: false,
+							processData: false,
+							cache: false,
+							mimeType: "multipart/form-data",
+							success: function (result) {
+								console.log(result);//打印服务端返回的数据(调试用)
+								if (result.status === 200) {
+									console.log(result.url);
+									$("#uploadFileName").html("上传成功: ");
+									$("#uploadFileURL").text(result.name);
+									document.getElementById("uploadFileURL").href = result.url;
+								}
+							},
+							error: function () {
+								$("#uploadFileName").html("上传失败");
+							}
+						});
 					},
 					submitInform(){
 						var thisVM = this;
