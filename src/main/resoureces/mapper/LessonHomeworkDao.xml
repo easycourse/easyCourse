@@ -38,4 +38,8 @@
         where sl.student_id = #{studentId} and sl.is_delete = 0;
     </select>
 
+    <select id="selectByLessonId" resultMap="BaseResultMap">
+        select * from lesson_homework
+        where lesson_id = #{lessonId}
+    </select>
 </mapper>

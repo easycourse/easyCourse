@@ -3,6 +3,7 @@ package com.easyCourse.service;
 import com.alibaba.fastjson.JSONArray;
 import com.easyCourse.entity.Lesson;
 import com.easyCourse.entity.LessonFile;
+import com.easyCourse.entity.LessonHomework;
 import com.easyCourse.entity.LessonNotice;
 import com.easyCourse.vo.LessonVO;
 import com.alibaba.fastjson.JSONObject;
@@ -76,6 +77,15 @@ public interface LessonService {
      * @return
      */
     JSONObject addLessonFile(List<LessonFile> lessonFileList);
+
+    /**
+     * 获取课程列表
+     * @param teacherId
+     * @return
+     */
+    List<LessonVO> getLessonListByTeacherId(String teacherId);
+
+    List<LessonHomework> getLessonHWListBylessonId(String lessonId);
 
 
 }

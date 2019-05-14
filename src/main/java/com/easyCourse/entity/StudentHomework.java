@@ -13,7 +13,7 @@ public class StudentHomework {
 
     private int id;
 
-    private int studentId;
+    private String studentId;
 
     private int homeworkId;
 
@@ -37,11 +37,11 @@ public class StudentHomework {
         this.id = id;
     }
 
-    public int getStudentId() {
+    public String getStudentId() {
         return studentId;
     }
 
-    public void setStudentId(int studentId) {
+    public void setStudentId(String studentId) {
         this.studentId = studentId;
     }
 

@@ -2,6 +2,8 @@ package com.easyCourse.service.impl;
 
 import com.alibaba.fastjson.JSONObject;
 import com.easyCourse.dao.LessonDao;
+import com.easyCourse.dao.LessonHomeworkDao;
+import com.easyCourse.dao.StudentHomeworkDao;
 import com.easyCourse.dao.TeacherDao;
 import com.easyCourse.entity.Lesson;
 import com.easyCourse.entity.Teacher;
@@ -31,6 +33,8 @@ public class TeacherServiceImpl implements TeacherService {
     private TeacherDao teacherDao;
     @Autowired
     private LessonDao lessonDao;
+    @Autowired
+    private StudentHomeworkDao studentHomeworkDao;
 
     @Override
     public JSONObject register(String teacherId, String password, String teacherName,
@@ -137,5 +141,10 @@ public class TeacherServiceImpl implements TeacherService {
         result.put("msg", "教师登录成功");
         result.put("data", num);
         return result;
+    }
+
+    @Override
+    public int getSubmitCountForSingleHomework(String homeworkId){
+        return studentHomeworkDao.selectByHomeworkId(homeworkId).size();
     }
 }

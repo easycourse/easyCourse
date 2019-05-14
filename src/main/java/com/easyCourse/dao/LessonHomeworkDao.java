@@ -28,4 +28,11 @@ public interface LessonHomeworkDao {
      * @return 作业列表
      */
     List<StudentHomeworkVO> selectByStudentId(String studentId);
+
+    /**
+     * 根据lessonId获取作业列表
+     * @param lessonId
+     * @return
+     */
+    List<LessonHomework> selectByLessonId(String lessonId);
 }

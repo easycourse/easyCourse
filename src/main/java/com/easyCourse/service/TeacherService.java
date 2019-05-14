@@ -53,4 +53,5 @@ public interface TeacherService {
      */
     JSONObject importStudent(Map<String,String> records);
 
+    int getSubmitCountForSingleHomework(String homeworkId);
 }

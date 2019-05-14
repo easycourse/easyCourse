@@ -4,15 +4,13 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 
-import com.easyCourse.entity.Lesson;
-import com.easyCourse.entity.LessonFile;
-import com.easyCourse.entity.LessonNotice;
-import com.easyCourse.entity.Teacher;
+import com.easyCourse.entity.*;
 import com.easyCourse.service.LessonService;
 import com.easyCourse.service.TeacherService;
 //import net.minidev.json.JSONArray;
 //import net.minidev.json.JSONObject;
 import com.easyCourse.utils.StatusCode;
+import com.easyCourse.vo.LessonVO;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -276,10 +274,65 @@ public class TeacherController {
     //TODO:******************************************:作业模块********************************************/
     //查看发布的作业
     @GetMapping("/homework")
-    public void getHomework(HttpSession session) throws IOException {
+    public void getHomework(HttpSession session, HttpServletResponse httpServletResponse) throws IOException {
         Teacher teacher = (Teacher) session.getAttribute("teacher");
         String teacherId = teacher.getTeacherId();
         //包含信息有 课程	作业标题	作业描述	发布时间	截至时间	提交人数
+        //totalHWArray:[
+        //      lessonHWObj:{
+        //          "lessonId":"xxxx",
+        //          "homeworkList":[
+        //              singleHWObj:{
+        //                  "lessonId":"xxxx",
+        //                  "homeworkId":"xxxx",
+        //                  "title":"xxxx",
+        //                  "lessonId":"xxxx"
+        //                     ...
+        //              }
+        //          ]
+        //      }
+        // ]
+        JSONArray totalHWArray = new JSONArray();
+
+        //根据teacherId在lesson表中获取老师的所有课程（课程Id）
+        List<LessonVO> lessonList =  lessonService.getLessonListByTeacherId(teacherId);
+
+        //根据课程Id在lesson_homework表中获取所有的作业（作业Id、作业标题、作业描述、发布时间、截止时间）
+        for (LessonVO lesson: lessonList) {
+            String lessonId = lesson.getLessonId();
+            List<LessonHomework> lessonHomeworkList = lessonService.getLessonHWListBylessonId(lessonId);
+
+            JSONObject lessonHWObj = new JSONObject();
+            lessonHWObj.put("lessonId", lessonId);
+            JSONArray lessonHWArray = new JSONArray();
+
+            for (LessonHomework homework: lessonHomeworkList) {
+                JSONObject singleHWObj = new JSONObject();
+                singleHWObj.put("homeworkId", homework.getHomeworkId());
+                singleHWObj.put("title", homework.getTitle());
+                singleHWObj.put("detail", homework.getDetail());
+                singleHWObj.put("createTime", homework.getCreateTime());
+                singleHWObj.put("dueTime", homework.getDueTime());
+
+                //根据作业Id在student_homework表中获取所有此作业的提交人数
+                int submitCount = teacherService.getSubmitCountForSingleHomework(String.valueOf(homework.getHomeworkId()));
+                singleHWObj.put("submitCount", submitCount);//已提交人数
+                singleHWObj.put("totalCount", lesson.getStudentNum());//课程总人数
+
+                lessonHWArray.add(singleHWObj);
+            }
+
+            lessonHWObj.put("homeworkList", lessonHWArray);
+            totalHWArray.add(lessonHWObj);
+
+        }
+
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("status",StatusCode.SUCCESS);
+        jsonObject.put("homeworkListResult",totalHWArray);
+
+        httpServletResponse.getWriter().write(String.valueOf(jsonObject));
+
     }
 
     //根据id查看某个作业的提交情况(包括提交的学生姓名、时间、学号、分数等等)
