@@ -147,7 +147,7 @@
 													<td>{{item.createTime}}</td>
 													<td width="180">
 														<a id="download" target="_blank" :href=item.appendix v-if="item.appendix != '' && item.appendix != null">下载</a> &nbsp;
-														<a id="delete" @click="deleteResource()">删除</a>
+														<a id="delete" @click="openDeleteModal(item.id, item.title)">删除</a>
 													</td>
 												</tr>
 											</tbody>
@@ -157,6 +157,23 @@
 							</div>
 						</div>
 
+					</div>
+
+					<!-- 模态框 -->
+					<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+						<div class="modal-dialog">
+							<div class="modal-content">
+								<div class="modal-header">
+									<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+									<h4 class="modal-title" id="myModalLabel">确认删除</h4>
+								</div>
+								<div class="modal-body">您确定要删除课件 {{resourceToDelete.resourceTitle}} 吗？</div>
+								<div class="modal-footer">
+									<button type="button" class="btn btn-primary" @click="deleteResource">确认</button>
+									<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+								</div>
+							</div><!-- /.modal-content -->
+						</div><!-- /.modal -->
 					</div>
 
 				</div>
@@ -195,7 +212,11 @@
 						id: '222',
 						email: ''
 					},
-					lessonFileList: []
+					lessonFileList: [],
+					resourceToDelete:{
+						resourceId: "",
+						resourceTitle: ""
+					}
 				},
 				methods: {
 					dataInit(){
@@ -221,8 +242,34 @@
 							}
 						})
 					},
+					openDeleteModal(id, title){
+						this.resourceToDelete.resourceId = id;
+						this.resourceToDelete.resourceTitle = title;
+						$("#deleteModal").modal();
+					},
 					deleteResource(){
-
+						var thisVM = this;
+						$.ajax({
+							data: {
+								resourceId: thisVM.resourceToDelete.resourceId
+							},
+							dataType:'json',//服务器返回json格式数据
+							type:'post',//HTTP请求类型
+							url: '/teacher/deleteResource',
+							success:function(msg){
+								$("#deleteModal").modal('hide');
+								var data = typeof msg=="string"?JSON.parse(msg):msg;
+								if(data.status == 200){
+									alert("删除课件成功！");
+									thisVM.dataInit();
+								}else {
+									alert("删除课件失败！");
+								}
+							},
+							error:function(xhr,type,errorThrown){
+								console.log(xhr);
+							}
+						});
 					}
 				},
 				created(){

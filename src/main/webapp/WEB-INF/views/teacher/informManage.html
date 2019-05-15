@@ -138,13 +138,13 @@
 												</tr>
 											</thead>
 											<tbody>
-												<tr v-for="(item,i) in informs" :key="item.noticeId">
+												<tr v-for="(item,i) in informs" :key="item.id">
 													<td width="15%">{{item.title}}</td>
 													<td width="55%"><p>{{item.detail}}</p></td>
 													<td width="15%">{{item.createTime}}</td>
 													<td width="15%">
 														<a id="download" target="_blank" :href=item.appendix v-if="item.appendix != '' && item.appendix != null">下载附件</a> &nbsp;
-														<a id="delete">删除</a>
+														<a id="delete" @click="openDeleteModal(item.id, item.title)">删除</a>
 													</td>
 												</tr>
 											</tbody>
@@ -154,6 +154,23 @@
 							</div>
 						</div>
 
+					</div>
+
+					<!-- 模态框 -->
+					<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+						<div class="modal-dialog">
+							<div class="modal-content">
+								<div class="modal-header">
+									<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+									<h4 class="modal-title" id="myModalLabel">确认删除</h4>
+								</div>
+								<div class="modal-body">您确定要删除通知 {{informToDelete.informTitle}} 吗？</div>
+								<div class="modal-footer">
+									<button type="button" class="btn btn-primary" @click="deleteInform">确认</button>
+									<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+								</div>
+							</div><!-- /.modal-content -->
+						</div><!-- /.modal -->
 					</div>
 
 				</div>
@@ -192,12 +209,15 @@
 						id: '222',
 						email: ''
 					},
-					informs: []
+					informs: [],
+					informToDelete:{
+						informId: "",
+						informTitle: ""
+					}
 				},
 				methods: {
 					dataInit(){
 						var thisVM = this;
-						//todo: 获取教师信息
 						//获取全部通知
 						$.ajax({
 							data:{},
@@ -213,6 +233,35 @@
 							},
 							error:function(xhr,type,errorThrown){
 								
+							}
+						});
+					},
+					openDeleteModal(id, title){
+						this.informToDelete.informId = id;
+						this.informToDelete.informTitle = title;
+						$("#deleteModal").modal();
+					},
+					deleteInform(){
+						var thisVM = this;
+						$.ajax({
+							data: {
+								informId: thisVM.informToDelete.informId
+							},
+							dataType:'json',//服务器返回json格式数据
+							type:'post',//HTTP请求类型
+							url: '/teacher/deleteInform',
+							success:function(msg){
+								$("#deleteModal").modal('hide');
+								var data = typeof msg=="string"?JSON.parse(msg):msg;
+								if(data.status == 200){
+									alert("删除通知成功！");
+									thisVM.dataInit();
+								}else {
+									alert("删除通知失败！");
+								}
+							},
+							error:function(xhr,type,errorThrown){
+								console.log(xhr);
 							}
 						});
 					}
