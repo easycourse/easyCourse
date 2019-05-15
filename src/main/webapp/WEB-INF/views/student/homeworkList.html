@@ -21,6 +21,9 @@
     <link href="/public/css/index.css" rel="stylesheet"/>
 
     <link href="/public/css/studentHomework.css" rel="stylesheet"/>
+
+    <link href="/libs/pnotify/dist/pnotify.css" rel="stylesheet">
+    <link href="/libs/pnotify/dist/pnotify.buttons.css" rel="stylesheet">
 </head>
 
 <body class="nav-md">
@@ -137,24 +140,23 @@
                         <div class="button_box">
                             <div class="btn-group btn-group-sm" role="group" aria-label="...">
                                 <button type="button" class="btn btn_style">
-                                    <a target="_blank" v-bind:href=item.appendix>下载</a>
+                                    <a target="_blank" :href=item.appendix>下载</a>
                                 </button>
                                 <!--<button type="file" class="btn btn_style">提交作业</button>-->
                                 <input type="button" value="提交作业" class="btn btn_style" onclick="$('#addAppendixInput').click();"/>
-                                <input id="addAppendixInput" name="file" type="file" style="display: none" @change="addAppendix">
-                                <button type="button" class="btn btn_style"><a
-                                        class="collapsed" role="tab"
+                                <input id="addAppendixInput" name="file" type="file" style="display: none" @change="addAppendix(item)">
+                                <a
+                                        class="collapsed btn btn_style"
                                         :id="setId('heading',item.id)" data-toggle="collapse" data-parent="#accordion"
-                                        :href="setId('collapse',item.id,1)" @click="getStudent(item)"
+                                        :href="setId('collapse',item.id,1)"
                                         aria-expanded="false"
-                                        aria-controls="collapseTwo">提交情况</a></button>
-                                <span v-cloak style="margin-left: 20px;font-size: 1.6rem;display: inline-block;margin-top: 4px;color: crimson;">{{item.grade}}</span>
+                                        aria-controls="collapseTwo">提交情况</a>
+                                <span v-cloak style="margin-left: 20px;font-size: 1.6rem;display: inline-block;margin-top: 4px;color: #2C4257;">{{item.grade}}</span>
                             </div>
                             <div :id="setId('collapse',item.id)" class="panel-collapse collapse" role="tabpanel"
                                  aria-labelledby="headingTwo">
                                 <div v-cloak class="panel-body">
-                                    hhhhhh
-                                    <!--<span v-for="(stu,i) in item.student">{{stu.name}}</span>-->
+                                    <span style="margin-left: 10px;margin-right: 10px" v-for="(stu,i) in item.student" v-cloak="">{{stu}}</span>
                                 </div>
                             </div>
                         </div>
@@ -247,10 +249,7 @@
                 window.location.href = '/'
             },
             getStudent(item) {
-                if (item.student) {
-                    //如果之前获取过
-                    return
-                } else {
+
                     $.ajax({
                         type: 'GET',
                         url: '/student/checkHomework',
@@ -259,15 +258,18 @@
                             homeworkId: item.id
                         },
                         success: function (msg) {
-                            var data = JSON.parse(JSON.stringify(msg)).data.homework
 
+                            var data = JSON.parse(JSON.stringify(msg)).data.studentNameList
+                            data.forEach(function(i){
+                                item.student.push(i)
+                            })
                         }
-
                     })
-                }
+
             },
-            addAppendix(file) {
+            addAppendix(item) {
                 // 上传到OSS
+                console.log(item.id)
                 var thisVM = this;
                 var formData = new FormData();
                 formData.append("file", $("#addAppendixInput")[0].files[0]);
@@ -286,7 +288,7 @@
                         if (result.status === 200) {
                             console.log("文件成功上传到OSS");
 
-                            thisVM.homeworkInfo.homeworkId = result.id;
+                            thisVM.homeworkInfo.homeworkId = item.id;
                             thisVM.homeworkInfo.appendix = result.url;
                             thisVM.homeworkInfo.homeworkName = result.name;
 
@@ -303,12 +305,26 @@
                                 success: function (msg) {
                                     var data = typeof msg == "string" ? JSON.parse(msg) : msg;
                                     if (data.status == 200) {
-                                        alert("上传作业成功！");
+                                        new PNotify({
+                                            title: '上传成功！',
+                                            text: '页面即将被刷新',
+                                            type: 'success',
+                                            styling: 'bootstrap3'
+                                        });
                                     }
+                                    setTimeout(function(){
+                                        location.reload()
+                                    },2000)
                                 },
                                 error: function (xhr, type, errorThrown) {
                                     console.log(xhr);
-                                    alert("上传作业失败");
+                                    new PNotify({
+                                        title: '失败!',
+                                        text: '上传作业失败，请重新上传！'+parseDate(new Date()),
+                                        type: 'info',
+                                        styling: 'bootstrap3',
+                                        addclass: 'dark'
+                                    })
                                 }
                             });
                         }
@@ -358,6 +374,8 @@
                         obj.timeEnd = parseDate(new Date(item.dueTime))
                         obj.timeStart = parseDate(new Date(item.createTime))
                         obj.title = item.title
+                        obj.student = []
+                        thisData.getStudent(obj)
                         $.ajax({
                             type: 'GET',
                             url: '/student/score',
@@ -375,6 +393,7 @@
                                     obj.grade = '老师尚未给分！'
                                 }
                                 thisData.homework.push(obj)
+
                             }
                         })
                     })
@@ -392,5 +411,7 @@
     })
 </script>
 <script src="/public/js/custom.min.js"></script>
+<script src="/libs/pnotify/dist/pnotify.js"></script>
+<script src="/libs/pnotify/dist/pnotify.buttons.js"></script>
 </body>
 </html>
