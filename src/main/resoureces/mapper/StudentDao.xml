@@ -4,6 +4,16 @@
 <!-- 设置为IUserDao接口方法提供sql语句配置 -->
 <mapper namespace="com.easyCourse.dao.IStudentDao">
 
+    <resultMap id="BaseResultMap" type="com.easyCourse.entity.Student">
+        <id column="student_id" jdbcType="VARCHAR" property="student_id"/>
+        <result column="passwd" jdbcType="VARCHAR" property="passwd"/>
+        <result column="mail" jdbcType="VARCHAR" property="mail"/>
+        <result column="student_name" jdbcType="VARCHAR" property="student_name"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="create_time"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="update_time"/>
+        <result column="is_delete" jdbcType="INTEGER" property="is_delete"/>
+    </resultMap>
+
     <select id="selectStudentById" resultType="Student" parameterType="String">
         SELECT * FROM user_student WHERE student_id = #{id} and is_delete = 0
     </select>
@@ -18,6 +28,12 @@
 
     <select id="selectStudentByEmail" resultType="Student" parameterType="String">
         SELECT * FROM user_student WHERE mail = #{email} and is_delete = 0
+    </select>
+
+    <select id="selectStudentByHomeworkId" resultType="String">
+        SELECT us.student_name
+        FROM student_homework sh LEFT JOIN user_student us ON sh.student_id = us.student_id
+        WHERE sh.homework_id = #{homeworkId} and sh.is_delete = 0
     </select>
 
 </mapper>

@@ -149,7 +149,7 @@
 												</div>
 												<br/>
 											</div>
-
+											<br/>
 											<div class="form-group">
 												<label class="control-label col-md-3 col-sm-3 col-xs-3">上传附件（选填）</label>
 												<div class="col-md-6 col-sm-9 col-xs-9">
@@ -292,6 +292,7 @@
                                 var data = typeof msg=="string"?JSON.parse(msg):msg;
                                 if(data.status == 200){
                                     alert("发布作业成功！");
+                                    window.location.href = "/teacher/homeworkManage";
                                 }
                             },
                             error:function(xhr,type,errorThrown){

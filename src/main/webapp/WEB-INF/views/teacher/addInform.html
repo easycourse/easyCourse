@@ -297,6 +297,7 @@
                                 var data = typeof msg=="string"?JSON.parse(msg):msg;
                                 if(data.status == 200){
 									alert("发布通知成功！");
+									window.location.href = "/teacher/informManage";
 								}
 							},
 							error:function(xhr,type,errorThrown){

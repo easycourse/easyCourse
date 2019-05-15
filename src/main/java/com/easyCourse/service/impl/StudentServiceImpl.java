@@ -126,7 +126,7 @@ public class StudentServiceImpl implements IStudentService {
     }
 
     @Override
-    public StudentHomeworkVO getHomeworkByHomeworkIdAndStudentId(String homeworkId, String studentId) {
-        return studentHomeworkDao.selectVOByHomeworkIdAndStudentId(homeworkId, studentId);
+    public List<String> getHomeworkByHomeworkId(String homeworkId) {
+        return studentDao.selectStudentByHomeworkId(homeworkId);
     }
 }

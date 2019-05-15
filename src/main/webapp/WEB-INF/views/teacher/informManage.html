@@ -143,7 +143,7 @@
 													<td width="55%"><p>{{item.detail}}</p></td>
 													<td width="15%">{{item.createTime}}</td>
 													<td width="15%">
-														<a id="download" target="_blank" :href=item.appendix>下载附件</a> &nbsp;
+														<a id="download" target="_blank" :href=item.appendix v-if="item.appendix != '' && item.appendix != null">下载附件</a> &nbsp;
 														<a id="delete">删除</a>
 													</td>
 												</tr>

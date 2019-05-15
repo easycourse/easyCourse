@@ -425,12 +425,12 @@ public class StudentController {
         Student student = (Student) session.getAttribute("student");
         String studentId = student.getStudent_id();
 
-        StudentHomeworkVO studentHomeworkVO = studentService.getHomeworkByHomeworkIdAndStudentId(homeworkId, studentId);
+        List<String> studentNameList = studentService.getHomeworkByHomeworkId(homeworkId);
         JSONObject result = new JSONObject();
         result.put("status", 200);
         result.put("msg", "success");
         Map<String, Object> resultMap = new HashMap<>();
-        resultMap.put("homework", studentHomeworkVO);
+        resultMap.put("studentNameList", studentNameList);
         result.put("data", resultMap);
 
         response.getWriter().write(String.valueOf(result));
