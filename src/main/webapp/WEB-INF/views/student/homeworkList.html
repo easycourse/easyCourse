@@ -21,6 +21,9 @@
     <link href="/public/css/index.css" rel="stylesheet"/>
 
     <link href="/public/css/studentHomework.css" rel="stylesheet"/>
+
+    <link href="/libs/pnotify/dist/pnotify.css" rel="stylesheet">
+    <link href="/libs/pnotify/dist/pnotify.buttons.css" rel="stylesheet">
 </head>
 
 <body class="nav-md">
@@ -302,12 +305,26 @@
                                 success: function (msg) {
                                     var data = typeof msg == "string" ? JSON.parse(msg) : msg;
                                     if (data.status == 200) {
-                                        alert("上传作业成功！");
+                                        new PNotify({
+                                            title: '上传成功！',
+                                            text: '页面即将被刷新',
+                                            type: 'success',
+                                            styling: 'bootstrap3'
+                                        });
                                     }
+                                    setTimeout(function(){
+                                        location.reload()
+                                    },2000)
                                 },
                                 error: function (xhr, type, errorThrown) {
                                     console.log(xhr);
-                                    alert("上传作业失败");
+                                    new PNotify({
+                                        title: '失败!',
+                                        text: '上传作业失败，请重新上传！'+parseDate(new Date()),
+                                        type: 'info',
+                                        styling: 'bootstrap3',
+                                        addclass: 'dark'
+                                    })
                                 }
                             });
                         }
@@ -376,6 +393,7 @@
                                     obj.grade = '老师尚未给分！'
                                 }
                                 thisData.homework.push(obj)
+
                             }
                         })
                     })
@@ -393,5 +411,7 @@
     })
 </script>
 <script src="/public/js/custom.min.js"></script>
+<script src="/libs/pnotify/dist/pnotify.js"></script>
+<script src="/libs/pnotify/dist/pnotify.buttons.js"></script>
 </body>
 </html>
