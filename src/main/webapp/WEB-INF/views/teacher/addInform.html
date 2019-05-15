@@ -167,6 +167,10 @@
 												        <input type="button" value="浏览文件" class="btn btn-primary" onclick="$('#addAppendixInput').click();"/>
 												    </label>
 												</div>
+												<div style="display: flex;flex-direction: row">
+													<p id="uploadFileName"></p>&nbsp;
+													<a id="uploadFileURL" href=""></a>
+												</div>
 												<!-- <input type="button" value="浏览文件" class="btn btn-default" onclick="$('#addAppendixInput').click();"/> -->
 												<input id="addAppendixInput" name="file" type="file" style="display: none" @change="addAppendix">
 												<ul id="filePathList"></ul>
