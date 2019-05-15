@@ -142,6 +142,7 @@ public class StudentController {
                 session.setAttribute("userToken", token);
                 session.setMaxInactiveInterval(3600);//session过期时间为1个小时
                 session.setAttribute("student", student);
+                resultJSON.put("studentName",student.getStudent_name());
                 response.getWriter().write(String.valueOf(resultJSON));
                 break;
             }
