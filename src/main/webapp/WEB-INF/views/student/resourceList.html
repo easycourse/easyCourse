@@ -144,7 +144,7 @@
                         <div class="x_content resource">
                             <h4 class="re_title" v-cloak>{{item.name}}</h4>
                             <h4 class="re_time" v-cloak>上传时间：{{item.time}}</h4>
-                            <a class="btn btn-default download"><i class="fa fa-download"></i></a>
+                            <a class="btn btn-default download" target="_blank" v-bind:href=item.appendix><i class="fa fa-download"></i></a>
                         </div>
                     </div>
                 </div>
