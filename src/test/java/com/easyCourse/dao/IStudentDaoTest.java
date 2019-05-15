@@ -10,6 +10,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 // 加载spring配置文件
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -25,5 +26,12 @@ public class IStudentDaoTest {
     public void testSelectUser() throws Exception {
         Student student = this.iStudentService.loginVerify("2016302580313", StringUtils.MD5("swx6868752"));
         System.out.println(student.getStudent_name());
+    }
+
+    @Test
+    public void testSelectStudentByHomeworkId(){
+        String homeworkId = "3";
+        List<String> students = dao.selectStudentByHomeworkId(homeworkId);
+        students.forEach(System.out::println);
     }
 }

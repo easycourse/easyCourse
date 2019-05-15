@@ -45,5 +45,5 @@ public interface IStudentService {
 
     int getHomeworkScore(String studentId, String homeworkId);
 
-    StudentHomeworkVO getHomeworkByHomeworkIdAndStudentId(String homeworkId, String studentId);
+    List<String> getHomeworkByHomeworkId(String homeworkId);
 }
