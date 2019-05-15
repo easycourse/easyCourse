@@ -25,6 +25,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.ws.rs.GET;
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -387,7 +389,7 @@ public class TeacherController {
 
     //发布新作业
     @PostMapping("/homework")
-    public void addHomework(@RequestBody JSONObject body, HttpSession session, HttpServletResponse httpServletResponse) throws IOException {
+    public void addHomework(@RequestBody JSONObject body, HttpSession session, HttpServletResponse httpServletResponse) throws IOException, ParseException {
         Teacher teacher = (Teacher) session.getAttribute("teacher");
         String teacherId = teacher.getTeacherId();
 
@@ -398,6 +400,7 @@ public class TeacherController {
         String appendix = body.getString("appendix");
 
         List<LessonHomework> lessonHomeworkList = new ArrayList<>();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
         for(int i=0;i<lessonIdList.size();i++){
             LessonHomework lessonHomework = new LessonHomework();
             lessonHomework.setLessonId(lessonIdList.get(i).toString());
@@ -405,6 +408,8 @@ public class TeacherController {
             lessonHomework.setTitle(title);
             lessonHomework.setDetail(detail);
             lessonHomework.setAppendix(appendix);
+            lessonHomework.setDueTime(sdf.parse(dueTime));
+            lessonHomeworkList.add(lessonHomework);
         }
         JSONObject result = lessonService.addNewHomeworkList(lessonHomeworkList);
         httpServletResponse.getWriter().write(String.valueOf(result));

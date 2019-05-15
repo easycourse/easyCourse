@@ -177,11 +177,11 @@ public class LessonServiceImpl implements LessonService {
 
         if(count != lessonHomeworkList.size()) {
             result.put("status", StatusCode.INSERT_COURSEWARE_ERROR);
-            result.put("msg", "添加课件失败");
+            result.put("msg", "添加作业失败");
 
         } else {
             result.put("status", StatusCode.SUCCESS);
-            result.put("msg", "添加课件成功");
+            result.put("msg", "添加作业成功");
         }
 
         return result;
