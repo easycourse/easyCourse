@@ -391,6 +391,7 @@ public class TeacherController {
             JSONObject homework = new JSONObject();
             String studentName = studentService.getStudentByStudentId(sHomework.getStudentId()).getStudent_name();
             homework.put("studentName", studentName);
+            homework.put("appendix", sHomework.getAppendix());
             homework.put("submitTime", sHomework.getCreateTime());
             homework.put("studentId", sHomework.getStudentId());
             homework.put("score", sHomework.getScore());
