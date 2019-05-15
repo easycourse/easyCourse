@@ -285,7 +285,8 @@
 					},
 					submitInform(){
 						var thisVM = this;
-                        thisVM.resourceInfo.appendix = document.getElementById("uploadFileURL").href;// 修改appendix为oss地址
+                        thisVM.informInfo.appendix = document.getElementById("uploadFileURL").href;// 修改appendix为oss地址
+						console.log("appendix: " + this.informInfo.appendix);
 						$.ajax({
 							data: JSON.stringify(thisVM.informInfo),
                             contentType : "application/json",

@@ -51,7 +51,7 @@
                         <ul class="nav side-menu">
                             <li class="active"><a><i class="fa fa-calendar"></i> 我的课程 <span class="fa fa-chevron-down"></span></a>
                                 <ul class="nav child_menu " style="display: block;">
-                                    <li v-cloak v-for="(item,i) in courses" :key="item.id" :class="{'current-page':item.isNow}"><a href="index.html">{{item.name}}</a></li>
+                                    <li v-cloak v-for="(item,i) in courses" :key="item.id" :class="{'current-page':item.isNow}"><a @click="goCourse(item.id)">{{item.name}}</a></li>
 
                                 </ul>
                             </li>
@@ -85,7 +85,7 @@
                                         <span>个人中心</span>
                                     </a>
                                 </li>
-                                <li><a href="/"><i class="fa fa-sign-out pull-right"></i> 退出登录</a></li>
+                                <li><a href="#" @click="signOut"><i class="fa fa-sign-out pull-right"></i> 退出登录</a></li>
                             </ul>
                         </li>
 
@@ -108,11 +108,11 @@
                             <ul class="nav nav-tabs bar_tabs" role="tablist">
                                 <li class="active"><a href="#">课程主页</a>
                                 </li>
-                                <li class=""><a href="/student/homeworkList">作业预览</a>
+                                <li class=""><a @click="goTab(1)">作业预览</a>
                                 </li>
-                                <li class=""><a href="/student/resourceList">资料共享</a>
+                                <li class=""><a @click="goTab(2)">资料共享</a>
                                 </li>
-                                <li class=""><a href="/student/informList">通知列表</a>
+                                <li class=""><a @click="goTab(3)">通知列表</a>
                                 </li>
                             </ul>
                         </div>
@@ -131,7 +131,7 @@
                             <div class="clearfix"></div>
                         </div>
                         <div class="x_content">
-                            <h4 v-cloak>上课时间：{{courseNow.time}}<br/>{{courseNow.introduction}}</h4>
+                            <h4 v-cloak>上课时间：{{courseNow.time}}<br/><br/>{{courseNow.introduction}}</h4>
                         </div>
                     </div>
                 </div>
@@ -182,6 +182,7 @@
 <!-- DateJS -->
 <script src="/libs/date.js"></script>
 
+<script src="/public/js/common.js"></script>
 <!-- Custom Theme Scripts -->
 
 <script>
@@ -193,7 +194,7 @@
             },
             courses: [],
             courseNow: {
-                name: '软件工程',
+                name: '',
                 id: '',
                 introduction: '',
                 time:'',
@@ -209,20 +210,64 @@
             goCourse(courseId){
                 window.event.returnValue=false
                 //跳转到指定课程主页
+                window.location.href = '/student/courseIndex?courseId='+courseId
+            },
+            goTab(tab){
+                window.event.returnValue=false
+                var url = '/student/'
+                switch (tab){
+                    case 0:
+                        url+='courseIndex?courseId='
+                        break
+                    case 1:
+                        url+='homeworkList?courseId='
+                        break
+                    case 2:
+                        url+='resourceList?courseId='
+                        break
+                    case 3:
+                        url+='informList?courseId='
+                        break
+                }
+                url+=this.courseNow.id
+                window.location.href=url
+            },
+            signOut(){
+                window.event.returnValue=false
+                window.sessionStorage.clear()
+                window.location.href='/'
             }
         },
         created(){
             //多有课程 local
             this.info.name = window.sessionStorage.userName
             var courseList = JSON.parse(window.sessionStorage.courses)
+            var thisData = this
             courseList.forEach(function(item){
-                console.log(Object.prototype.toString.call(this.courses))
                 var obj = {}
                 obj.id = item.id
                 obj.name = item.name
-                this.courses.push(obj)
+                if(obj.id == getVariable('courseId')) obj.isNow = true
+                thisData.courses.push(obj)
             })
             //根据 courseId （lessonId）获取信息 /course/lessonId
+            $.ajax({
+                type:'GET',
+                url:'/student/course/'+getVariable('courseId'),
+                data:'',
+                datatype:'json',
+                success:function(msg){
+                    var data = JSON.parse(msg).data.lesson
+                    thisData.courseNow.name = data.lessonName
+                    thisData.courseNow.id = data.lessonId
+                    thisData.courseNow.introduction = data.detail
+                    thisData.courseNow.time = data.lessonTime
+                    thisData.teacher.name = data.teacherName
+                    thisData.teacher.phone = data.phone
+                    thisData.teacher.email = data.mail
+                    thisData.teacher.location = data.location
+                }
+            })
         }
     })
 </script>

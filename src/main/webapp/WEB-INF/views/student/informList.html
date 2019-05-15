@@ -53,7 +53,7 @@
                         <ul class="nav side-menu">
                             <li class="active"><a><i class="fa fa-calendar"></i> 我的课程 <span class="fa fa-chevron-down"></span></a>
                                 <ul class="nav child_menu " style="display: block;">
-                                    <li v-cloak v-for="(item,i) in courses" :key="item.id" :class="{'current-page':item.isNow}"><a href="index.html">{{item.name}}</a></li>
+                                    <li v-cloak v-for="(item,i) in courses" :key="item.id" :class="{'current-page':item.isNow}"><a @click="goCourse(item.id)">{{item.name}}</a></li>
 
                                 </ul>
                             </li>
@@ -87,7 +87,7 @@
                                         <span>个人中心</span>
                                     </a>
                                 </li>
-                                <li><a href="/"><i class="fa fa-sign-out pull-right"></i> 退出登录</a></li>
+                                <li><a href="#" @click="signOut"><i class="fa fa-sign-out pull-right"></i> 退出登录</a></li>
                             </ul>
                         </li>
 
@@ -107,11 +107,11 @@
                     <div class="x_content">
                         <div class="" role="tabpanel" data-example-id="togglable-tabs">
                             <ul class="nav nav-tabs bar_tabs" role="tablist">
-                                <li class=""><a href="/student/courseIndex">课程主页</a>
+                                <li class=""><a @click="goTab(0)">课程主页</a>
                                 </li>
-                                <li class=""><a href="/student/homeworkList">作业预览</a>
+                                <li class=""><a @click="goTab(1)">作业预览</a>
                                 </li>
-                                <li class=""><a href="/student/resourceList">资料共享</a>
+                                <li class=""><a @click="goTab(2)">资料共享</a>
                                 </li>
                                 <li class="active"><a href="#">通知列表</a>
                                 </li>
@@ -139,9 +139,9 @@
                             <div class="btn-group btn-group-sm" role="group" aria-label="...">
                                 <button type="button" @click="changeType(0)" v-cloak :class="{'btn':show,'btn_style':show,'inform-btn':show,'type-active':active(0)}">全部</button>
                                 <button type="button" @click="changeType(1)" v-cloak :class="{'btn':show,'btn_style':show,'inform-btn':show,'type-active':active(1)}">考试相关</button>
-                                <button type="button" @click="changeType(2)" v-cloak :class="{'btn':show,'btn_style':show,'inform-btn':show,'type-active':active(2)}">作业相关</button>
-                                <button type="button" @click="changeType(3)" v-cloak :class="{'btn':show,'btn_style':show,'inform-btn':show,'type-active':active(3)}">课件</button>
-                                <button type="button" @click="changeType(4)" v-cloak :class="{'btn':show,'btn_style':show,'inform-btn':show,'type-active':active(4)}">成绩</button>
+                                <button type="button" @click="changeType(2)" v-cloak :class="{'btn':show,'btn_style':show,'inform-btn':show,'type-active':active(2)}">课件</button>
+                                <button type="button" @click="changeType(3)" v-cloak :class="{'btn':show,'btn_style':show,'inform-btn':show,'type-active':active(3)}">成绩</button>
+                                <button type="button" @click="changeType(4)" v-cloak :class="{'btn':show,'btn_style':show,'inform-btn':show,'type-active':active(4)}">其他</button>
                             </div>
                         </div>
                     </div>
@@ -214,54 +214,26 @@
         data: {
             show:true,
             info: {
-                name: '张xx',
-                id: '222',
-                email: '',
+                name: '',
             },
-            courses: [{
-                name: '软件工程',
-                id: '123',
-                isNow: false
-            }, {
-                name: '数据库',
-                id: '456',
-                isNow: false
-            }],
+            courses: [],
             courseNow: {
-                name: '软件工程',
-                id: '123',
-                introduction: '',
+                id: '',
             },
 
-            inform: [{
-                id: '2',
-                type:2,
-                name: '第一次作业',
-                person:'张哈哈',
-                time: '',
-                content: '完成刚刚发布的作业内容'
-            }, {
-                id: '1',
-                name: '考试安排',
-                person: '张哈哈',
-                time: '',
-                type:1,
-                content: ''
-            }, {
-                id: '4',
-                name: '第一次平时成绩公布',
-                person: '张哈哈',
-                time: '',
-                type:4,
-                content: ''
-            }],
+            inform: [],
 
             //搜索关键字
             keyword: '',
-            //消息类型范围 1 考试 2 作业 3 资料 4 成绩 0 全部
+            //消息类型范围 1 考试  2 资料 3 成绩  4其他  0 全部
             type: 0
         },
         methods: {
+            goCourse(courseId){
+                window.event.returnValue=false
+                //跳转到指定课程主页
+                window.location.href = '/student/courseIndex?courseId='+courseId
+            },
             search(keyword) {
                 //获取当前类型
                 if(this.type == 0){
@@ -272,7 +244,7 @@
                     })
                 }
                 return arr.filter(item => {
-                    if (item.name.indexOf(keyword) != -1 || item.person.indexOf(keyword) != -1 || item.time.indexOf(keyword) != -1) {
+                    if (item.name.indexOf(keyword) != -1 || item.time.indexOf(keyword) != -1) {
                         return item
                     }
                 })
@@ -293,10 +265,64 @@
             active(btnType){
                 if(btnType==this.type) return true
                 else return false
+            },
+            goTab(tab){
+                window.event.returnValue=false
+                var url = '/student/'
+                switch (tab){
+                    case 0:
+                        url+='courseIndex?courseId='
+                        break
+                    case 1:
+                        url+='homeworkList?courseId='
+                        break
+                    case 2:
+                        url+='resourceList?courseId='
+                        break
+                    case 3:
+                        url+='informList?courseId='
+                        break
+                }
+                url+=this.courseNow.id
+                window.location.href=url
+            },
+            signOut(){
+                window.event.returnValue=false
+                window.sessionStorage.clear()
+                window.location.href='/'
             }
         },
         created() {
-            this.inform[0].time = parseDate(new Date())
+            this.info.name = window.sessionStorage.userName
+            var courseList = JSON.parse(window.sessionStorage.courses)
+            this.courses = courseList
+            this.courses.forEach(function(item){
+                if(item.id == getVariable('courseId')) item.isNow = true
+            })
+            this.courseNow.id = getVariable('courseId')
+            var thisData = this
+
+            $.ajax({
+                type:'GET',
+                url:'/student/getInformByLessonId',
+                data:{
+                    lessonId:thisData.courseNow.id
+                },
+                datatype:'json',
+                success:function(msg){
+                    var data = JSON.parse(msg).data.informList
+                    data.forEach(function(item){
+                        var obj = {}
+                        obj.name = item.title
+                        obj.id = item.id
+                        obj.type = item.noticeType
+                        obj.person = item.teacherName
+                        obj.content = item.detail
+                        obj.time = parseDate(new Date(item.createTime))
+                        thisData.inform.push(obj)
+                    })
+                }
+            })
         },
         mounted() {
             for (var i = 0; i < this.courses.length; i++) {

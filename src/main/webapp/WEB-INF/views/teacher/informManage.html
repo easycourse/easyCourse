@@ -143,8 +143,8 @@
 													<td>{{item.detail}}</td>
 													<td>{{item.createTime}}</td>
 													<td width="180">
-														<a>下载附件</a> &nbsp;
-														<a>删除</a>
+														<a id="download" target="_blank" v-bind:href=item.appendix>下载附件</a> &nbsp;
+														<a id="delete">删除</a>
 													</td>
 												</tr>
 											</tbody>
