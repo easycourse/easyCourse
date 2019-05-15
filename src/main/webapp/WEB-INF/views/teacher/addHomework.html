@@ -279,7 +279,9 @@
 					},
 					submitHomework(){
 						var thisVM = this;
-                        this.homeworkInfo.dueTime = $("#datetimeInput").val();
+						this.homeworkInfo.dueTime = $("#datetimeInput").val();
+						thisVM.homeworkInfo.appendix = document.getElementById("uploadFileURL").href;// 修改appendix为oss地址
+						console.log("appendix: " + this.homeworkInfo.appendix);
                         $.ajax({
                             data: JSON.stringify(thisVM.homeworkInfo),
                             contentType : "application/json",
