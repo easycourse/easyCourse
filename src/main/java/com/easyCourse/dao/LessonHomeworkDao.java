@@ -37,4 +37,11 @@ public interface LessonHomeworkDao {
     List<LessonHomework> selectByLessonId(String lessonId);
 
     int insertSelective(LessonHomework lessonHomework);
+
+    /**
+     * 根据作业id删除作业
+     * @param id
+     * @return
+     */
+    int deleteByPrimaryKey(int id);
 }

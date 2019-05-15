@@ -121,4 +121,9 @@
 	    limit 0,10
     </select>
 
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete from lesson_notice
+        where id = #{id,jdbcType=INTEGER}
+    </delete>
+
 </mapper>

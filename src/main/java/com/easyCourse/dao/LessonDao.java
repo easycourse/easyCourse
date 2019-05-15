@@ -75,4 +75,11 @@ public interface LessonDao {
      * @return
      */
     int updateStudentHomeworkScore(@Param("teacherId") String teacherId, @Param("password") String password);
+
+    /**
+     * 根据课程id删除课程
+     * @param lessonId
+     * @return
+     */
+    int deleteByPrimaryKey(String lessonId);
 }

@@ -96,4 +96,9 @@
             </if>
         </trim>
     </insert>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete from lesson_homework
+        where homework_id = #{id,jdbcType=INTEGER}
+    </delete>
 </mapper>

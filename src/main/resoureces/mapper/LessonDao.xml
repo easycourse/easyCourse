@@ -115,4 +115,9 @@
             update_time = now()
         where student_id = #{studentId} and homework_id = #{homeworkId}
     </update>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+        delete from lesson
+        where lesson_id = #{lessonId,jdbcType=VARCHAR}
+    </delete>
 </mapper>
