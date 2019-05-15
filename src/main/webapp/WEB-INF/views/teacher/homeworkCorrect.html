@@ -130,7 +130,7 @@
 				                                                <td><a>{{item.studentId}}</a></td>
 				                                                <td>{{item.submitTime}}</td>
 				                                                <td>{{item.scoreStatus}}</td>
-																<td contenteditable="true"><span v-if="item.score >= 0">{{item.score}}</span></td>
+																<td><input v-model="item.score"></td>
 				                                                <td width="180">
 				                                                    <a >下载附件</a>
 				                                                </td>
@@ -213,7 +213,10 @@
                                     thisVM.homeworkList = data.homeworkList;
                                     for (var i = 0; i < thisVM.homeworkList.length; i++) {
                                         thisVM.homeworkList[i].submitTime = toggleTstamp(thisVM.homeworkList[i].submitTime);
-                                    }
+										if (thisVM.homeworkList[i].score < 0){
+											thisVM.homeworkList[i].score = "";
+										}
+									}
                                 }
                             },
                             error:function(xhr,type,errorThrown){
@@ -226,7 +229,11 @@
 					    var scoreList = [];
 					    for (var i = 0; i < this.homeworkList.length; i++){
                             studentIdList.push(this.homeworkList[i].studentId);
-					        scoreList.push(this.homeworkList[i].score);
+                            if (this.homeworkList[i].score == ""){
+								scoreList.push("-1");
+							} else {
+								scoreList.push(this.homeworkList[i].score);
+							}
 						}
 
 						var thisVM = this;
