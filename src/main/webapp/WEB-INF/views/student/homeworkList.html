@@ -137,11 +137,11 @@
                         <div class="button_box">
                             <div class="btn-group btn-group-sm" role="group" aria-label="...">
                                 <button type="button" class="btn btn_style">
-                                    <a target="_blank" v-bind:href=item.appendix>下载</a>
+                                    <a target="_blank" :href=item.appendix>下载</a>
                                 </button>
                                 <!--<button type="file" class="btn btn_style">提交作业</button>-->
                                 <input type="button" value="提交作业" class="btn btn_style" onclick="$('#addAppendixInput').click();"/>
-                                <input id="addAppendixInput" name="file" type="file" style="display: none" @change="addAppendix">
+                                <input id="addAppendixInput" name="file" type="file" style="display: none" @change="addAppendix(item)">
                                 <button type="button" class="btn btn_style"><a
                                         class="collapsed" role="tab"
                                         :id="setId('heading',item.id)" data-toggle="collapse" data-parent="#accordion"
@@ -266,8 +266,9 @@
                     })
                 }
             },
-            addAppendix(file) {
+            addAppendix(item) {
                 // 上传到OSS
+                console.log(item.id)
                 var thisVM = this;
                 var formData = new FormData();
                 formData.append("file", $("#addAppendixInput")[0].files[0]);
@@ -286,7 +287,7 @@
                         if (result.status === 200) {
                             console.log("文件成功上传到OSS");
 
-                            thisVM.homeworkInfo.homeworkId = result.id;
+                            thisVM.homeworkInfo.homeworkId = item.id;
                             thisVM.homeworkInfo.appendix = result.url;
                             thisVM.homeworkInfo.homeworkName = result.name;
 
