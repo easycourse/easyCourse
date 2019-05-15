@@ -142,19 +142,18 @@
                                 <!--<button type="file" class="btn btn_style">提交作业</button>-->
                                 <input type="button" value="提交作业" class="btn btn_style" onclick="$('#addAppendixInput').click();"/>
                                 <input id="addAppendixInput" name="file" type="file" style="display: none" @change="addAppendix(item)">
-                                <button type="button" class="btn btn_style"><a
-                                        class="collapsed" role="tab"
+                                <a
+                                        class="collapsed btn btn_style"
                                         :id="setId('heading',item.id)" data-toggle="collapse" data-parent="#accordion"
-                                        :href="setId('collapse',item.id,1)" @click="getStudent(item)"
+                                        :href="setId('collapse',item.id,1)"
                                         aria-expanded="false"
-                                        aria-controls="collapseTwo">提交情况</a></button>
-                                <span v-cloak style="margin-left: 20px;font-size: 1.6rem;display: inline-block;margin-top: 4px;color: crimson;">{{item.grade}}</span>
+                                        aria-controls="collapseTwo">提交情况</a>
+                                <span v-cloak style="margin-left: 20px;font-size: 1.6rem;display: inline-block;margin-top: 4px;color: #2C4257;">{{item.grade}}</span>
                             </div>
                             <div :id="setId('collapse',item.id)" class="panel-collapse collapse" role="tabpanel"
                                  aria-labelledby="headingTwo">
                                 <div v-cloak class="panel-body">
-                                    hhhhhh
-                                    <!--<span v-for="(stu,i) in item.student">{{stu.name}}</span>-->
+                                    <span style="margin-left: 10px;margin-right: 10px" v-for="(stu,i) in item.student" v-cloak="">{{stu}}</span>
                                 </div>
                             </div>
                         </div>
@@ -247,10 +246,7 @@
                 window.location.href = '/'
             },
             getStudent(item) {
-                if (item.student) {
-                    //如果之前获取过
-                    return
-                } else {
+
                     $.ajax({
                         type: 'GET',
                         url: '/student/checkHomework',
@@ -259,12 +255,14 @@
                             homeworkId: item.id
                         },
                         success: function (msg) {
-                            var data = JSON.parse(JSON.stringify(msg)).data.homework
 
+                            var data = JSON.parse(JSON.stringify(msg)).data.studentNameList
+                            data.forEach(function(i){
+                                item.student.push(i)
+                            })
                         }
-
                     })
-                }
+
             },
             addAppendix(item) {
                 // 上传到OSS
@@ -359,6 +357,8 @@
                         obj.timeEnd = parseDate(new Date(item.dueTime))
                         obj.timeStart = parseDate(new Date(item.createTime))
                         obj.title = item.title
+                        obj.student = []
+                        thisData.getStudent(obj)
                         $.ajax({
                             type: 'GET',
                             url: '/student/score',
