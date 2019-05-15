@@ -149,7 +149,26 @@
 												</div>
 												<br/>
 											</div>
-											
+
+											<div class="form-group">
+												<label class="control-label col-md-3 col-sm-3 col-xs-3">上传附件（选填）</label>
+												<div class="col-md-6 col-sm-9 col-xs-9">
+													<div class="input-group">
+														<input class="form-control" v-model="homeworkInfo.appendix">
+														<label class="input-group-btn">
+															<input type="button" value="浏览文件" class="btn btn-primary" onclick="$('#addAppendixInput').click();"/>
+														</label>
+													</div>
+													<div style="display: flex;flex-direction: row">
+														<p id="uploadFileName"></p>&nbsp;
+														<a id="uploadFileURL" href=""></a>
+													</div>
+													<!-- <input type="button" value="浏览文件" class="btn btn-default" onclick="$('#addAppendixInput').click();"/> -->
+													<input id="addAppendixInput" name="file" type="file" style="display: none" @change="addAppendix">
+													<ul id="filePathList"></ul>
+												</div>
+											</div>
+
 											<div class="ln_solid"></div>
 											<div class="form-group">
 												<label class="control-label col-md-3 col-sm-3 col-xs-3"></label>
@@ -206,7 +225,8 @@
 						title: "",
 						detail: "",
 						lessonIdList: [],
-						dueTime: ""
+						dueTime: "",
+						appendix: ""
 					}
 				},
 				methods: {
@@ -229,9 +249,39 @@
                             }
                         });
                     },
+					addAppendix(file) {
+						this.homeworkInfo.appendix = file.target.value;
+						var formData = new FormData();
+						formData.append("file", $("#addAppendixInput")[0].files[0]);
+						$.ajax({
+							//几个参数需要注意一下
+							type: "POST",//方法类型
+							dataType: "json",//预期服务器返回的数据类型
+							url: "upload",//url
+							data: formData,
+							contentType: false,
+							processData: false,
+							cache: false,
+							mimeType: "multipart/form-data",
+							success: function (result) {
+								console.log(result);//打印服务端返回的数据(调试用)
+								if (result.status === 200) {
+									console.log(result.url);
+									$("#uploadFileName").html("上传成功: ");
+									$("#uploadFileURL").text(result.name);
+									document.getElementById("uploadFileURL").href = result.url;
+								}
+							},
+							error: function () {
+								$("#uploadFileName").html("上传失败");
+							}
+						});
+					},
 					submitHomework(){
 						var thisVM = this;
-                        this.homeworkInfo.dueTime = $("#datetimeInput").val();
+						this.homeworkInfo.dueTime = $("#datetimeInput").val();
+						thisVM.homeworkInfo.appendix = document.getElementById("uploadFileURL").href;// 修改appendix为oss地址
+						console.log("appendix: " + this.homeworkInfo.appendix);
                         $.ajax({
                             data: JSON.stringify(thisVM.homeworkInfo),
                             contentType : "application/json",

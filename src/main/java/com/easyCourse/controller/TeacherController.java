@@ -380,7 +380,6 @@ public class TeacherController {
 
     //根据id查看某个作业的提交情况(包括提交的学生姓名、时间、学号、分数等等)
     @GetMapping("/homework/{homeworkId}")
-    @ResponseBody
     public void getHomeworkByHomeworkId(@PathVariable(value = "homeworkId") String homeworkId,HttpSession session, HttpServletResponse httpServletResponse) throws IOException {
 
         httpServletResponse.setCharacterEncoding("UTF-8");
@@ -441,6 +440,7 @@ public class TeacherController {
 
     //导入学生成绩
     @PostMapping("/correctHomework")
+    @ResponseBody
     public JSONObject correctHomework(@RequestParam(value = "homeworkId", required = true) String homeworkId,
                                 @RequestParam(value = "studentList", required = true) String studentList,@RequestParam(value = "scoreList", required = true) String scoreList,HttpSession session) throws IOException {
         Teacher teacher = (Teacher) session.getAttribute("teacher");

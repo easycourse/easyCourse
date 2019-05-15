@@ -20,10 +20,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Controller
@@ -333,14 +330,13 @@ public class StudentController {
     /**
      * 学生提交作业
      *
-     * @param homeworkId   作业Id
-     * @param homeworkName 作业名称
-     * @param appendix     附件url
+     * @param body   作业Id
      * @param session      session
      * @param response     response
      * @throws IOException io异常
      */
-    @RequestMapping(value = "/commitHomework", method = RequestMethod.POST)
+//    @RequestMapping(value = "/commitHomework", method = RequestMethod.POST)
+    /*@PostMapping("/commitHomework")
     public void getScore(@RequestParam("homeworkId") String homeworkId, @RequestParam("homeworkName") String homeworkName, @RequestParam("appendix") String appendix, HttpSession session, HttpServletResponse response) throws IOException {
         response.setCharacterEncoding("UTF-8");
         Student student = (Student) session.getAttribute("student");
@@ -360,7 +356,34 @@ public class StudentController {
         result.put("data", null);
 
         response.getWriter().write(String.valueOf(result));
+    }*/
+    // 从json中获取好像只能用下面这种。。。
+    @PostMapping("/commitHomework")
+    public void getScore(@RequestBody JSONObject body, HttpSession session, HttpServletResponse response) throws IOException {
+        response.setCharacterEncoding("UTF-8");
+        Student student = (Student) session.getAttribute("student");
+        String studentId = student.getStudent_id();
+
+        String homeworkId = body.getString("homeworkId");
+        String homeworkName = body.getString("homeworkName");
+        String appendix = body.getString("appendix");
+
+        int status = studentService.commitHomework(studentId, homeworkId, homeworkName, appendix);
+
+        JSONObject result = new JSONObject();
+        result.put("status", status);
+        if (status == 200) {
+            result.put("msg", "success");
+        } else if (status == 500) {
+            result.put("msg", "提交失败");
+        } else if (status == 301) {
+            result.put("msg", "作业已截止");
+        }
+        result.put("data", null);
+
+        response.getWriter().write(String.valueOf(result));
     }
+
 
     //todo:根据HomeworkId查看得分
     @RequestMapping(value = "/score", method = RequestMethod.GET)
@@ -423,21 +446,19 @@ public class StudentController {
         OSSClientUtil.uploadFile(file.getInputStream(), fileName);
         // 获取下载URL
         String fileurl = OSSClientUtil.getURL(fileName);
-        // 文件大小
-        // long fileSize = Long.valueOf(OSSClientUtil.calculateSize(file.getSize()));
-        // 上传时间
-
+        // 作业ID
+        String id = UUID.randomUUID().toString().replaceAll("-", "");
 
         JSONObject result = new JSONObject();
         result.put("url", fileurl);
         result.put("status", StatusCode.SUCCESS);
         result.put("name", fileName);
+        result.put("id", id);
 
         response.getWriter().write(String.valueOf(result));
     }
     @GetMapping("/upload")
     public String upload() {
-        return "teacher/addCourse";
+        return "student/index";
     }
-
 }

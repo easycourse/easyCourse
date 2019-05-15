@@ -139,11 +139,11 @@
 											</thead>
 											<tbody>
 												<tr v-for="(item,i) in informs" :key="item.noticeId">
-													<td><a>{{item.title}}</a></td>
-													<td>{{item.detail}}</td>
-													<td>{{item.createTime}}</td>
-													<td width="180">
-														<a id="download" target="_blank" v-bind:href=item.appendix>下载附件</a> &nbsp;
+													<td width="15%">{{item.title}}</td>
+													<td width="55%"><p>{{item.detail}}</p></td>
+													<td width="15%">{{item.createTime}}</td>
+													<td width="15%">
+														<a id="download" target="_blank" :href=item.appendix>下载附件</a> &nbsp;
 														<a id="delete">删除</a>
 													</td>
 												</tr>

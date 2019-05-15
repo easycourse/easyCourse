@@ -136,8 +136,12 @@
                         </div>
                         <div class="button_box">
                             <div class="btn-group btn-group-sm" role="group" aria-label="...">
-                                <button type="button" class="btn btn_style">下载</button>
-                                <button type="button" class="btn btn_style">提交作业</button>
+                                <button type="button" class="btn btn_style">
+                                    <a target="_blank" v-bind:href=item.appendix>下载</a>
+                                </button>
+                                <!--<button type="file" class="btn btn_style">提交作业</button>-->
+                                <input type="button" value="提交作业" class="btn btn_style" onclick="$('#addAppendixInput').click();"/>
+                                <input id="addAppendixInput" name="file" type="file" style="display: none" @change="addAppendix">
                                 <button type="button" class="btn btn_style"><a
                                         class="collapsed" role="tab"
                                         :id="setId('heading',item.id)" data-toggle="collapse" data-parent="#accordion"
@@ -190,6 +194,7 @@
     var vm = new Vue({
         el: '#app',
         data: {
+            uri: "",
             info: {
                 name: '',
             },
@@ -197,7 +202,12 @@
             courseNow: {
                 id: ''
             },
-            homework: []
+            homework: [],
+            homeworkInfo: {
+                homeworkId: "0",
+                homeworkName: "",
+                appendix: ""
+            }
         },
         methods: {
             setId(str, id, type) {
@@ -255,6 +265,66 @@
 
                     })
                 }
+            },
+            addAppendix(file) {
+                // 上传到OSS
+                var thisVM = this;
+                var formData = new FormData();
+                formData.append("file", $("#addAppendixInput")[0].files[0]);
+                $.ajax({
+                    //几个参数需要注意一下
+                    type: "POST",//方法类型
+                    dataType: "json",//预期服务器返回的数据类型
+                    url: "upload",//url
+                    data: formData,
+                    contentType: false,
+                    processData: false,
+                    cache: false,
+                    mimeType: "multipart/form-data",
+                    success: function (result) {
+                        console.log(result);//打印服务端返回的数据(调试用)
+                        if (result.status === 200) {
+                            console.log("文件成功上传到OSS");
+
+                            thisVM.homeworkInfo.homeworkId = result.id;
+                            thisVM.homeworkInfo.appendix = result.url;
+                            thisVM.homeworkInfo.homeworkName = result.name;
+
+                            console.log("homeworkId: " + thisVM.homeworkInfo.homeworkId);
+                            console.log("homeworkName: " + thisVM.homeworkInfo.homeworkName);
+                            console.log("appendix: " + thisVM.homeworkInfo.appendix);
+
+                            $.ajax({
+                                type: 'POST',//HTTP请求类型
+                                data: JSON.stringify(thisVM.homeworkInfo),
+                                contentType: "application/json",
+                                dataType: 'json',//服务器返回json格式数据
+                                url: '/student/commitHomework',
+                                success: function (msg) {
+                                    var data = typeof msg == "string" ? JSON.parse(msg) : msg;
+                                    if (data.status == 200) {
+                                        alert("上传作业成功！");
+                                    }
+                                },
+                                error: function (xhr, type, errorThrown) {
+                                    console.log(xhr);
+                                    alert("上传作业失败");
+                                }
+                            });
+                        }
+                    },
+                    error: function () {
+                        $("#uploadFileName").html("上传失败");
+                    }
+                });
+
+                thisVM.homeworkInfo.appendix = this.uri;
+
+
+                console.log("homeworkId: " + thisVM.homeworkInfo.homeworkId);
+                console.log("homeworkName: " + thisVM.homeworkInfo.homeworkName);
+                console.log("appendix: " + thisVM.homeworkInfo.appendix);
+
 
             }
         },
