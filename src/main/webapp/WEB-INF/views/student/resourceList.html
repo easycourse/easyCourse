@@ -53,7 +53,7 @@
                         <ul class="nav side-menu">
                             <li class="active"><a><i class="fa fa-calendar"></i> 我的课程 <span class="fa fa-chevron-down"></span></a>
                                 <ul class="nav child_menu " style="display: block;">
-                                    <li v-cloak v-for="(item,i) in courses" :key="item.id" :class="{'current-page':item.isNow}"><a href="index.html">{{item.name}}</a></li>
+                                    <li v-cloak v-for="(item,i) in courses" :key="item.id" :class="{'current-page':item.isNow}"><a @click="goCourse(item.id)">{{item.name}}</a></li>
 
                                 </ul>
                             </li>
@@ -107,13 +107,13 @@
                     <div class="x_content">
                         <div class="" role="tabpanel" data-example-id="togglable-tabs">
                             <ul class="nav nav-tabs bar_tabs" role="tablist">
-                                <li class=""><a href="/student/courseIndex">课程主页</a>
+                                <li class=""><a @click="goTab(0)">课程主页</a>
                                 </li>
-                                <li class=""><a href="/student/homeworkList">作业预览</a>
+                                <li class=""><a @click="goTab(1)">作业预览</a>
                                 </li>
                                 <li class="active"><a href="#">资料共享</a>
                                 </li>
-                                <li class=""><a href="/student/informList">通知列表</a>
+                                <li class=""><a @click="goTab(3)">通知列表</a>
                                 </li>
                             </ul>
                         </div>
@@ -180,50 +180,48 @@
         el: '#app',
         data: {
             info: {
-                name: '张xx',
-                id: '222',
-                email: '',
+                name: '',
             },
-            courses: [{
-                name: '软件工程',
-                id: '123',
-                isNow: false
-            }, {
-                name: '数据库',
-                id: '456',
-                isNow: false
-            }],
+            courses: [],
             courseNow: {
-                name: '软件工程',
-                id: '123',
-                introduction: '',
+                id: '',
             },
-            resource: [{
-                id: '',
-                name: '第一张',
-                time: '',
-                url: ''
-            },{
-                id: '',
-                name: '第二张',
-                time: '',
-                url: ''
-            },{
-                id: '',
-                name: '第三张',
-                time: '',
-                url: ''
-            }],
+            resource: [],
             //搜索关键字
             keyword:''
         },
         methods: {
+            goCourse(courseId){
+                window.event.returnValue=false
+                //跳转到指定课程主页
+                window.location.href = '/student/courseIndex?courseId='+courseId
+            },
             search(keyword){
                 return this.resource.filter(item=>{
-                    if(item.name.indexOf(keyword)!=-1||item.person.indexOf(keyword)!=-1||item.time.indexOf(keyword)!=-1){
+                    if(item.name.indexOf(keyword)!=-1||item.time.indexOf(keyword)!=-1){
                         return item
                     }
                 })
+            },
+            goTab(tab){
+                window.event.returnValue=false
+                var url = '/student/'
+                switch (tab){
+                    case 0:
+                        url+='courseIndex?courseId='
+                        break
+                    case 1:
+                        url+='homeworkList?courseId='
+                        break
+                    case 2:
+                        url+='resourceList?courseId='
+                        break
+                    case 3:
+                        url+='informList?courseId='
+                        break
+                }
+                url+=this.courseNow.id
+                window.location.href=url
             },
             signOut(){
                 window.event.returnValue=false
@@ -232,10 +230,35 @@
             }
         },
         created() {
-            //暂时设置时间
-            this.resource[0].time = parseDate(new Date())
+            this.info.name = window.sessionStorage.userName
+            var courseList = JSON.parse(window.sessionStorage.courses)
+            this.courses = courseList
+            this.courses.forEach(function(item){
+                if(item.id == getVariable('courseId')) item.isNow = true
+            })
+            this.courseNow.id = getVariable('courseId')
+            var thisData = this
 
             //lessonId  /student/resource
+            $.ajax({
+                type:'GET',
+                url:'/student/resource',
+                data:{
+                    lessonId:thisData.courseNow.id
+                },
+                datatype:'json',
+                success:function(msg){
+                    var data = JSON.parse(msg).data.lessonFileList
+                    data.forEach(function(item){
+                        var obj = {}
+                        obj.id = item.id
+                        obj.time = parseDate(new Date(item.createTime))
+                        obj.name = item.title
+                        obj.appendix = item.appendix
+                        thisData.resource.push(obj)
+                    })
+                }
+            })
         },
         mounted() {
             for (var i = 0; i < this.courses.length; i++) {

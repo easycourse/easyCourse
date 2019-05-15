@@ -6,7 +6,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="icon" type="image/x-icon" href="/public/img/icon.png" />
+    <link rel="icon" type="image/x-icon" href="/public/img/icon.png"/>
 
     <title>EasyCourse-作业</title>
 
@@ -18,9 +18,9 @@
     <!-- Custom Theme Style -->
     <link href="/public/css/custom.min.css" rel="stylesheet">
 
-    <link href="/public/css/index.css" rel="stylesheet" />
+    <link href="/public/css/index.css" rel="stylesheet"/>
 
-    <link href="/public/css/studentHomework.css" rel="stylesheet" />
+    <link href="/public/css/studentHomework.css" rel="stylesheet"/>
 </head>
 
 <body class="nav-md">
@@ -45,15 +45,18 @@
                     </div>
                 </div>
                 <!-- /menu profile quick info -->
-                <br />
+                <br/>
                 <!-- sidebar menu -->
                 <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
                     <div class="menu_section">
 
                         <ul class="nav side-menu">
-                            <li class="active"><a><i class="fa fa-calendar"></i> 我的课程 <span class="fa fa-chevron-down"></span></a>
+                            <li class="active"><a><i class="fa fa-calendar"></i> 我的课程 <span
+                                    class="fa fa-chevron-down"></span></a>
                                 <ul class="nav child_menu " style="display: block;">
-                                    <li v-cloak v-for="(item,i) in courses" :key="item.id" :class="{'current-page':item.isNow}"><a href="index.html">{{item.name}}</a></li>
+                                    <li v-cloak v-for="(item,i) in courses" :key="item.id"
+                                        :class="{'current-page':item.isNow}"><a
+                                            @click="goCourse(item.id)">{{item.name}}</a></li>
 
                                 </ul>
                             </li>
@@ -75,9 +78,10 @@
 
                     <ul class="nav navbar-nav navbar-right">
                         <li class="">
-                            <a v-cloak href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                            <a v-cloak href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown"
+                               aria-expanded="false">
 
-                                <img src="/public/img/default.png" alt="" />
+                                <img src="/public/img/default.png" alt=""/>
                                 <span style="margin-left: 0;" v-cloak>{{info.name}}</span>
                                 <span class=" fa fa-angle-down"></span>
                             </a>
@@ -106,13 +110,13 @@
                     <div class="x_content">
                         <div class="" role="tabpanel" data-example-id="togglable-tabs">
                             <ul class="nav nav-tabs bar_tabs" role="tablist">
-                                <li class=""><a href="/student/courseIndex">课程主页</a>
+                                <li class=""><a @click="goTab(0)">课程主页</a>
                                 </li>
-                                <li class="active"><a href="#" >作业预览</a>
+                                <li class="active"><a href="#">作业预览</a>
                                 </li>
-                                <li class=""><a href="/student/resourceList">资料共享</a>
+                                <li class=""><a @click="goTab(2)">资料共享</a>
                                 </li>
-                                <li class=""><a href="/student/informList" >通知列表</a>
+                                <li class=""><a @click="goTab(3)">通知列表</a>
                                 </li>
                             </ul>
                         </div>
@@ -134,14 +138,25 @@
                             <div class="btn-group btn-group-sm" role="group" aria-label="...">
                                 <button type="button" class="btn btn_style">下载</button>
                                 <button type="button" class="btn btn_style">提交作业</button>
-                                <button type="button" class="btn btn_style">提交情况</button>
-                                <button type="button" class="btn btn_style">查看成绩</button>
+                                <button type="button" class="btn btn_style"><a
+                                        class="collapsed" role="tab"
+                                        :id="setId('heading',item.id)" data-toggle="collapse" data-parent="#accordion"
+                                        :href="setId('collapse',item.id,1)" @click="getStudent(item)"
+                                        aria-expanded="false"
+                                        aria-controls="collapseTwo">提交情况</a></button>
+                                <span v-cloak style="margin-left: 20px;font-size: 1.6rem;display: inline-block;margin-top: 4px;color: crimson;">{{item.grade}}</span>
+                            </div>
+                            <div :id="setId('collapse',item.id)" class="panel-collapse collapse" role="tabpanel"
+                                 aria-labelledby="headingTwo">
+                                <div v-cloak class="panel-body">
+                                    hhhhhh
+                                    <!--<span v-for="(stu,i) in item.student">{{stu.name}}</span>-->
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-
 
 
         </div>
@@ -176,51 +191,130 @@
         el: '#app',
         data: {
             info: {
-                name: '张xx',
-                id: '222',
-                email: ''
+                name: '',
             },
-            courses: [{
-                name: '软件工程',
-                id: ''
-            }, {
-                name: '数据库',
-                id: ''
-            }],
+            courses: [],
             courseNow: {
-                name: '软件工程',
-                id: '',
-                introduction: '',
+                id: ''
             },
-            homework: [{
-                timeStart: '',
-                timeEnd: '',
-                title: '',
-                content: '商务智能是用现代计算机技术辅助商业决策并实现商业价值的一门学科。本课程将对在数据时代中商业分析的经典处理技术包括数据仓库和数据挖掘进行深入探讨，同时也将对目前最新的数据处理技术包括大数据处理和深度学习知识进行学习。'
-            }]
+            homework: []
         },
         methods: {
+            setId(str, id, type) {
+                if (type) {
+                    return '#' + str + id
+                }
+                return str + id
+            },
             goCourse(courseId) {
                 window.event.returnValue = false
                 //跳转到指定课程主页
+                window.location.href = '/student/courseIndex?courseId=' + courseId
             },
-            signOut(){
-                window.event.returnValue=false
+            goTab(tab) {
+                window.event.returnValue = false
+                var url = '/student/'
+                switch (tab) {
+                    case 0:
+                        url += 'courseIndex?courseId='
+                        break
+                    case 1:
+                        url += 'homeworkList?courseId='
+                        break
+                    case 2:
+                        url += 'resourceList?courseId='
+                        break
+                    case 3:
+                        url += 'informList?courseId='
+                        break
+                }
+                url += this.courseNow.id
+                window.location.href = url
+            },
+            signOut() {
+                window.event.returnValue = false
                 window.sessionStorage.clear()
-                window.location.href='/'
+                window.location.href = '/'
+            },
+            getStudent(item) {
+                if (item.student) {
+                    //如果之前获取过
+                    return
+                } else {
+                    $.ajax({
+                        type: 'GET',
+                        url: '/student/checkHomework',
+                        dataType: 'json',
+                        data: {
+                            homeworkId: item.id
+                        },
+                        success: function (msg) {
+                            var data = JSON.parse(JSON.stringify(msg)).data.homework
+
+                        }
+
+                    })
+                }
+
             }
         },
         created() {
             //获取用户信息
+            this.info.name = window.sessionStorage.userName
+            var courseList = JSON.parse(window.sessionStorage.courses)
+            this.courses = courseList
+            this.courses.forEach(function (item) {
+                if (item.id == getVariable('courseId')) item.isNow = true
+            })
+            this.courseNow.id = getVariable('courseId')
+            var thisData = this
 
-            //暂时设个时间
-            this.homework[0].timeStart = parseDate(new Date())
-            this.homework[0].timeEnd = parseDate(new Date())
+
             //获取作业 /student/getHomeworkByLessonId   {lessonId}
-
-            // / homeworkId name appendix  提交作业  /../commitHomework
+            $.ajax({
+                type: 'GET',
+                url: '/student/getHomeworkByLessonId',
+                dataType: 'json',
+                data: {
+                    lessonId: thisData.courseNow.id
+                },
+                success: function (msg) {
+                    var data = JSON.parse(JSON.stringify(msg)).data.homeworkList
+                    data.forEach(function (item) {
+                        var obj = {}
+                        obj.id = item.homeworkId
+                        obj.appendix = item.appendix
+                        obj.content = item.detail
+                        obj.timeEnd = parseDate(new Date(item.dueTime))
+                        obj.timeStart = parseDate(new Date(item.createTime))
+                        obj.title = item.title
+                        $.ajax({
+                            type: 'GET',
+                            url: '/student/score',
+                            dataType: 'json',
+                            data: {
+                                homeworkId: item.homeworkId
+                            },
+                            success: function (msg) {
+                                var data = JSON.parse(JSON.stringify(msg))
+                                if(data.status == 200){
+                                    obj.grade = '成绩：'+data.data.score
+                                }else if(data.status == 301){
+                                    obj.grade = '未提交作业！'
+                                }else if(data.status == 302){
+                                    obj.grade = '老师尚未给分！'
+                                }
+                                thisData.homework.push(obj)
+                            }
+                        })
+                    })
+                }
+            })
 
             //提交情况 homeworkId  /checkHomework
+
+
+            // / homeworkId name appendix  提交作业  /../commitHomework
 
             //查看成绩 homeworkId  /score
 

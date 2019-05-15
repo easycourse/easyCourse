@@ -51,7 +51,7 @@
                         <ul class="nav side-menu">
                             <li class="active"><a><i class="fa fa-calendar"></i> 我的课程 <span class="fa fa-chevron-down"></span></a>
                                 <ul class="nav child_menu " style="display: block;">
-                                    <li v-cloak v-for="(item,i) in courses" :key="item.id" :class="{'current-page':item.isNow}"><a href="index.html">{{item.name}}</a></li>
+                                    <li v-cloak v-for="(item,i) in courses" :key="item.id" :class="{'current-page':item.isNow}"><a @click="goCourse(item.id)">{{item.name}}</a></li>
 
                                 </ul>
                             </li>
@@ -108,11 +108,11 @@
                             <ul class="nav nav-tabs bar_tabs" role="tablist">
                                 <li class="active"><a href="#">课程主页</a>
                                 </li>
-                                <li class=""><a href="/student/homeworkList">作业预览</a>
+                                <li class=""><a @click="goTab(1)">作业预览</a>
                                 </li>
-                                <li class=""><a href="/student/resourceList">资料共享</a>
+                                <li class=""><a @click="goTab(2)">资料共享</a>
                                 </li>
-                                <li class=""><a href="/student/informList">通知列表</a>
+                                <li class=""><a @click="goTab(3)">通知列表</a>
                                 </li>
                             </ul>
                         </div>
@@ -210,6 +210,27 @@
             goCourse(courseId){
                 window.event.returnValue=false
                 //跳转到指定课程主页
+                window.location.href = '/student/courseIndex?courseId='+courseId
+            },
+            goTab(tab){
+                window.event.returnValue=false
+                var url = '/student/'
+                switch (tab){
+                    case 0:
+                        url+='courseIndex?courseId='
+                        break
+                    case 1:
+                        url+='homeworkList?courseId='
+                        break
+                    case 2:
+                        url+='resourceList?courseId='
+                        break
+                    case 3:
+                        url+='informList?courseId='
+                        break
+                }
+                url+=this.courseNow.id
+                window.location.href=url
             },
             signOut(){
                 window.event.returnValue=false
@@ -226,6 +247,7 @@
                 var obj = {}
                 obj.id = item.id
                 obj.name = item.name
+                if(obj.id == getVariable('courseId')) obj.isNow = true
                 thisData.courses.push(obj)
             })
             //根据 courseId （lessonId）获取信息 /course/lessonId
