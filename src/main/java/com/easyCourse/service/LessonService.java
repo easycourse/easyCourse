@@ -92,4 +92,12 @@ public interface LessonService {
 
     JSONObject addNewHomeworkList(List<LessonHomework> lessonHomeworkList);
 
+    JSONObject deleteLessonByLessonId(String lessonId);
+
+    JSONObject deleteLessonFileById(int id);
+
+    JSONObject deleteLessonHomeworkById(int homeworkId);
+
+    JSONObject deleteLessonNoticeById(int id);
+
 }

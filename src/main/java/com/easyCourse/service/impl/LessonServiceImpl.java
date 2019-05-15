@@ -187,4 +187,66 @@ public class LessonServiceImpl implements LessonService {
         return result;
 
     }
+
+    @Override
+    public JSONObject deleteLessonByLessonId(String lessonId){
+        JSONObject result = new JSONObject();
+        int i = lessonDao.deleteByPrimaryKey(lessonId);
+        if(i!=1){
+            result.put("status", StatusCode.DELETE_LESSON_ERROR);
+            result.put("msg", "删除课程失败");
+        } else {
+            result.put("status", StatusCode.SUCCESS);
+            result.put("msg", "删除课程成功");
+        }
+
+        return result;
+    }
+
+    @Override
+    public JSONObject deleteLessonFileById(int id){
+        JSONObject result = new JSONObject();
+        int i = lessonFileDao.deleteByPrimaryKey(id);
+        if(i!=1){
+            result.put("status", StatusCode.DELETE_LESSON_FILE_ERROR);
+            result.put("msg", "删除课件失败");
+        } else {
+            result.put("status", StatusCode.SUCCESS);
+            result.put("msg", "删除课件成功");
+        }
+
+        return result;
+    }
+
+    @Override
+    public JSONObject deleteLessonHomeworkById(int homeworkId){
+        JSONObject result = new JSONObject();
+        int i = lessonHomeworkDao.deleteByPrimaryKey(homeworkId);
+        if(i!=1){
+            result.put("status", StatusCode.DELETE_LESSON_HOMEWORK_ERROR);
+            result.put("msg", "删除作业失败");
+        } else {
+            result.put("status", StatusCode.SUCCESS);
+            result.put("msg", "删除作业成功");
+        }
+
+        return result;
+
+    }
+
+    @Override
+    public JSONObject deleteLessonNoticeById(int id){
+        JSONObject result = new JSONObject();
+        int i = lessonNoticeDao.deleteByPrimaryKey(id);
+        if(i!=1){
+            result.put("status", StatusCode.DELETE_LESSON_NOTICE_ERROR);
+            result.put("msg", "删除通知失败");
+        } else {
+            result.put("status", StatusCode.SUCCESS);
+            result.put("msg", "删除通知成功");
+        }
+
+        return result;
+
+    }
 }
