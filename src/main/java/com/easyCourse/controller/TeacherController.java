@@ -121,6 +121,7 @@ public class TeacherController {
             session.setMaxInactiveInterval(3600);
             Teacher teacher = teacherService.getTeacherById(teacherId);
             session.setAttribute("teacher", teacher);
+            result.put("teacherName",teacher.getTeacherName());
             httpServletResponse.getWriter().write(String.valueOf(result));
         }
     }
@@ -138,6 +139,7 @@ public class TeacherController {
             session.setMaxInactiveInterval(3600);
             Teacher teacher = teacherService.getTeacherById(teacherId);
             session.setAttribute("teacher", teacher);
+            result.put("teacherName",teacher.getTeacherName());
             httpServletResponse.getWriter().write(String.valueOf(result));
         }
     }
