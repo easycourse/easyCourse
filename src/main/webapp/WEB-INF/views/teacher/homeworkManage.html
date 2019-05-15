@@ -153,9 +153,9 @@
 														<td>{{item.detail}}</td>
 														<td>{{item.createTime}}</td>
 														<td>{{item.dueTime}}</td>
-														<td>{{item.dueTime}}</td>
+														<td>{{item.submitCount}}</td>
 														<td >
-															<a>查看</a> 
+															<a :href="'homeworkCorrect.html?homeworkId='+item.homeworkId">查看</a>
 														</td>
 													</tr>
 												</tbody>
@@ -190,6 +190,8 @@
 
 		<!-- DateJS -->
 		<script src="/libs/date.js"></script>
+
+		<script src="/public/js/toggleTstamp.js"></script>
 				
 		<!-- Custom Theme Scripts -->
 		<script>
@@ -201,33 +203,34 @@
 						id: '222',
 						email: ''
 					},
-					"lessonHomeworkList": [
-						{
-							"homeworkId": 1,
-							"lessonId":  1,
-							"lessonName": "软件工程",
-							"title":  "软件工程第一次作业",
-							"detail":  "本次作业...",
-							"createTime":  "2019-4-24 12:00:00",
-							"dueTime":  "2019-5-10 23:59:59",
-							"apendixStaus": 0,
-							"appendixURL": ""
-						},
-						{
-							"homeworkId": 1,
-							"lessonId":  1,
-							"lessonName": "软件工程",
-							"title":  "软件工程第二次作业",
-							"detail":  "本次作业...",
-							"createTime":  "2019-4-24 12:00:00",
-							"dueTime":  "2019-5-10 23:59:59",
-							"apendixStaus": 1,
-							"appendixURL": "swx.cn/resources/test.pdf"
-						},
-					]
+					"lessonHomeworkList": []
 				},
 				methods: {
-					
+					dataInit(){
+						var thisVM = this;
+						$.ajax({
+							data:{},
+							dataType:'json',//服务器返回json格式数据
+							type:'get',//HTTP请求类型
+							url: '/teacher/homework',
+							success:function(msg){
+								var data = typeof msg=="string"?JSON.parse(msg):msg;
+								if(data.status == 200){
+									thisVM.lessonHomeworkList = data.homeworkListResult;
+                                    for (var i = 0; i < thisVM.lessonHomeworkList.length; i++) {
+                                        thisVM.lessonHomeworkList[i].createTime = toggleTstamp(thisVM.lessonHomeworkList[i].createTime);
+                                        thisVM.lessonHomeworkList[i].dueTime = toggleTstamp(thisVM.lessonHomeworkList[i].dueTime);
+                                    }
+								}
+							},
+							error:function(xhr,type,errorThrown){
+								console.log(xhr);
+							}
+						})
+					}
+				},
+				created(){
+					this.dataInit();
 				}
 			})
 		</script>

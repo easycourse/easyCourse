@@ -25,6 +25,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.ws.rs.GET;
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -177,6 +179,14 @@ public class TeacherController {
         return teacherService.importStudent(studentInfoList);
     }
 
+    //根据lessonId删除记录
+    @PostMapping("/deleteLesson")
+    @ResponseBody
+    public JSONObject deleteLesson(@RequestParam(value = "lessonId", required = true) String lessonId,HttpSession session) {
+        return lessonService.deleteLessonByLessonId(lessonId);
+    }
+
+
     /****************************************通知模块******************************************************/
     //查看发布的历史通知
     @GetMapping("/inform")
@@ -210,6 +220,13 @@ public class TeacherController {
         String appendix = body.getString("appendix");
         JSONObject result = lessonService.addNotice(lessonIdList, teacherId, title, noticeType, detail, appendix);
         httpServletResponse.getWriter().write(String.valueOf(result));
+    }
+
+    //根据informId删除通知
+    @PostMapping("/deleteInform")
+    @ResponseBody
+    public JSONObject deleteInform(@RequestParam(value = "informId", required = true) int informId,HttpSession session) {
+        return lessonService.deleteLessonNoticeById(informId);
     }
 
 
@@ -279,6 +296,14 @@ public class TeacherController {
         httpServletResponse.getWriter().write(String.valueOf(result));
     }
 
+
+    //根据resourceId删除课件
+    @PostMapping("/deleteResource")
+    @ResponseBody
+    public JSONObject deleteResource(@RequestParam(value = "resourceId", required = true) int resourceId,HttpSession session) {
+        return lessonService.deleteLessonFileById(resourceId);
+    }
+
     @PostMapping("/upload")
     public void singleFileUpload(@RequestParam("file") MultipartFile file, HttpServletResponse response) throws IOException{
 
@@ -290,7 +315,7 @@ public class TeacherController {
         // 获取下载URL
         String fileurl = OSSClientUtil.getURL(fileName);
         // 文件大小
-        long fileSize = Long.valueOf(OSSClientUtil.calculateSize(file.getSize()));
+        // long fileSize = Long.valueOf(OSSClientUtil.calculateSize(file.getSize()));
         // 上传时间
 
 
@@ -303,7 +328,7 @@ public class TeacherController {
     }
 
 
-    //TODO:******************************************:作业模块********************************************/
+    //******************************************:作业模块********************************************/
     //查看发布的作业
     @GetMapping("/homework")
     public void getHomework(HttpSession session, HttpServletResponse httpServletResponse) throws IOException {
@@ -387,7 +412,7 @@ public class TeacherController {
 
     //发布新作业
     @PostMapping("/homework")
-    public void addHomework(@RequestBody JSONObject body, HttpSession session, HttpServletResponse httpServletResponse) throws IOException {
+    public void addHomework(@RequestBody JSONObject body, HttpSession session, HttpServletResponse httpServletResponse) throws IOException, ParseException {
         Teacher teacher = (Teacher) session.getAttribute("teacher");
         String teacherId = teacher.getTeacherId();
 
@@ -398,6 +423,7 @@ public class TeacherController {
         String appendix = body.getString("appendix");
 
         List<LessonHomework> lessonHomeworkList = new ArrayList<>();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
         for(int i=0;i<lessonIdList.size();i++){
             LessonHomework lessonHomework = new LessonHomework();
             lessonHomework.setLessonId(lessonIdList.get(i).toString());
@@ -405,6 +431,8 @@ public class TeacherController {
             lessonHomework.setTitle(title);
             lessonHomework.setDetail(detail);
             lessonHomework.setAppendix(appendix);
+            lessonHomework.setDueTime(sdf.parse(dueTime));
+            lessonHomeworkList.add(lessonHomework);
         }
         JSONObject result = lessonService.addNewHomeworkList(lessonHomeworkList);
         httpServletResponse.getWriter().write(String.valueOf(result));
@@ -422,14 +450,19 @@ public class TeacherController {
         JSONArray idArray = JSONArray.parseArray(studentList);
         JSONArray scoreArray = JSONArray.parseArray(scoreList);
 
-        Map<String,String> studentScoreInfoList = new HashMap<>();
+        Map<String,Integer> studentScoreInfoList = new HashMap<>();
         for(int i=0;i<idArray.size();i++){
-            JSONObject id = idArray.getJSONObject(i);
-            JSONObject score = scoreArray.getJSONObject(i);
-            studentScoreInfoList.put(id.getString("studentId"),score.getString("score"));
+            studentScoreInfoList.put(idArray.get(i).toString(),Integer.parseInt(scoreArray.get(i).toString()));
         }
 
         return teacherService.importScores(studentScoreInfoList, homeworkId);
 
+    }
+
+    //根据homeworkId删除作业记录
+    @PostMapping("/deleteHomework")
+    @ResponseBody
+    public JSONObject deleteHomework(@RequestParam(value = "homeworkId", required = true) int homeworkId,HttpSession session) {
+        return lessonService.deleteLessonHomeworkById(homeworkId);
     }
 }

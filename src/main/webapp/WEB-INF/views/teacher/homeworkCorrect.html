@@ -125,12 +125,12 @@
 				                                            </tr>
 				                                            </thead>
 				                                            <tbody>
-				                                            <tr v-for="(item,i) in homeworkList" :key="item.id">
+				                                            <tr v-for="(item,i) in homeworkList">
 				                                                <td><a>{{item.studentName}}</a></td>
 				                                                <td><a>{{item.studentId}}</a></td>
 				                                                <td>{{item.submitTime}}</td>
-				                                                <td>{{item.submitStatus}}</td>
-				                                                <td contenteditable="true">{{item.score}}</td>
+				                                                <td>{{item.scoreStatus}}</td>
+																<td contenteditable="true"><span v-if="item.score >= 0">{{item.score}}</span></td>
 				                                                <td width="180">
 				                                                    <a >下载附件</a>
 				                                                </td>
@@ -141,7 +141,7 @@
 				                                </div>
 				                                <div class="row">
 													<div class="col-sm-2 col-md-2 col-xs-12 pull-right">
-														<button class="btn btn-success">提交</button>
+														<button class="btn btn-success" @click="submitScore">提交</button>
 													</div>
 				                                </div>
 				                            </div>
@@ -172,6 +172,17 @@
 
 		<!-- DateJS -->
 		<script src="/libs/date.js"></script>
+
+		<script src="/public/js/toggleTstamp.js"></script>
+
+		<script>
+            function getQueryString(name) {
+                var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+                var r = window.location.search.substr(1).match(reg);
+                if (r != null) return unescape(r[2]);
+                return null;
+            }
+		</script>
 				
 		<!-- Custom Theme Scripts -->
 		<script>
@@ -183,44 +194,65 @@
 						id: '222',
 						email: ''
 					},
-					homeworkList: [
-						{
-							id: "001",
-							studentName: "胡彦斌",
-							studentId: "2016302580007",
-							submitTime: "2018-09-09 12:00",
-							submitStatus: "已提交",
-							score: "80"
-						},
-						{
-							id: "002",
-							studentName: "胡彦斌",
-							studentId: "2016302580007",
-							submitTime: "",
-							submitStatus: "未提交",
-							score: ""
-						}
-					]
+					homeworkId: "",
+					homeworkList: []
 				},
 				methods: {
 					dataInit(){
-						var thisVM = thihs;
-						//todo: 获取老师信息
-						
-						//获取全部作业
-						$.ajax({
-							data:{},
-							dataType:'json',//服务器返回json格式数据
-							type:'get',//HTTP请求类型
-							timeout:10000,//超时时间设置为10秒；
-							success:function(data){
-								
-							},
-							error:function(xhr,type,errorThrown){
-								
-							}
-						});
+                        var thisVM = this;
+                        thisVM.homeworkId = getQueryString('homeworkId');
+                        //获取全部作业
+                        $.ajax({
+                            data:{},
+                            dataType:'json',//服务器返回json格式数据
+                            type:'get',//HTTP请求类型
+                            url: '/teacher/homework/' + thisVM.homeworkId,
+                            success:function(msg){
+                                var data = typeof msg=="string"?JSON.parse(msg):msg;
+                                if(data.statusCode == 200){
+                                    thisVM.homeworkList = data.homeworkList;
+                                    for (var i = 0; i < thisVM.homeworkList.length; i++) {
+                                        thisVM.homeworkList[i].submitTime = toggleTstamp(thisVM.homeworkList[i].submitTime);
+                                    }
+                                }
+                            },
+                            error:function(xhr,type,errorThrown){
+                                console.log(xhr.responseText);
+                            }
+                        });
+					},
+					submitScore(){
+					    var studentIdList = [];
+					    var scoreList = [];
+					    for (var i = 0; i < this.homeworkList.length; i++){
+                            studentIdList.push(this.homeworkList[i].studentId);
+					        scoreList.push(this.homeworkList[i].score);
+						}
+
+						var thisVM = this;
+                        $.ajax({
+                            data: {
+                                homeworkId: thisVM.homeworkId,
+                                studentList: JSON.stringify(studentIdList),
+                                scoreList: JSON.stringify(scoreList)
+                            },
+                            dataType:'json',//服务器返回json格式数据
+                            type:'post',//HTTP请求类型
+                            url: '/teacher/correctHomework',
+                            success:function(msg){
+                                var data = typeof msg=="string"?JSON.parse(msg):msg;
+                                if(data.status == 200){
+                                    alert("提交成绩成功！");
+                                }
+                            },
+                            error:function(xhr,type,errorThrown){
+                                console.log(xhr);
+                            }
+                        });
 					}
+				},
+				created(){
+				    this.dataInit();
 				}
 			})
 		</script>

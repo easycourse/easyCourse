@@ -44,4 +44,9 @@ public class LessonHomeworkDaoTest {
         lessonHomework.setTitle("xxxx");
         int i = lessonHomeworkDao.insertSelective(lessonHomework);
     }
+
+    @Test
+    public void delete() {
+        int i = lessonHomeworkDao.deleteByPrimaryKey(6671);
+    }
 }

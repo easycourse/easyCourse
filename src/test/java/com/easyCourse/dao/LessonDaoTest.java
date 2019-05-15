@@ -87,4 +87,9 @@ public class LessonDaoTest {
             System.out.println("vvvvv");
         }
     }
+
+    @Test
+    public void deleteLesson(){
+        int i = lessonDao.deleteByPrimaryKey("2019-1557887643");
+    }
 }

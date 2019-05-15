@@ -47,4 +47,11 @@ public interface LessonNoticeDao {
      * @return
      */
     List<StudentNoticeVO> findAllNoticeByStudentId(String studentId);
+
+    /**
+     * 根据通知id删除通知
+     * @param id
+     * @return
+     */
+    int deleteByPrimaryKey(int id);
 }
