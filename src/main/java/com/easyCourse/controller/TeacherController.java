@@ -290,7 +290,7 @@ public class TeacherController {
         // 获取下载URL
         String fileurl = OSSClientUtil.getURL(fileName);
         // 文件大小
-        long fileSize = Long.valueOf(OSSClientUtil.calculateSize(file.getSize()));
+        // long fileSize = Long.valueOf(OSSClientUtil.calculateSize(file.getSize()));
         // 上传时间
 
 
