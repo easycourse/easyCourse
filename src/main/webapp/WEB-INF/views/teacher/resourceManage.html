@@ -146,8 +146,8 @@
 													<td>{{item.userName}}</td>
 													<td>{{item.createTime}}</td>
 													<td width="180">
-														<a>下载</a> &nbsp;
-														<a>删除</a>
+														<a id="download" target="_blank" v-bind:href=item.appendix>下载</a> &nbsp;
+														<a id="delete">删除</a>
 													</td>
 												</tr>
 											</tbody>
@@ -211,8 +211,10 @@
 									thisVM.lessonFileList = data.lessonFileList;
                                     for (var i = 0; i < thisVM.lessonFileList.length; i++) {
                                         thisVM.lessonFileList[i].createTime = toggleTstamp(thisVM.lessonFileList[i].createTime);
+                                        console.log("appendix: "+thisVM.lessonFileList[i].appendix);
                                     }
 								}
+								console.log("lessonFileList: " + thisVM.lessonFileList);
 							},
 							error:function(xhr,type,errorThrown){
 
