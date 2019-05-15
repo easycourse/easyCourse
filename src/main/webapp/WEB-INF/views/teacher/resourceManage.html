@@ -146,8 +146,8 @@
 													<td>{{item.userName}}</td>
 													<td>{{item.createTime}}</td>
 													<td width="180">
-														<a id="download" target="_blank" v-bind:href=item.appendix>下载</a> &nbsp;
-														<a id="delete">删除</a>
+														<a id="download" target="_blank" :href=item.appendix v-if="item.appendix != '' && item.appendix != null">下载</a> &nbsp;
+														<a id="delete" @click="deleteResource()">删除</a>
 													</td>
 												</tr>
 											</tbody>
@@ -220,6 +220,9 @@
 
 							}
 						})
+					},
+					deleteResource(){
+
 					}
 				},
 				created(){
