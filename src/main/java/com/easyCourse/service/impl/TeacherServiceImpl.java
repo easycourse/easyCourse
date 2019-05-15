@@ -152,12 +152,12 @@ public class TeacherServiceImpl implements TeacherService {
     }
 
     @Override
-    public JSONObject importScores(Map<String, String> records, String homeworkId) {
+    public JSONObject importScores(Map<String, Integer> records, String homeworkId) {
         JSONObject result = new JSONObject();
 
         int updateCount = 0;
         for (String studentIdKey : records.keySet()) {
-            updateCount += studentHomeworkDao.updateStudentHomeworkScore(studentIdKey,homeworkId, Integer.parseInt(records.get(studentIdKey)));
+            updateCount += studentHomeworkDao.updateStudentHomeworkScore(studentIdKey,homeworkId, records.get(studentIdKey));
         }
 
         if (updateCount != records.size()) {

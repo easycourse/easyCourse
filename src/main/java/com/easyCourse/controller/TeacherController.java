@@ -427,11 +427,9 @@ public class TeacherController {
         JSONArray idArray = JSONArray.parseArray(studentList);
         JSONArray scoreArray = JSONArray.parseArray(scoreList);
 
-        Map<String,String> studentScoreInfoList = new HashMap<>();
+        Map<String,Integer> studentScoreInfoList = new HashMap<>();
         for(int i=0;i<idArray.size();i++){
-            JSONObject id = idArray.getJSONObject(i);
-            JSONObject score = scoreArray.getJSONObject(i);
-            studentScoreInfoList.put(id.getString("studentId"),score.getString("score"));
+            studentScoreInfoList.put(idArray.get(i).toString(),Integer.parseInt(scoreArray.get(i).toString()));
         }
 
         return teacherService.importScores(studentScoreInfoList, homeworkId);

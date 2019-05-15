@@ -75,7 +75,7 @@ public interface TeacherService {
      * @param homeworkId
      * @return
      */
-    JSONObject importScores(Map<String, String> records, String homeworkId);
+    JSONObject importScores(Map<String, Integer> records, String homeworkId);
 
     /**
      * 导入学生成绩2
