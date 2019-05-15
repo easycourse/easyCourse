@@ -33,7 +33,7 @@
 		    sh.id as submitId
         from
 		    student_lesson sl left join lesson l on sl.lesson_id = l.lesson_id
-		    left join lesson_homework lh on l.lesson_id = lh.lesson_id
+		    inner join lesson_homework lh on l.lesson_id = lh.lesson_id
 		    left join student_homework sh on sl.student_id = sh.student_id and sh.homework_id = lh.homework_id
         where sl.student_id = #{studentId} and sl.is_delete = 0;
     </select>
