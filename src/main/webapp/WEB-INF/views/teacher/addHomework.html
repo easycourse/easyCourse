@@ -237,7 +237,7 @@
                             contentType : "application/json",
                             dataType:'json',//服务器返回json格式数据
                             type:'post',//HTTP请求类型
-                            url: '/teacher/addHomework',
+                            url: '/teacher/homework',
                             success:function(msg){
                                 var data = typeof msg=="string"?JSON.parse(msg):msg;
                                 if(data.status == 200){

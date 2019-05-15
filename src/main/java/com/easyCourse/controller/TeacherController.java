@@ -25,6 +25,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.ws.rs.GET;
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -290,7 +292,7 @@ public class TeacherController {
         // 获取下载URL
         String fileurl = OSSClientUtil.getURL(fileName);
         // 文件大小
-        long fileSize = Long.valueOf(OSSClientUtil.calculateSize(file.getSize()));
+        // long fileSize = Long.valueOf(OSSClientUtil.calculateSize(file.getSize()));
         // 上传时间
 
 
@@ -387,7 +389,7 @@ public class TeacherController {
 
     //发布新作业
     @PostMapping("/homework")
-    public void addHomework(@RequestBody JSONObject body, HttpSession session, HttpServletResponse httpServletResponse) throws IOException {
+    public void addHomework(@RequestBody JSONObject body, HttpSession session, HttpServletResponse httpServletResponse) throws IOException, ParseException {
         Teacher teacher = (Teacher) session.getAttribute("teacher");
         String teacherId = teacher.getTeacherId();
 
@@ -398,6 +400,7 @@ public class TeacherController {
         String appendix = body.getString("appendix");
 
         List<LessonHomework> lessonHomeworkList = new ArrayList<>();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
         for(int i=0;i<lessonIdList.size();i++){
             LessonHomework lessonHomework = new LessonHomework();
             lessonHomework.setLessonId(lessonIdList.get(i).toString());
@@ -405,6 +408,8 @@ public class TeacherController {
             lessonHomework.setTitle(title);
             lessonHomework.setDetail(detail);
             lessonHomework.setAppendix(appendix);
+            lessonHomework.setDueTime(sdf.parse(dueTime));
+            lessonHomeworkList.add(lessonHomework);
         }
         JSONObject result = lessonService.addNewHomeworkList(lessonHomeworkList);
         httpServletResponse.getWriter().write(String.valueOf(result));
@@ -422,11 +427,9 @@ public class TeacherController {
         JSONArray idArray = JSONArray.parseArray(studentList);
         JSONArray scoreArray = JSONArray.parseArray(scoreList);
 
-        Map<String,String> studentScoreInfoList = new HashMap<>();
+        Map<String,Integer> studentScoreInfoList = new HashMap<>();
         for(int i=0;i<idArray.size();i++){
-            JSONObject id = idArray.getJSONObject(i);
-            JSONObject score = scoreArray.getJSONObject(i);
-            studentScoreInfoList.put(id.getString("studentId"),score.getString("score"));
+            studentScoreInfoList.put(idArray.get(i).toString(),Integer.parseInt(scoreArray.get(i).toString()));
         }
 
         return teacherService.importScores(studentScoreInfoList, homeworkId);

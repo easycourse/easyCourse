@@ -233,10 +233,9 @@
                         $.ajax({
                             data: {
                                 homeworkId: thisVM.homeworkId,
-                                studentList: studentIdList,
-                                scoreList: scoreList
+                                studentList: JSON.stringify(studentIdList),
+                                scoreList: JSON.stringify(scoreList)
                             },
-                            contentType : "application/json",
                             dataType:'json',//服务器返回json格式数据
                             type:'post',//HTTP请求类型
                             url: '/teacher/correctHomework',

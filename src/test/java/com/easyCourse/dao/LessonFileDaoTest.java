@@ -44,4 +44,9 @@ public class LessonFileDaoTest {
 
         int i = lessonFileDao.insertSelective(lessonFile);
     }
+
+    @Test
+    public void delete(){
+        int i = lessonFileDao.deleteByPrimaryKey(11);
+    }
 }

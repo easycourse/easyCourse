@@ -76,4 +76,9 @@ public class LessonNoticeDaoTest {
         List<StudentNoticeVO> list = lessonNoticeDao.findAllNoticeByStudentId("2016302580297");
         list.forEach(System.out::println);
     }
+
+    @Test
+    public void delete() {
+        int i = lessonNoticeDao.deleteByPrimaryKey(11114);
+    }
 }

@@ -46,7 +46,7 @@
     <insert id="insertSelective" parameterType="com.easyCourse.entity.LessonHomework">
         insert into lesson_homework
         <trim prefix="(" suffix=")" suffixOverrides=",">
-            <if test="homeworkId != null">
+            <if test="homeworkId != 0">
                 homework_id,
             </if>
             <if test="lessonId != null">
@@ -71,7 +71,7 @@
             </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
-            <if test="homeworkId != null">
+            <if test="homeworkId != 0">
                 #{homeworkId, jdbcType=INTEGER},
             </if>
             <if test="lessonId != null">
@@ -90,10 +90,15 @@
                 #{appendix, jdbcType=VARCHAR},
             </if>
             now(),
-            now(),
+            #{dueTime, jdbcType=TIMESTAMP},
             <if test="isDelete != null">
                 #{isDelete, jdbcType=INTEGER}
             </if>
         </trim>
     </insert>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete from lesson_homework
+        where homework_id = #{id,jdbcType=INTEGER}
+    </delete>
 </mapper>

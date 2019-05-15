@@ -34,4 +34,11 @@ public interface LessonFileDao {
      * @return
      */
     int insertSelective(LessonFile lessonFile);
+
+    /**
+     * 根据课件id删除课件
+     * @param id
+     * @return
+     */
+    int deleteByPrimaryKey(int id);
 }
