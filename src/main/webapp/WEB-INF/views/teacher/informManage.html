@@ -205,9 +205,7 @@
 				el: "#app",
 				data: {
 					info: {
-						name: '张xx',
-						id: '222',
-						email: ''
+						name: ''
 					},
 					informs: [],
 					informToDelete:{
@@ -267,6 +265,7 @@
 					}
 				},
 				created(){
+					this.info.name = window.sessionStorage.teacherName;
 					this.dataInit();
 				}
 			})

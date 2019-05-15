@@ -221,9 +221,7 @@
 				el: "#app",
 				data: {
 					info: {
-						name: '张xx',
-						id: '222',
-						email: ''
+						name: ''
 					},
 					courses: [],
 					informInfo:{
@@ -284,6 +282,7 @@
 						});
 					},
 					submitInform(){
+                        window.event.returnValue=false;
 						var thisVM = this;
                         thisVM.informInfo.appendix = document.getElementById("uploadFileURL").href;// 修改appendix为oss地址
 						console.log("appendix: " + this.informInfo.appendix);
@@ -307,6 +306,7 @@
 					}
 				},
 				created(){
+                    this.info.name = window.sessionStorage.teacherName;
 					this.dataInit();
 				}
 			})

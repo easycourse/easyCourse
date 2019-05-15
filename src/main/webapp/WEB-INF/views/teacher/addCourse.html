@@ -131,7 +131,7 @@
 											<div class="form-group">
 												<label class="control-label col-md-3 col-sm-3 col-xs-3"></label>
 												<div class="col-md-2 col-sm-9 col-xs-9">
-													<button type="submit" class="btn btn-success btn-block" @click="submitCourse">提交</button>
+													<button class="btn btn-success btn-block" @click="submitCourse">提交</button>
 												</div>
 											</div>									
 										</form>
@@ -169,9 +169,7 @@
 				el: "#app",
 				data: {
 					info: {
-						name: '张xx',
-						id: '222',
-						email: ''
+						name: ''
 					},
 					courseInfo:{
 						// teacherId: "",
@@ -182,6 +180,7 @@
 				},
 				methods: {
 					submitCourse(){
+						window.event.returnValue=false;
 						var thisVM = this;
 						$.ajax({
 							data: thisVM.courseInfo,
@@ -197,12 +196,13 @@
 							},
 							error:function(xhr,type,errorThrown){
 								console.log(xhr);
-							},
-							complete:function(){
-								console.log('complete');
 							}
 						});
 					}
+				},
+				created() {
+					//获取用户信息
+					this.info.name = window.sessionStorage.teacherName;
 				}
 			})
 		</script>

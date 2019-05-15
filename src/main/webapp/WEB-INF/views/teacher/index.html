@@ -237,9 +237,7 @@
         el: '#app',
         data: {
             info: {
-                name: '张xx',
-                id: '123',
-                email: ''
+                name: ''
             },
             courses: [],
 			importStuInfo:{
@@ -317,6 +315,7 @@
 						var data = JSON.parse(msg);
 						if(data.status == 200){
 							alert("导入学生列表成功！");
+							thisVM.dataInit();
 						}else{
 							alert("导入学生列表失败！");
 						}
@@ -354,6 +353,8 @@
             }
         },
 		created(){
+            //获取用户信息
+            this.info.name = window.sessionStorage.teacherName;
 			this.dataInit();
 		}
     })

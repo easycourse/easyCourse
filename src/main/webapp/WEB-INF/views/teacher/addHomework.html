@@ -216,9 +216,7 @@
 				el: "#app",
 				data: {
 					info: {
-						name: '张xx',
-						id: '222',
-						email: ''
+						name: ''
 					},
 					courses: [],
 					homeworkInfo:{
@@ -278,6 +276,7 @@
 						});
 					},
 					submitHomework(){
+						window.event.returnValue=false;
 						var thisVM = this;
 						this.homeworkInfo.dueTime = $("#datetimeInput").val();
 						thisVM.homeworkInfo.appendix = document.getElementById("uploadFileURL").href;// 修改appendix为oss地址
@@ -302,6 +301,7 @@
 					}
 				},
 				created(){
+					this.info.name = window.sessionStorage.teacherName;
 					this.dataInit();
 				}
 			})

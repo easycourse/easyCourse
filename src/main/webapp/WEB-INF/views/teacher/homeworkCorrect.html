@@ -190,9 +190,7 @@
 				el: "#app",
 				data: {
 					info: {
-						name: '张xx',
-						id: '222',
-						email: ''
+						name: ''
 					},
 					homeworkId: "",
 					homeworkList: []
@@ -250,6 +248,7 @@
                                 var data = typeof msg=="string"?JSON.parse(msg):msg;
                                 if(data.status == 200){
                                     alert("提交成绩成功！");
+                                    thisVM.dataInit();
                                 }
                             },
                             error:function(xhr,type,errorThrown){
@@ -259,6 +258,7 @@
 					}
 				},
 				created(){
+					this.info.name = window.sessionStorage.teacherName;
 				    this.dataInit();
 				}
 			})
