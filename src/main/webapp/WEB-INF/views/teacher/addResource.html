@@ -1,293 +1,304 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-		<!-- Meta, title, CSS, favicons, etc. -->
-		<meta charset="utf-8">
-		<meta http-equiv="X-UA-Compatible" content="IE=edge">
-		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<link rel="icon" type="image/x-icon" href="/public/img/icon.png" />
-		
-		<title>EasyCourse-发布课件</title>
-		
-		<!-- Bootstrap -->
-		<link href="/libs/bootstrap3/dist/css/bootstrap.min.css" rel="stylesheet">
-		<!-- Font Awesome -->
-		<link href="/libs/font-awesome/css/font-awesome.min.css" rel="stylesheet">
-		<!-- Custom Theme Style -->
-		<link href="/public/css/custom.min.css" rel="stylesheet">
-		<!-- Bootstrap-select -->
-		<link href="/libs/bookstrap/css/bootstrap-select.min.css" rel="stylesheet"/>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!-- Meta, title, CSS, favicons, etc. -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/x-icon" href="/public/img/icon.png"/>
 
-		<link href="/public/css/index.css" rel="stylesheet" />
-		<link href="/public/css/addInform.css" rel="stylesheet"/>
+    <title>EasyCourse-发布课件</title>
 
-	</head>
-	<body class="nav-md">
-		<div id="app" class="container body">
-			<div class="main_container">
-				<div class="col-md-3 left_col">
-					<div class="left_col scroll-view">
-						<div class="navbar nav_title" style="border: 0;">
-							<a href="index.html" class="site_title"><i class="icon"></i> <span>EasyCourse</span></a>
-						</div>
+    <!-- Bootstrap -->
+    <link href="/libs/bootstrap3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="/libs/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <!-- Custom Theme Style -->
+    <link href="/public/css/custom.min.css" rel="stylesheet">
+    <!-- Bootstrap-select -->
+    <link href="/libs/bookstrap/css/bootstrap-select.min.css" rel="stylesheet"/>
 
-						<div class="clearfix"></div>
+    <link href="/public/css/index.css" rel="stylesheet"/>
+    <link href="/public/css/addInform.css" rel="stylesheet"/>
 
-						<!-- menu profile quick info -->
-						<div class="profile clearfix">
-							<div class="profile_pic">
-								<img src="/public/img/default.png" alt="..." class="img-circle profile_img">
-							</div>
-							<div class="profile_info">
-								<span>你好,</span>
-								<h2 v-cloak>{{info.name}} 老师</h2>
-							</div>
-						</div>
-						<!-- /menu profile quick info -->
-						<br />
-						<!-- sidebar menu -->
-						<div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
-							<div class="menu_section">
-								<ul class="nav side-menu">
-									<li><a href="index.html"><i class="fa fa-calendar"></i> 课程管理</a>                             
-									</li>
-									<li><a href="resourceManage.html"><i class="fa fa-book"></i> 课件</a>
-									</li>
-									<li><a href="informManage.html"><i class="fa fa-info-circle"></i> 通知 </span></a>
-									</li>
-									<li><a href="homeworkManage.html"><i class="fa fa-tasks"></i> 作业 </span></a>
-									</li>
-								</ul>
-							</div>
-						</div>
-						<!-- /sidebar menu -->						
-					</div>
-				</div>
+</head>
+<body class="nav-md">
+<div id="app" class="container body">
+    <div class="main_container">
+        <div class="col-md-3 left_col">
+            <div class="left_col scroll-view">
+                <div class="navbar nav_title" style="border: 0;">
+                    <a href="index.html" class="site_title"><i class="icon"></i> <span>EasyCourse</span></a>
+                </div>
 
-				<!-- top navigation -->
-				<div class="top_nav">
-					<div class="nav_menu">
-						<nav>
-							<div class="nav toggle">
-								<a id="menu_toggle"><i class="fa fa-bars"></i></a>
-							</div>
+                <div class="clearfix"></div>
 
-							<ul class="nav navbar-nav navbar-right">
-								<li class="">
-									<a v-cloak href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                <!-- menu profile quick info -->
+                <div class="profile clearfix">
+                    <div class="profile_pic">
+                        <img src="/public/img/default.png" alt="..." class="img-circle profile_img">
+                    </div>
+                    <div class="profile_info">
+                        <span>你好,</span>
+                        <h2 v-cloak>{{info.name}} 老师</h2>
+                    </div>
+                </div>
+                <!-- /menu profile quick info -->
+                <br/>
+                <!-- sidebar menu -->
+                <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+                    <div class="menu_section">
+                        <ul class="nav side-menu">
+                            <li><a href="index.html"><i class="fa fa-calendar"></i> 课程管理</a>
+                            </li>
+                            <li><a href="resourceManage.html"><i class="fa fa-book"></i> 课件</a>
+                            </li>
+                            <li><a href="informManage.html"><i class="fa fa-info-circle"></i> 通知 </span></a>
+                            </li>
+                            <li><a href="homeworkManage.html"><i class="fa fa-tasks"></i> 作业 </span></a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <!-- /sidebar menu -->
+            </div>
+        </div>
 
-										<img src="/public/img/default.png" alt="" />
-										<span style="margin-left: 0;" v-cloak>{{info.name}}</span>
-										<span class=" fa fa-angle-down"></span>
-									</a>
-									<ul class="dropdown-menu dropdown-usermenu pull-right">
-										<li>
-											<a href="javascript:;">
-												<span>个人中心</span>
-											</a>
-										</li>
-										<li><a href="/"><i class="fa fa-sign-out pull-right"></i> 退出登录</a></li>
-									</ul>
-								</li>
+        <!-- top navigation -->
+        <div class="top_nav">
+            <div class="nav_menu">
+                <nav>
+                    <div class="nav toggle">
+                        <a id="menu_toggle"><i class="fa fa-bars"></i></a>
+                    </div>
+
+                    <ul class="nav navbar-nav navbar-right">
+                        <li class="">
+                            <a v-cloak href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown"
+                               aria-expanded="false">
+
+                                <img src="/public/img/default.png" alt=""/>
+                                <span style="margin-left: 0;" v-cloak>{{info.name}}</span>
+                                <span class=" fa fa-angle-down"></span>
+                            </a>
+                            <ul class="dropdown-menu dropdown-usermenu pull-right">
+                                <li>
+                                    <a href="javascript:;">
+                                        <span>个人中心</span>
+                                    </a>
+                                </li>
+                                <li><a href="/"><i class="fa fa-sign-out pull-right"></i> 退出登录</a></li>
+                            </ul>
+                        </li>
 
 
-							</ul>
-						</nav>
-					</div>
-				</div>
-				<!-- /top navigation -->
-				
-				<!-- page content -->
-					<div class="right_col" role="main">
-						<div class="row">
-							<div class="col-md-12 col-sm-12 col-xs-12">
-								<div class="x_panel">
-									<div class="x_title">
-										<h2>上传课件</h2>
-										<div class="clearfix"></div>
-									</div>
-									<div class="x_content">
-										<form id="form1" class="form-horizontal" onsubmit="return false" action="##" method="post"
-											  enctype="multipart/form-data">
-											<br />
-											<div class="form-group">
-												<label class="control-label col-md-3 col-sm-3 col-xs-3">标题</label>
-												<div class="col-md-6 col-sm-9 col-xs-9">
-													<input type="text" class="form-control" placeholder="标题..." required="required" v-model="resourceInfo.title"/>
-												</div>
-											</div>
-											<br />
-											<div class="form-group">
-												<label class="control-label col-md-3 col-sm-3 col-xs-3">详细描述（选填）</label>
-												<div class="col-md-6 col-sm-9 col-xs-9">
-													<textarea class="form-control" rows="3" placeholder="课件详情..." v-model="resourceInfo.detail"></textarea>
-												</div>
-											</div>
-											<br />
-											<div class="form-group">
-												<label class="control-label col-md-3 col-sm-3 col-xs-3">课程（多选）</label>
-												<div class="col-md-6 col-sm-9 col-xs-9">
-													<select class="selectpicker" multiple="multiple" required="required" v-model="resourceInfo.lessonIdList">
-														<option v-for="item in courses" :value="item.lessonId">
-															{{item.lessonName}}
-														</option>
-													</select>
-												</div>
-											</div>
-											
-											<br />
-											<div class="form-group">
-												<label class="control-label col-md-3 col-sm-3 col-xs-3">上传附件</label>
-												<div class="col-md-6 col-sm-9 col-xs-9">
-													<div class="input-group">
-													    <input class="form-control" id="filePathInput" required="required" v-model="resourceInfo.appendix">
-													    <label class="input-group-btn">
-													        <input type="button" value="浏览文件" class="btn btn-primary" onclick="$('#addAppendixInput').click();"/>
-													    </label>
-													</div>
-													<div style="display: flex;flex-direction: row">
-														<p id="uploadFileName"></p>&nbsp;
-														<a id="uploadFileURL" href=""></a>
-													</div>
-													<!-- <input type="button" value="浏览文件" class="btn btn-default" onclick="$('#addAppendixInput').click();"/> -->
-													<input id="addAppendixInput" name="file" type="file" style="display: none" @change="addAppendix">
-													<ul id="filePathList"></ul>
-												</div>
-											</div>
-											<div class="ln_solid"></div>
-											<div class="form-group">
-												<label class="control-label col-md-3 col-sm-3 col-xs-3"></label>
-												<div class="col-md-2 col-sm-9 col-xs-9">
-													<button type="submit" class="btn btn-success btn-block" @click="submitResource">提交</button>
-												</div>
-											</div>									
-										</form>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				
-				</div>
-				<!-- /page content -->
-			
-			<!-- footer content -->
-			<footer>
-				<div class="pull-right">
-			
-				</div>
-				<div class="clearfix"></div>
-			</footer>
-			<!-- /footer content -->
-		</div>
-		
-		<script src="/libs/vue-2.4.0.js"></script>
-		<!-- jQuery -->
-		<script src="/libs/jquery-3.3.1.js"></script>
-		<!-- Bootstrap -->
-		<script src="/libs/bootstrap3/dist/js/bootstrap.min.js"></script>
-		<!-- Bootstrap-select -->
-		<script src="/libs/bookstrap/js/bootstrap-select.min.js"></script>
-		<script src="/libs/bookstrap/js/defaults-zh_CN.min.js"></script>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+        <!-- /top navigation -->
 
-		<!-- DateJS -->
-		<script src="/libs/date.js"></script>
-				
-		<!-- Custom Theme Scripts -->
-		<script>
-			var vm = new Vue({
-				el: "#app",
-				data: {
-					info: {
-						name: '张xx',
-						id: '222',
-						email: ''
-					},
-					courses: [],
-					resourceInfo:{
-						teacherId: "",
-						title: "",
-						detail: "",
-						lessonIdList:[],
-						appendix: ""
-					}
-				},
-				methods: {
-                    dataInit(){
-                        var thisVM = this;
-                        //获取全部课程
-                        $.ajax({
-                            data:{},
-                            dataType:'json',//服务器返回json格式数据
-                            type:'get',//HTTP请求类型
-                            url: '/teacher/course',
-                            success:function(msg){
-                                var data = typeof msg=="string"?JSON.parse(msg):msg;
-                                if(data.status == 200){
-                                    thisVM.courses = data.data.lessonList;
-                                }
-                            },
-                            error:function(xhr,type,errorThrown){
+        <!-- page content -->
+        <div class="right_col" role="main">
+            <div class="row">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="x_panel">
+                        <div class="x_title">
+                            <h2>上传课件</h2>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="x_content">
+                            <form id="form1" class="form-horizontal" onsubmit="return false" action="##" method="post"
+                                  enctype="multipart/form-data">
+                                <br/>
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-3">标题</label>
+                                    <div class="col-md-6 col-sm-9 col-xs-9">
+                                        <input type="text" class="form-control" placeholder="标题..." required="required"
+                                               v-model="resourceInfo.title"/>
+                                    </div>
+                                </div>
+                                <br/>
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-3">详细描述（选填）</label>
+                                    <div class="col-md-6 col-sm-9 col-xs-9">
+                                        <textarea class="form-control" rows="3" placeholder="课件详情..."
+                                                  v-model="resourceInfo.detail"></textarea>
+                                    </div>
+                                </div>
+                                <br/>
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-3">课程（多选）</label>
+                                    <div class="col-md-6 col-sm-9 col-xs-9">
+                                        <select class="selectpicker" multiple="multiple" required="required"
+                                                v-model="resourceInfo.lessonIdList">
+                                            <option v-for="item in courses" :value="item.lessonId">
+                                                {{item.lessonName}}
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
 
-                            }
-                        });
+                                <br/>
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-3">上传附件</label>
+                                    <div class="col-md-6 col-sm-9 col-xs-9">
+                                        <div class="input-group">
+                                            <input class="form-control" id="filePathInput" required="required"
+                                                   v-model="resourceInfo.appendix">
+                                            <label class="input-group-btn">
+                                                <input type="button" value="浏览文件" class="btn btn-primary"
+                                                       onclick="$('#addAppendixInput').click();"/>
+                                            </label>
+                                        </div>
+                                        <div style="display: flex;flex-direction: row">
+                                            <p id="uploadFileName"></p>&nbsp;
+                                            <a id="uploadFileURL" href=""></a>
+                                        </div>
+                                        <!-- <input type="button" value="浏览文件" class="btn btn-default" onclick="$('#addAppendixInput').click();"/> -->
+                                        <input id="addAppendixInput" name="file" type="file" style="display: none"
+                                               @change="addAppendix">
+                                        <ul id="filePathList"></ul>
+                                    </div>
+                                </div>
+                                <div class="ln_solid"></div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-3"></label>
+                                    <div class="col-md-2 col-sm-9 col-xs-9">
+                                        <button type="submit" class="btn btn-success btn-block" @click="submitResource">
+                                            提交
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <!-- /page content -->
+
+    <!-- footer content -->
+    <footer>
+        <div class="pull-right">
+
+        </div>
+        <div class="clearfix"></div>
+    </footer>
+    <!-- /footer content -->
+</div>
+
+<script src="/libs/vue-2.4.0.js"></script>
+<!-- jQuery -->
+<script src="/libs/jquery-3.3.1.js"></script>
+<!-- Bootstrap -->
+<script src="/libs/bootstrap3/dist/js/bootstrap.min.js"></script>
+<!-- Bootstrap-select -->
+<script src="/libs/bookstrap/js/bootstrap-select.min.js"></script>
+<script src="/libs/bookstrap/js/defaults-zh_CN.min.js"></script>
+
+<!-- DateJS -->
+<script src="/libs/date.js"></script>
+
+<!-- Custom Theme Scripts -->
+<script>
+    var vm = new Vue({
+        el: "#app",
+        data: {
+            info: {
+                name: '张xx',
+                id: '222',
+                email: ''
+            },
+            courses: [],
+            resourceInfo: {
+                teacherId: "",
+                title: "",
+                detail: "",
+                lessonIdList: [],
+                appendix: ""
+            }
+        },
+        methods: {
+            dataInit() {
+                var thisVM = this;
+                //获取全部课程
+                $.ajax({
+                    data: {},
+                    dataType: 'json',//服务器返回json格式数据
+                    type: 'get',//HTTP请求类型
+                    url: '/teacher/course',
+                    success: function (msg) {
+                        var data = typeof msg == "string" ? JSON.parse(msg) : msg;
+                        if (data.status == 200) {
+                            thisVM.courses = data.data.lessonList;
+                        }
                     },
-					addAppendix(file){
-						this.resourceInfo.appendix = file.target.value;
-						var formData = new FormData();
-						formData.append("file", $("#addAppendixInput")[0].files[0]);
-						$.ajax({
-							//几个参数需要注意一下
-							type: "POST",//方法类型
-							dataType: "json",//预期服务器返回的数据类型
-							url: "upload",//url
-							data: formData,
-							contentType: false,
-							processData: false,
-							cache: false,
-							mimeType: "multipart/form-data",
-							success: function (result) {
-								console.log(result);//打印服务端返回的数据(调试用)
-								if (result.status === 200) {
-									console.log(result.url);
-									$("#uploadFileName").html("上传成功: ");
-									$("#uploadFileURL").text(result.name);
-									document.getElementById("uploadFileURL").href = result.url;
-								}
-							},
-							error: function () {
-								$("#uploadFileName").html("上传失败");
-							}
-						});
-					},
-					submitResource(){
-						var thisVM = this;
-                        $.ajax({
-                            data: JSON.stringify(thisVM.resourceInfo),
-                            contentType : "application/json",
-                            dataType:'json',//服务器返回json格式数据
-                            type:'post',//HTTP请求类型
-                            url: '/teacher/courseware',
-                            success:function(msg){
-                                var data = typeof msg=="string"?JSON.parse(msg):msg;
-                                if(data.status == 200){
-                                    alert("上传课件成功！");
-                                }
-                            },
-                            error:function(xhr,type,errorThrown){
-                                console.log(xhr);
-                            }
-                        });
-					}
-				},
-				created(){
-				    this.dataInit();
-				}
-			})
-		</script>
-		
-		<script src="/public/js/custom.min.js"></script>		
-		
-	</body>
+                    error: function (xhr, type, errorThrown) {
+
+                    }
+                });
+            },
+            addAppendix(file) {
+                this.resourceInfo.appendix = file.target.value;
+                var formData = new FormData();
+                formData.append("file", $("#addAppendixInput")[0].files[0]);
+                $.ajax({
+                    //几个参数需要注意一下
+                    type: "POST",//方法类型
+                    dataType: "json",//预期服务器返回的数据类型
+                    url: "upload",//url
+                    data: formData,
+                    contentType: false,
+                    processData: false,
+                    cache: false,
+                    mimeType: "multipart/form-data",
+                    success: function (result) {
+                        console.log(result);//打印服务端返回的数据(调试用)
+                        if (result.status === 200) {
+                            console.log(result.url);
+                            $("#uploadFileName").html("上传成功: ");
+                            $("#uploadFileURL").text(result.name);
+                            document.getElementById("uploadFileURL").href = result.url;
+                        }
+                    },
+                    error: function () {
+                        $("#uploadFileName").html("上传失败");
+                    }
+                });
+            },
+            submitResource() {
+                var thisVM = this;
+                thisVM.resourceInfo.appendix = document.getElementById("uploadFileURL").href;// 修改appendix为oss地址
+                console.log("appendix: " + this.resourceInfo.appendix);
+                $.ajax({
+                    data: JSON.stringify(thisVM.resourceInfo),
+                    contentType: "application/json",
+                    dataType: 'json',//服务器返回json格式数据
+                    type: 'post',//HTTP请求类型
+                    url: '/teacher/courseware',
+                    success: function (msg) {
+                        var data = typeof msg == "string" ? JSON.parse(msg) : msg;
+                        if (data.status == 200) {
+                            alert("上传课件成功！");
+                        }
+                    },
+                    error: function (xhr, type, errorThrown) {
+                        console.log(xhr);
+                    }
+                });
+            }
+        },
+        created() {
+            this.dataInit();
+        }
+    })
+</script>
+
+<script src="/public/js/custom.min.js"></script>
+
+</body>
 </html>
