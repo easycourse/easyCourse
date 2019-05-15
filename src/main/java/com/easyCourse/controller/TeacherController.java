@@ -179,6 +179,14 @@ public class TeacherController {
         return teacherService.importStudent(studentInfoList);
     }
 
+    //根据lessonId删除记录
+    @PostMapping("/deleteLesson")
+    @ResponseBody
+    public JSONObject deleteLesson(@RequestParam(value = "lessonId", required = true) String lessonId,HttpSession session) {
+        return lessonService.deleteLessonByLessonId(lessonId);
+    }
+
+
     /****************************************通知模块******************************************************/
     //查看发布的历史通知
     @GetMapping("/inform")
@@ -212,6 +220,13 @@ public class TeacherController {
         String appendix = body.getString("appendix");
         JSONObject result = lessonService.addNotice(lessonIdList, teacherId, title, noticeType, detail, appendix);
         httpServletResponse.getWriter().write(String.valueOf(result));
+    }
+
+    //根据informId删除通知
+    @PostMapping("/deleteInform")
+    @ResponseBody
+    public JSONObject deleteInform(@RequestParam(value = "informId", required = true) int informId,HttpSession session) {
+        return lessonService.deleteLessonNoticeById(informId);
     }
 
 
@@ -281,6 +296,14 @@ public class TeacherController {
         httpServletResponse.getWriter().write(String.valueOf(result));
     }
 
+
+    //根据resourceId删除课件
+    @PostMapping("/deleteResource")
+    @ResponseBody
+    public JSONObject deleteResource(@RequestParam(value = "resourceId", required = true) int resourceId,HttpSession session) {
+        return lessonService.deleteLessonFileById(resourceId);
+    }
+
     @PostMapping("/upload")
     public void singleFileUpload(@RequestParam("file") MultipartFile file, HttpServletResponse response) throws IOException{
 
@@ -305,7 +328,7 @@ public class TeacherController {
     }
 
 
-    //TODO:******************************************:作业模块********************************************/
+    //******************************************:作业模块********************************************/
     //查看发布的作业
     @GetMapping("/homework")
     public void getHomework(HttpSession session, HttpServletResponse httpServletResponse) throws IOException {
@@ -434,5 +457,12 @@ public class TeacherController {
 
         return teacherService.importScores(studentScoreInfoList, homeworkId);
 
+    }
+
+    //根据homeworkId删除作业记录
+    @PostMapping("/deleteHomework")
+    @ResponseBody
+    public JSONObject deleteHomework(@RequestParam(value = "homeworkId", required = true) int homeworkId,HttpSession session) {
+        return lessonService.deleteLessonHomeworkById(homeworkId);
     }
 }
