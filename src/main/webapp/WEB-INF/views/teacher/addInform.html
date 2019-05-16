@@ -220,6 +220,7 @@
 			var vm = new Vue({
 				el: "#app",
 				data: {
+					fileValue: '',
 					info: {
 						name: ''
 					},
@@ -254,7 +255,8 @@
 						});
 					},
 					addAppendix(file){
-						this.informInfo.appendix = file.target.value;
+						this.fileValue = file.target.value;
+						this.informInfo.appendix = this.fileValue;
 						var formData = new FormData();
 						formData.append("file", $("#addAppendixInput")[0].files[0]);
 						$.ajax({
@@ -284,7 +286,13 @@
 					submitInform(){
                         window.event.returnValue=false;
 						var thisVM = this;
-                        thisVM.informInfo.appendix = document.getElementById("uploadFileURL").href;// 修改appendix为oss地址
+						if (thisVM.fileValue == ""){
+							console.log("没有传附件");
+							thisVM.informInfo.appendix = "";
+						}else{
+							console.log("传了附件");
+							thisVM.informInfo.appendix = document.getElementById("uploadFileURL").href;// 修改appendix为oss地址
+						}
 						console.log("appendix: " + this.informInfo.appendix);
 						$.ajax({
 							data: JSON.stringify(thisVM.informInfo),

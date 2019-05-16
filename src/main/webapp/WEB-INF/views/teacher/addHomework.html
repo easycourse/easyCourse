@@ -215,6 +215,7 @@
 			var vm = new Vue({
 				el: "#app",
 				data: {
+					fileValue: "",
 					info: {
 						name: ''
 					},
@@ -248,7 +249,8 @@
                         });
                     },
 					addAppendix(file) {
-						this.homeworkInfo.appendix = file.target.value;
+                    	this.fileValue = file.target.value;
+						this.homeworkInfo.appendix = this.fileValue;
 						var formData = new FormData();
 						formData.append("file", $("#addAppendixInput")[0].files[0]);
 						$.ajax({
@@ -279,8 +281,14 @@
 						window.event.returnValue=false;
 						var thisVM = this;
 						this.homeworkInfo.dueTime = $("#datetimeInput").val();
-						thisVM.homeworkInfo.appendix = document.getElementById("uploadFileURL").href;// 修改appendix为oss地址
-						console.log("appendix: " + this.homeworkInfo.appendix);
+						if (thisVM.fileValue == ""){
+							console.log("没有传附件");
+							thisVM.homeworkInfo.appendix = "";
+						}else{
+							console.log("传了附件");
+							thisVM.homeworkInfo.appendix = document.getElementById("uploadFileURL").href;// 修改appendix为oss地址
+						}
+						console.log("appendix: " + thisVM.homeworkInfo.appendix);
                         $.ajax({
                             data: JSON.stringify(thisVM.homeworkInfo),
                             contentType : "application/json",
