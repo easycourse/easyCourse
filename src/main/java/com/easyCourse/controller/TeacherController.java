@@ -114,6 +114,7 @@ public class TeacherController {
                                @RequestParam(value = "mail", required = true) String mail, @RequestParam(value = "location", required = true) String location,
                          HttpServletResponse httpServletResponse,HttpSession session) throws IOException  {
         JSONObject result = teacherService.register(teacherId, password, teacherName, phone, mail, location);
+        httpServletResponse.setCharacterEncoding("UTF-8");
         if (result.get("data") != null) {
             Map data = (Map) result.get("data");
             Object token = data.get("token").toString();
@@ -131,6 +132,7 @@ public class TeacherController {
     public void login(@RequestParam(value = "teacherId", required = true) String teacherId,
                             @RequestParam(value = "passwd", required = true) String password, HttpSession session,HttpServletResponse httpServletResponse)throws IOException{
         JSONObject result = teacherService.login(teacherId, password);
+        httpServletResponse.setCharacterEncoding("UTF-8");
         // 登录成功
         if (result.get("data") != null) {
             Map data = (Map) result.get("data");
